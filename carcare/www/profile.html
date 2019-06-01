@@ -43,7 +43,76 @@
                 Back
             </ons-button>
         </p>
+
+        <ons-fab position="top center" id="pic">
+            <ons-icon icon="md-plus"></ons-icon>
+        </ons-fab>
+        <div class="namepic">picture</div>
+
+        <ons-card>
+            <div class="detail">
+                <ons-list>
+                    <ons-list-item>ชื่อ :
+                        <ons-input placeholder="name"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item>เบอร์โทรฯ :
+                        <ons-input type="number" placeholder="phone number(10)"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item>ป้ายทะเบียน :
+                        <ons-input placeholder="number code"></ons-input>
+                    </ons-list-item>
+                    <ons-list-item>ประเภทรถ :
+                        <ons-select class="select">
+                            <select class="select-input">
+                                <option> รถกระบะ</option>
+                                <option> รถเก๋ง</option>
+                                <option> รถSuv</option>       
+                                <option> รถมอเตอร์ไซต์</option>        
+                            </select>
+                        </ons-select>
+                    </ons-list-item>
+                    <ons-list-item>สีรถ :
+                            <ons-select class="select">
+                                <select class="select-input">
+                                    <option> แดง</option>
+                                    <option> ขาว</option>
+                                    <option> บลอนเงิน</option>       
+                                    <option> บลอนทอง</option> 
+                                    <option> เหลือง</option>
+                                    <option> เขียว</option>
+                                    <option> น้ำเงิน</option>
+                                </select>
+                            </ons-select>
+                        </ons-list-item>
+                </ons-list>
+            </div>
+        </ons-card>
+
+
+        </ons-input>
+
+
+
+
+
+
     </ons-page>
 </body>
+<script>
+    // Radio function
+    function editSelects(event) {
+        document.getElementById('choose-sel').removeAttribute('modifier');
+        if (event.target.value == 'material' || event.target.value == 'underbar') {
+            document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
+        }
+    }
+    function addOption(event) {
+        const option = document.createElement('option');
+        var text = document.getElementById('optionLabel').value;
+        option.innerText = text;
+        text = '';
+        document.getElementById('dynamic-sel').appendChild(option);
+    }
+</script>
 
 </html>

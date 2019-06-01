@@ -50,9 +50,6 @@ ons-input .text-input, ons-search-input .search-input {
 #fontquiet{
     color: #fac000f8;
 }
-/* #inputregis{
-    font-family:'Bai Jamjuree', sans-serif;
-} */
 
 /* register.html */
 .regis{
@@ -61,11 +58,27 @@ ons-input .text-input, ons-search-input .search-input {
     text-align: center;
     margin-top: 45px;
     font-size: 25px;
-   
 }
+
+.setbtn{
+    margin-top: 30px;
+}
+
 #btnback{
     color: #fffffff8;
     text-align: left;
     margin-left: 35px;
     margin-top: 45px;
 }
+
+#btnancle{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(184, 37, 37, 0.3);
+    margin: 10px;
+}
+#btnsubmit{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(155, 155, 155, 0.3);
+    margin: 10px;
+}
+

@@ -13,7 +13,13 @@ p{
     -webkit-background-size: 100% 100%, auto;
     background-size: 100% 100%, auto;
 }
-
+.profile{
+    font-family: 'Archivo Black', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 45px;
+    font-size: 25px;
+}
 #btnback{
     color: #fffffff8;
     text-align: left;
@@ -49,4 +55,18 @@ p{
 
 .card{
     margin-top: 30px;
+}
+.card, .card--material {
+    background-color: rgb(255, 255, 255,0.8);
+}
+.list{
+    background-color: rgb(255, 255, 255,0.0);
+}
+.setbtn{
+    margin-top: 30px;
+}
+#btnsubmit{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(155, 155, 155, 0.3);
+    margin: 10px;
 }

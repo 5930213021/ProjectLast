@@ -13,20 +13,20 @@ p{
     -webkit-background-size: 100% 100%, auto;
     background-size: 100% 100%, auto;
 }
-.profile{
-    font-family: 'Archivo Black', sans-serif;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    margin-top: 45px;
-    font-size: 25px;
-}
+
 #btnback{
     color: #fffffff8;
     text-align: left;
     margin-left: 35px;
     margin-top: 45px;
 }
-
+.profile{
+    font-family: 'Lato', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 45px;
+    font-size: 20px;
+}
 
 #pic{
     margin-top: 90px;

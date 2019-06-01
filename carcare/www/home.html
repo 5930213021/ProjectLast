@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>MCarcare</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+
+    <script src="js/ejs.js"></script>
+    <script src="cordova.js"></script>
+
+
+    <script>
+        // Initialize Firebase
+    </script>
+
+</head>
+
+<body>
+    <ons-navigator swipeable id="myNavigator">
+        <ons-page>
+            <ons-toolbar style="background:rgb(255, 177, 68);">
+                <div class="left" id="appname" style="text-align:center; color:white;">
+                    Mcarcare
+                </div>
+                <div class="right">
+                    <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
+                    </ons-icon>
+                </div>
+            </ons-toolbar>
+
+            <ons-tabbar swipeable position="auto" id="tabbar">
+                <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="new" active>
+                </ons-tab>
+                <ons-tab page="Booking.html" label="จองคิว" icon="fa-heart" active-icon="fa-heart">
+                </ons-tab>
+                <ons-tab page="message.html" label="ข้อความ" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+                </ons-tab>
+                <ons-tab page="history.html" label="ประวัติฯ" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
+                </ons-tab>
+            </ons-tabbar>
+        </ons-page>
+    </ons-navigator>
+</body>
+
+<script>
+</script>
+
+</html>

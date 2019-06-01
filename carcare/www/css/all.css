@@ -1,0 +1,68 @@
+p{
+    margin: 20px 0px;
+}
+.background{
+    /* background-color: rgb(224, 52, 0); */
+    background:url(../img/red.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+}
+
+.logo{
+    font-family: 'Archivo Black', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 120px;
+    font-size: 45px;
+   
+}
+
+ons-input .text-input, ons-search-input .search-input {
+    width: 100%;
+    display: inline-block;
+}
+.text-input--underbar {
+    background: 0 0;
+    line-height: 1;
+    font-family: 'Archivo Black', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 400;
+    box-sizing: border-box;
+    border-bottom: 1px solid #ffffff;
+}
+
+#username{
+    margin-top: 30px;
+}
+
+#fonts {
+    font-family: 'Archivo Black', sans-serif;
+    margin: 10px;
+    background-color:#143c6d;
+}
+#fontquiet{
+    color: #fac000f8;
+}
+
+/* register.html */
+.regis{
+    font-family: 'Archivo Black', sans-serif;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    margin-top: 45px;
+    font-size: 25px;
+   
+}
+#btnback{
+    color: #fffffff8;
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 45px;
+}

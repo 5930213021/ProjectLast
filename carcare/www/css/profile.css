@@ -1,0 +1,22 @@
+p{
+    margin: 20px 0px;
+}
+
+.background{
+    /* background-color: rgb(224, 52, 0); */
+    background:url(../img/baseor.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+}
+
+#btnback{
+    color: #fffffff8;
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 45px;
+}

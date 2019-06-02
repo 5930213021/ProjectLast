@@ -1,0 +1,21 @@
+#headbar{
+    background:rgb(206, 75, 14);
+}
+#appname{
+    text-align:center; 
+    color:white;
+    margin-left: 20px;
+}
+.toolbaricon {
+    padding-left: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+    color: white;
+}
+/* 
+#tabbar{
+    background-color: #fff;
+  
+  } */
+:checked+.tabbar__button {
+    color: rgb(206, 75, 14);

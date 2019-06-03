@@ -2,90 +2,75 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>MCarcare</title>
+  <title>MCarcare</title>
 
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="js/ejs.js"></script>
+  <script src="cordova.js"></script>
 
-    <script src="js/ejs.js"></script>
-    <script src="cordova.js"></script>
-
-    <script>
+  <script>
         // Initialize Firebase
-    </script>
+  </script>
 
 </head>
 
 <body>
-    <ons-navigator swipeable id="myNavigator">
-        <ons-page>
-            <ons-toolbar id="headbar">
-                <div class="left" id="appname">
-                    Mcarcare
-                </div>
-                <div class="right">
-                    <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
-                    </ons-icon>
-                </div>
-            </ons-toolbar>
+  <ons-navigator swipeable id="myNavigator">
+    <ons-page>
+      <ons-toolbar id="headbar">
+        <div class="left" id="appname">
+          Mcarcare
+        </div>
+        <div class="right">
+          <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
+          </ons-icon>
+        </div>
+      </ons-toolbar>
 
-            <ons-tabbar swipeable position="auto" id="tabbar">
-                <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="new" active>
-                </ons-tab>
-                <ons-tab page="Booking.html" label="จองคิว" icon="fa-heart" active-icon="fa-heart">
-                </ons-tab>
-                <ons-tab page="message.html" label="ข้อความ" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
-                </ons-tab>
-                <ons-tab page="history.html" label="ประวัติฯ" icon="fa-shopping-cart" active-icon="fa-shopping-cart">
-                </ons-tab>
-            </ons-tabbar>
-        </ons-page>
-    </ons-navigator>
+      <ons-tabbar swipeable position="auto" id="tabbar">
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="" active>
+        </ons-tab>
+        <ons-tab page="Booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car">
+        </ons-tab>
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" active-icon="fa-envelope">
+        </ons-tab>
+        <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul" active-icon="fa-list-ul">
+        </ons-tab>
+      </ons-tabbar>
+    </ons-page>
+  </ons-navigator>
 
-    <template id="home.html">
-        <ons-page id="home">
-          <p style="text-align: center; margin-top: 10px;">
-            <!-- <ons-search-input id="search" placeholder="Search" onchange="scanQR()"></ons-search-input> -->
-            <ons-search-input id="search" placeholder="Search" onchange="search(this.value)"></ons-search-input>
-          </p>
-          <ons-carousel swipeable auto-scroll overscrollable id="carousel" style="height: 300px;">
-            <ons-carousel-item id="carousel1" style="background: url('') no-repeat center; background-size: contain;">
-            </ons-carousel-item>
-            <ons-carousel-item id="carousel2" style="background: url('') no-repeat center; background-size: contain;">
-            </ons-carousel-item>
-            <ons-carousel-item id="carousel3" style="background: url('') no-repeat center; background-size: contain;">
-            </ons-carousel-item>
-          </ons-carousel>
-    
-          <div id="icons"></div>
-    
-          <script id="icon_template" type="text/template">
-            <ons-row style="height:120px" vertical-align="center">  
-            <% categories.forEach(function(category){%>  
-            <ons-col style="background:rgb(255, 127, 79); border:2px solid; color : white; border-radius: 15px;" width="33%" onclick="changeTab('<%= category.name %>')">
-              <p style="text-align: center; margin: 10px;">
-                <ons-icon size="60px" icon="<%= category.icon %>"></ons-icon>
-              </p>
-              <p style="text-align: center; margin: 10px;" id="icon1_text">
-                <%= category.name %>
-              </p>
-            </ons-col>
-            <%});%>
-            </ons-row>
-            </script>
-        </ons-page>
-      </template>
+  <template id="home.html">
+    <ons-page id="home">
+      <ons-list>
+        <!-- <ons-list-header></ons-list-header> -->
+        <ons-list-item expandable>
+          คู่มือการใช้งาน
+          <div class="expandable-content">....................</div>
+        </ons-list-item>
+      </ons-list>
+    </ons-page>
+  </template>
+
+  <template id="booking.html">
+    <ons-page>
+      
+    </ons-page>
+  </template>
 
 </body>
 

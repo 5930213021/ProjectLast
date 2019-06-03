@@ -41,6 +41,72 @@
         </div>
       </ons-toolbar>
 
+      <!-- <ons-splitter>
+          <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+            <ons-page>
+              <ons-list>
+                <ons-list-item onclick="fn.load('head.html')" tappable>
+                  Home
+                </ons-list-item>
+                <ons-list-item onclick="fn.load('settings.html')" tappable>
+                  Settings
+                </ons-list-item>
+                <ons-list-item onclick="fn.load('about.html')" tappable>
+                  About
+                </ons-list-item>
+              </ons-list>
+            </ons-page>
+          </ons-splitter-side>
+          <ons-splitter-content id="content" page="home.html"></ons-splitter-content>
+        </ons-splitter>
+        <template id="home.html">
+          <ons-page>
+            <ons-toolbar>
+              <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                  <ons-icon icon="md-menu"></ons-icon>
+                </ons-toolbar-button>
+              </div>
+              <div class="center">
+                Main
+              </div>
+            </ons-toolbar>
+            <p style="text-align: center; opacity: 0.6; padding-top: 20px;">
+              Swipe right to open the menu!
+            </p>
+          </ons-page>
+        </template>
+
+        <template id="settings.html">
+          <ons-page>
+            <ons-toolbar>
+              <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                  <ons-icon icon="md-menu"></ons-icon>
+                </ons-toolbar-button>
+              </div>
+              <div class="center">
+                Settings
+              </div>
+            </ons-toolbar>
+          </ons-page>
+        </template>
+
+        <template id="about.html">
+          <ons-page>
+            <ons-toolbar>
+              <div class="left">
+                <ons-toolbar-button onclick="fn.open()">
+                  <ons-icon icon="md-menu"></ons-icon>
+                </ons-toolbar-button>
+              </div>
+              <div class="center">
+                About
+              </div>
+            </ons-toolbar>
+          </ons-page>
+        </template> -->
+
       <ons-tabbar swipeable position="auto" id="tabbar">
         <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="" active>
         </ons-tab>
@@ -51,13 +117,16 @@
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul" active-icon="fa-list-ul">
         </ons-tab>
       </ons-tabbar>
+
     </ons-page>
   </ons-navigator>
+
+
 
   <template id="home.html">
     <ons-page id="home">
       <ons-list>
-        <!-- <ons-list-header></ons-list-header> -->
+        <ons-list-header></ons-list-header>
         <ons-list-item expandable>
           คู่มือการใช้งาน
           <div class="expandable-content">....................</div>
@@ -68,7 +137,11 @@
 
   <template id="booking.html">
     <ons-page>
-
+      <section>
+        <p id="book">
+        เวลาจอง
+        </p>
+      </section>
     </ons-page>
   </template>
 
@@ -87,6 +160,20 @@
 </body>
 
 <script>
+  //function menu
+  window.fn = {};
+
+  window.fn.open = function () {
+    var menu = document.getElementById('menu');
+    menu.open();
+  };
+
+  window.fn.load = function (page) {
+    var content = document.getElementById('content');
+    var menu = document.getElementById('menu');
+    content.load(page)
+      .then(menu.close.bind(menu));
+  };
 </script>
 
 </html>

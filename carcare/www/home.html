@@ -40,13 +40,13 @@
           </ons-icon>
         </div>
       </ons-toolbar>
-      
+
       <ons-tabbar swipeable position="auto" id="tabbar">
-        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="" active>
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active>
         </ons-tab>
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car">
         </ons-tab>
-        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" active-icon="fa-envelope">
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" active-icon="fa-envelope" badge="1">
         </ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul" active-icon="fa-list-ul">
         </ons-tab>
@@ -58,9 +58,8 @@
 
 
   <template id="home.html">
-    <ons-page id="home">
-      <ons-list>
-        <ons-list-header></ons-list-header>
+    <ons-page><br>
+      <ons-list modifier="inset">
         <ons-list-item expandable>
           คู่มือการใช้งาน
           <div class="expandable-content">....................</div>
@@ -73,9 +72,28 @@
     <ons-page>
       <section>
         <p id="book">
-        เวลาจอง
+          เวลาจอง
         </p>
       </section>
+      <ons-list modifier="inset">
+        <ons-list-header>8.00 - 9.30</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set1" style="width: 50%; margin: 0 auto;">ไม่ว่าง</button>
+          <button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+      <ons-list modifier="inset">
+        <ons-list-header>9.30 - 11.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" disabled id="set1" style="width: 100%; margin: 0 auto;">ไม่ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+      <ons-list modifier="inset">
+        <ons-list-header>11.00 - 12.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
     </ons-page>
   </template>
 

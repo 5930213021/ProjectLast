@@ -57,3 +57,12 @@
     text-align: left;
     word-wrap: break-word;
 }
+
+/* history_page */
+.list-item__thumbnail {
+    width: 65px;
+    height: 65px;
+    border-radius: 6px;
+    display: block;
+    margin: 0;
+}

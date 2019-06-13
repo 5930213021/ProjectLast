@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>MCarcare</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+  <link rel="stylesheet" type="text/css" href="css/homeaddmin.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="js/ejs.js"></script>
+  <script src="cordova.js"></script>
+
+  <script>
+        // Initialize Firebase
+  </script>
+
+</head>
+
+<body>
+  <ons-navigator swipeable id="myNavigator">
+    <ons-page>
+      <ons-toolbar id="headbar">
+        <div class="left" id="appname">
+          Mcarcare
+        </div>
+        <div class="right">
+          <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
+          </ons-icon>
+        </div>
+      </ons-toolbar>
+
+
+      <ul class="list">
+        <li class="list-item">
+          <ons-list-item>
+            <div class="left">
+              <img class="list-item__thumbnail" src="img/picpro3.gif">
+            </div>
+            <div class="center">
+              <span class="list-item__title">ป้านิด ศรีราชา</span>
+              <span class="list-item__subtitle">พนักงานดูแล</span>
+            </div>
+          </ons-list-item>
+        </li>
+      </ul>
+
+      <div class="progress-bar progress-bar--material">
+        <div class="progress-bar__primary progress-bar--material__primary" style="width: 100%"></div>
+      </div><br>
+
+      <ons-list modifier="inset">
+        <ons-list-header>8.00 - 9.30</ons-list-header>
+        <ons-list-item>
+          <ons-row>
+            <ons-col width="50%">
+              <button class="button--cta" id="btndatawash"><p>ภก 4621 ตรัง</p> <p>09.30</p></button>
+              <button class="button button--light" id="btn">ส่งข้อความ</button>
+            </ons-col>
+
+            <ons-col width="50%">
+              <button class="button--cta" id="btndatabooking"><p>กข 1777 ภูเก็ต</p></button>
+              <button class="button button--light" id="btn">ส่งข้อความ</button>
+            </ons-col>
+          </ons-row>
+        </ons-list-item>
+      </ons-list><br>
+
+      
+      <ons-list modifier="inset">
+          <ons-list-header>9.30 - 11.00</ons-list-header>
+          <ons-list-item>
+            <ons-row>
+              <ons-col width="50%">
+                <button class="button--cta" id="btndatablank"><p>ว่าง</p></button>
+                <button class="button button--light" id="btn">ส่งข้อความ</button>
+              </ons-col>
+  
+              <ons-col width="50%">
+                <button class="button--cta" id="btndatablank"><p>ว่าง</p></button>
+                <button class="button button--light" id="btn">ส่งข้อความ</button>
+              </ons-col>
+            </ons-row>
+          </ons-list-item>
+        </ons-list><br>
+
+    </ons-page>
+  </ons-navigator>
+
+
+</body>
+
+<script>
+
+</script>
+
+</html>

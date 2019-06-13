@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>MCarcare</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+    <!-- icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Lato&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/detail.css">
+
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
+
+    <script src="js/ejs.js"></script>
+    <script src="cordova.js"></script>
+
+    <script>
+    // Initialize Firebase
+    </script>
+</head>
+
+<body>
+    <ons-page>
+        <div class="background"></div>
+        <p>
+            <ons-button onclick="window.location.href='homeaddmin.html'" modifier="quiet" id="btnback">
+                <ons-icon icon="md-chevron-left"></ons-icon>
+                Back
+            </ons-button>
+        </p>
+        <div class="namedata">รายละเอียดข้อมูล</div>
+        <div class="profile">
+            <ons-row>
+                <ons-col width="100%">
+                    <div class="center">
+                        <img class="list-item__thumbnail" src="img/mirage-1284.jpg">
+                    </div>
+                </ons-col>
+            </ons-row>
+
+
+            <ons-card>
+                <div class="detail">
+                    <div class="center">
+                        <ons-list>
+                            <ons-list-item>ชื่อ :
+                                <ons-input placeholder="นารี"></ons-input>
+                            </ons-list-item>
+                            <ons-list-item>เบอร์โทรฯ :
+                                <ons-input type="number" placeholder="099-9999999"></ons-input>
+                            </ons-list-item>
+                            <ons-list-item>ป้ายทะเบียน :
+                                <ons-input placeholder="กข 1777 ภูเก็ต"></ons-input>
+                            </ons-list-item>
+                            <ons-list-item>ประเภทรถ :
+                                <ons-input placeholder="รถกระบะ"></ons-input>
+                            </ons-list-item>
+                            <ons-list-item>สีรถ :
+                                <ons-input placeholder="ล้างอัดฉีดช่วงล้าง
+                                ล้างสีดูดฝุ่น"></ons-input>
+                            </ons-list-item>
+                        </ons-list>
+                    </div>
+                </div>
+            </ons-card>
+
+            <ons-row style="margin-top: 15px;">
+                <ons-col style="flex: 0 0 70%;margin: auto;max-width: 70%;">
+                    <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                        <input type="radio" class="radio-button__input radio-button--material__input" name="r"
+                            checked="checked">
+                        <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                        ขนาดเล็ก
+                    </label>
+                    <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                        <input type="radio" class="radio-button__input radio-button--material__input" name="r">
+                        <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                        ขนาดใหญ่
+                    </label>
+                </ons-col>
+            </ons-row>
+            <div class="setbtn">
+                <ons-button onclick="window.location.href='....'" id="btnpass">
+                    เลื่อนเวลา
+                </ons-button>
+                <ons-button onclick="window.location.href='homeaddmin.html'" id="btnsubmit">
+                    ยืนยัน
+                </ons-button>
+                <ons-button onclick="window.location.href='....'" id="btncancle">
+                   ยกเลิก
+                </ons-button>
+            </div>
+        </div>
+    </ons-page>
+</body>
+<script>
+
+</script>
+
+</html>

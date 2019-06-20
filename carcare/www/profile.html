@@ -15,8 +15,8 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Lato&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Athiti:300&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300|Sarabun:200&display=swap" rel="stylesheet">    
 
     <link rel="stylesheet" type="text/css" href="css/profile.css">
 
@@ -46,56 +46,57 @@
         <div class="profile">
             <ons-row>
                 <ons-col>
-                    <ons-fab id="pic" position="top center" >
-                        <ons-icon icon="md-plus"></ons-icon>
+                    <ons-fab id="pic" position="top center">
+                        <ons-icon icon="md-account-add" id="icons"></ons-icon>
                     </ons-fab>
-                    <div class="namepic">picture</div>
+                    <!-- <div class="namepic">รูปภาพ</div> -->
                 </ons-col>
             </ons-row>
 
-            <ons-card>
-                <div class="detail">
-                    <ons-list>
-                        <ons-list-item>ชื่อ :
-                            <ons-input id="snap" placeholder="name"></ons-input>
-                        </ons-list-item>
-                        <ons-list-item>เบอร์โทรฯ :
-                            <ons-input id="snap" type="number" placeholder="phone number(10)"></ons-input>
-                        </ons-list-item>
-                        <ons-list-item>ป้ายทะเบียน :
-                            <ons-input id="snap" placeholder="number code"></ons-input>
-                        </ons-list-item>
-                        <ons-list-item>ประเภทรถ :
-                            <ons-select class="select" id="snap">
-                                <select class="select-input">
-                                    <option> รถกระบะ</option>
-                                    <option> รถเก๋ง</option>
-                                    <option> รถSuv</option>
-                                    <option> รถมอเตอร์ไซต์</option>
-                                </select>
-                            </ons-select>
-                        </ons-list-item>
-                        <ons-list-item>สีรถ :
-                            <ons-select class="select" id="snap">
-                                <select class="select-input">
-                                    <option> แดง</option>
-                                    <option> ขาว</option>
-                                    <option> บลอนเงิน</option>
-                                    <option> บลอนทอง</option>
-                                    <option> เหลือง</option>
-                                    <option> เขียว</option>
-                                    <option> น้ำเงิน</option>
-                                </select>
-                            </ons-select>
-                        </ons-list-item>
-                    </ons-list>
-                </div>
-            </ons-card>
-            
+            <div class="detail">
+                <ons-card>
+                    <div class="title">ชื่อ :
+                        <ons-input id="snap" placeholder="ส้มดี"></ons-input>
+                    </div>
+                    <div class="title">เบอร์โทรฯ :
+                        <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
+                    </div>
+                    <div class="title">ป้ายทะเบียน :
+                        <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+                    </div>
+                    <div class="title">ประเภทรถ :
+                        <ons-select class="select" id="snap">
+                            <select class="select-input">
+                                <option> รถกระบะ</option>
+                                <option> รถเก๋ง</option>
+                                <option> รถSuv</option>
+                                <option> รถมอเตอร์ไซต์</option>
+                            </select>
+                        </ons-select>
+                    </div>
+                    <div class="title">สีรถ :
+                        <ons-select class="select" id="snap">
+                            <select class="select-input">
+                                <option> แดง</option>
+                                <option> ขาว</option>
+                                <option> บลอนเงิน</option>
+                                <option> บลอนทอง</option>S
+                                <option> เหลือง</option>
+                                <option> เขียว</option>
+                                <option> น้ำเงิน</option>
+                            </select>
+                        </ons-select>
+                    </div>
+                </ons-card>
+            </div>
+
             <div class="setbtn">
                 <ons-button onclick="window.location.href='home.html'" id="btnsubmit">
-                    Submit
+                    ยืนยัน
                 </ons-button>
+                <div class="warn">
+                    กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
+                </div>
             </div>
         </div>
     </ons-page>

@@ -21,7 +21,6 @@ p{
     margin-top: 45px;
 }
 .profile{
-    font-family: 'Lato', sans-serif;
     color: rgb(255, 255, 255);
     text-align: center;
     margin-top: 45px;
@@ -36,12 +35,21 @@ p{
     line-height: 100px; 
     font-size: 60px;
     color: rgb(224, 224, 224,0.7);
+    border: 2px #fff solid;
+}
+
+#icons{
+    color: #fff;
+}
+
+.detail{
+    margin-top: 180px;
 }
 
 .speed-dial.fab--top__center, button.fab--top__center, ons-fab.fab--top__center {
     top: 20px;
     bottom: auto;
-    margin-left: -28px;
+    margin-left: -40px;
     left: 48%;
     right: auto;
     position: absolute;
@@ -65,13 +73,31 @@ p{
 .setbtn{
     margin-top: 30px;
 }
+
+.title{
+    font-family: 'Athiti', sans-serif;
+    color: #000;
+    margin-bottom: 5px;
+    font-weight:bold;
+}
+
+#snap{
+    margin-left: 10px;
+    font-family: 'Sarabun', sans-serif;
+}
+
 #btnsubmit{
-    font-family: 'Lato', sans-serif;
+    font-family: 'Sarabun', sans-serif;
     background-color: rgba(155, 155, 155, 0.3);
     border: 2px solid #fff;
     margin: 10px;
 }
 
-#snap{
-    margin-left: 10px;
+.warn{
+    font-size: 16px;
+    font-family: 'Athiti', sans-serif;
+    color: rgb(192, 0, 0);
+    font-weight:bold;
+    margin-top: 10px;
+
 }

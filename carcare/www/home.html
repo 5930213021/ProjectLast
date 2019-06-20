@@ -73,24 +73,17 @@
 
   <template id="sidemenu.html">
       <ons-page>
-        <div class="profile-pic">
+        <!-- <div class="profile-pic">
             <img src="img/picpro3.gif">
-        </div>
+        </div> -->
 
-        
-
-        <ons-list-title>Access</ons-list-title>
+        <ons-list-title>เมนู</ons-list-title>
         <ons-list>
-
             <ons-list-item onclick="window.location.href='profile.html'">
               <div class="left">
-                  <ons-icon fixed-width class="list-item__icon" icon="ion-document-text"></ons-icon>
+                  <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
               </div>
-              <div class="center">
-                  Docs
-              </div>
-              <div class="right">
-                  <ons-icon icon="fa-external-link"></ons-icon>
+              <div class="center">ข้อมูลส่วนตัว
               </div>
           </ons-list-item>
 
@@ -122,6 +115,14 @@
                     </ons-icon>
                 </div>
                 <div class="center">ประวัติการใช้งาน</div>
+            </ons-list-item>
+
+            <ons-list-item onclick="window.location.href='login.html'">
+                <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power""></ons-icon>
+                </div>
+                <div class="center">ออกจากระบบ
+                </div>
             </ons-list-item>
         </ons-list>
 
@@ -229,17 +230,17 @@
     document.getElementById('sidemenu').close();
   };
 
-  window.fn.loadLink = function (url) {
-    window.open(url, '_blank');
-  };
+  // window.fn.loadLink = function (url) {
+  //   window.open(url, '_blank');
+  // };
 
-  window.fn.pushPage = function (page, anim) {
-    if (anim) {
-      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
-    } else {
-      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
-    }
-  };
+  // window.fn.pushPage = function (page, anim) {
+  //   if (anim) {
+  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+  //   } else {
+  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+  //   }
+  // };
 </script>
 
 </html>

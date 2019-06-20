@@ -3,7 +3,7 @@ p{
 }
 .background{
     /* background-color: rgb(224, 52, 0); */
-    background:url(../img/red.jpg);
+    background:url(../img/coolHue-92FFC0-002661.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -15,27 +15,42 @@ p{
 
 .logo{
     font-family: 'Archivo Black', sans-serif;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255,0.9);
     text-align: center;
     margin-top: 120px;
     font-size: 45px;
    
 }
 
-ons-input .text-input, ons-search-input .search-input {
-    width: 100%;
-    display: inline-block;
-}
-.text-input--underbar {
-    background: 0 0;
-    line-height: 1;
+/* .text-input--underbar {
+    line-height: 2;
     font-family:'Bai Jamjuree', sans-serif;
     -webkit-font-smoothing: antialiased;
-    color: #ffffff;
+    color: white;
     font-size: 16px;
     font-weight: 400;
     box-sizing: border-box;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+} */
+
+.text-input--material {
+    padding: 0 0 2px;
+    margin: 0;
+    background: center bottom no-repeat;
+    outline: 0;
+    line-height: 2;
+    font-family:'Bai Jamjuree', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-size: 100% 2px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    /* border: none; */
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    height: 24px;
+    vertical-align: top;
 }
 
 #username{

@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 
-  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Athiti:300|Sarabun:200&display=swap" rel="stylesheet">    
 
   <link rel="stylesheet" type="text/css" href="css/home.css">
 
@@ -33,12 +35,21 @@
 <body>
   <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-splitter id="appSplitter" >
+      <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
         </ons-splitter-side>
         <ons-splitter-content page="tabbar.html"></ons-splitter-content>
       </ons-splitter>
     </ons-page>
+
+    <ons-modal direction="up">
+      <div style="text-align: center">
+        <p>
+          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+        </p>
+      </div>
+    </ons-modal>
+
   </ons-navigator>
 
   <template id="tabbar.html">
@@ -46,11 +57,11 @@
       <ons-toolbar id="headbar">
         <div class="center" id="appname">Mcarcare</div>
         <div class="right">
-            <ons-toolbar-button onclick="fn.toggleMenu()">
-                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
-                <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
+          <ons-toolbar-button onclick="fn.toggleMenu()">
+            <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
                 </ons-icon> -->
-            </ons-toolbar-button>
+          </ons-toolbar-button>
         </div>
       </ons-toolbar>
 
@@ -59,9 +70,9 @@
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car"></ons-tab>
         <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="1"></ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
-    </ons-tabbar>
+      </ons-tabbar>
 
-    <!-- <script>
+      <!-- <script>
         ons.getScriptPage().addEventListener('prechange', function (event) {
             if (event.target.matches('#appTabbar')) {
                 event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
@@ -72,64 +83,62 @@
   </template>
 
   <template id="sidemenu.html">
-      <ons-page>
-        <!-- <div class="profile-pic">
+    <ons-page>
+      <!-- <div class="profile-pic">
             <img src="img/picpro3.gif">
         </div> -->
 
-        <ons-list-title>เมนู</ons-list-title>
-        <ons-list>
-            <ons-list-item onclick="window.location.href='profile.html'">
-              <div class="left">
-                  <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
-              </div>
-              <div class="center">ข้อมูลส่วนตัว
-              </div>
-          </ons-list-item>
+      <ons-list-title><br></ons-list-title>
+      <!-- เมนู -->
+      <ons-list>
+        <ons-list-item onclick="window.location.href='profile.html'">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
+          </div>
+          <div class="center">ข้อมูลส่วนตัว
+          </div>
+        </ons-list-item>
 
-            <ons-list-item onclick="fn.loadView(0)">
-                <div class="left">
-                    <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
-                </div>
-                <div class="center">หน้าหลัก</div>
-                <!-- <div class="right">
+        <ons-list-item onclick="fn.loadView(0)">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
+          </div>
+          <div class="center">หน้าหลัก</div>
+          <!-- <div class="right">
                     <ons-icon icon="fa-link"></ons-icon>
                 </div> -->
-            </ons-list-item>
-            <ons-list-item onclick="fn.loadView(1)">
-                <div class="left">
-                    <ons-icon fixed-width class="list-item__icon" icon="ion-car, material:md-car"></ons-icon>
-                </div>
-                <div class="center">จองคิว</div>
-            </ons-list-item>
-            <ons-list-item onclick="fn.loadView(2)">
-                <div class="left">
-                    <ons-icon fixed-width class="list-item__icon" icon="ion-envelope, material:md-email">
-                    </ons-icon>
-                </div>
-                <div class="center">ช้อความ</div>
-            </ons-list-item>
-            <ons-list-item onclick="fn.loadView(3)">
-                <div class="left">
-                    <ons-icon fixed-width class="list-item__icon" icon="ion-view-headline, material:md-view-headline">
-                    </ons-icon>
-                </div>
-                <div class="center">ประวัติการใช้งาน</div>
-            </ons-list-item>
+        </ons-list-item>
+        <ons-list-item onclick="fn.loadView(1)">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-car, material:md-car"></ons-icon>
+          </div>
+          <div class="center">จองคิว</div>
+        </ons-list-item>
+        <ons-list-item onclick="fn.loadView(2)">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-envelope, material:md-email">
+            </ons-icon>
+          </div>
+          <div class="center">ช้อความ</div>
+        </ons-list-item>
+        <ons-list-item onclick="fn.loadView(3)">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-view-headline, material:md-view-headline">
+            </ons-icon>
+          </div>
+          <div class="center">ประวัติการใช้งาน</div>
+        </ons-list-item>
 
-            <ons-list-item onclick="window.location.href='login.html'">
-                <div class="left">
-                    <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power""></ons-icon>
+        <ons-list-item onclick="showModal()">
+          <div class="left">
+            <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power""></ons-icon>
                 </div>
-                <div class="center">ออกจากระบบ
-                </div>
-            </ons-list-item>
-        </ons-list>
+                <div class=" center">ออกจากระบบ
+          </div>
+        </ons-list-item>
+      </ons-list>
 
-
-
-
-      </ons-page>
+    </ons-page>
   </template>
 
 
@@ -175,12 +184,10 @@
 
   <template id="message.html">
     <ons-page><br>
-      <div style="height: 200px; padding: 1px 0 0 0;">
         <div class="card" id="bor">
-          <h2 class="card__title">วันจันทร์ 14 ก.พ. 2562</h2>
+          <h3 class="card__title">วันจันทร์ 14 ก.พ. 2562</h3>
           <div class="card__content">รถของท่านได้ทำการล้างเสร็จเรียบร้อยแล้ว ท่านสามารถเข้ามารับรถได้เลยค่ะ</div>
         </div>
-      </div>
     </ons-page>
   </template>
 
@@ -241,6 +248,16 @@
   //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
   //   }
   // };
+
+  //Showreload
+  function showModal() {
+    var modal = document.querySelector('ons-modal');
+    modal.show();
+    setTimeout(function () {
+      // modal.hide();
+      window.location.href = 'login.html';
+    }, 2000);
+  }
 </script>
 
 </html>

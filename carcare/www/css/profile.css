@@ -4,7 +4,7 @@ p{
 
 .background{
     /* background-color: rgb(224, 52, 0); */
-    background:url(../img/baseor.jpg);
+    background:url(../img/coolHue-C2FFD8-465EFB.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -29,7 +29,7 @@ p{
 }
 
 #pic{
-    margin-top: 90px;
+    margin-top: 60px;
     background-color: rgb(199, 199, 199,0.7); 
     width: 100px;
     height: 100px;
@@ -48,9 +48,9 @@ p{
 }
 
 .namepic{
-    text-align: center;
-    margin-top: 30px;
-    padding-top: 80px;
+    /* text-align: center; */
+    margin-top: 130px;
+    /* padding-top: 80px; */
 }
 
 .card{
@@ -68,5 +68,10 @@ p{
 #btnsubmit{
     font-family: 'Lato', sans-serif;
     background-color: rgba(155, 155, 155, 0.3);
+    border: 2px solid #fff;
     margin: 10px;
+}
+
+#snap{
+    margin-left: 10px;
 }

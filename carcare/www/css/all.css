@@ -19,10 +19,9 @@ p{
     text-align: center;
     margin-top: 120px;
     font-size: 45px;
-   
 }
 
-/* .text-input--underbar {
+.text-input--underbar {
     line-height: 2;
     font-family:'Bai Jamjuree', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -32,7 +31,7 @@ p{
     box-sizing: border-box;
     border-bottom: 1px solid white;
     border-radius: 0;
-} */
+}
 
 .text-input--material {
     padding: 0 0 2px;
@@ -60,16 +59,18 @@ p{
 #fonts {
     font-family: 'Archivo Black', sans-serif;
     margin: 10px;
-    background-color:#143c6d;
+    /* background-color:#143c6d; */
+    border: 2px solid #fff;
+    color: #fff;
 }
 #fontquiet{
-    color: #fac000f8;
+    color: #fffffff8;
 }
 
 /* register.html */
 .regis{
     font-family: 'Archivo Black', sans-serif;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255,0.9);
     text-align: center;
     margin-top: 45px;
     font-size: 25px;
@@ -88,12 +89,15 @@ p{
 
 #btnancle{
     font-family: 'Lato', sans-serif;
-    background-color: rgba(184, 37, 37, 0.3);
+    background-color: rgba(29, 97, 245, 0.3);
+    color: rgb(120, 187, 250);
+    border: 2px solid rgb(120, 187, 250);
     margin: 10px;
 }
 #btnsubmit{
     font-family: 'Lato', sans-serif;
     background-color: rgba(155, 155, 155, 0.3);
+    border: 2px solid #fff;
     margin: 10px;
 }
 

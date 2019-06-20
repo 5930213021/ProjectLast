@@ -12,10 +12,12 @@
   <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 
   <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/home.css">
+
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-  <link rel="stylesheet" type="text/css" href="css/home.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
@@ -29,32 +31,105 @@
 </head>
 
 <body>
-  <ons-navigator swipeable id="myNavigator">
+  <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-toolbar id="headbar">
-        <div class="left" id="appname">
-          Mcarcare
-        </div>
-        <div class="right">
-          <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
-          </ons-icon>
-        </div>
-      </ons-toolbar>
-
-      <ons-tabbar swipeable position="auto" id="tabbar">
-        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active>
-        </ons-tab>
-        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car">
-        </ons-tab>
-        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" active-icon="fa-envelope" badge="1">
-        </ons-tab>
-        <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul" active-icon="fa-list-ul">
-        </ons-tab>
-      </ons-tabbar>
-
+      <ons-splitter id="appSplitter" >
+        <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
+        </ons-splitter-side>
+        <ons-splitter-content page="tabbar.html"></ons-splitter-content>
+      </ons-splitter>
     </ons-page>
   </ons-navigator>
 
+  <template id="tabbar.html">
+    <ons-page id="tabbar-page">
+      <ons-toolbar id="headbar">
+        <div class="center" id="appname">Mcarcare</div>
+        <div class="right">
+            <ons-toolbar-button onclick="fn.toggleMenu()">
+                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+                <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
+                </ons-icon> -->
+            </ons-toolbar-button>
+        </div>
+      </ons-toolbar>
+
+      <ons-tabbar swipeable position="auto" id="appTabbar">
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
+        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car"></ons-tab>
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="1"></ons-tab>
+        <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
+    </ons-tabbar>
+
+    <!-- <script>
+        ons.getScriptPage().addEventListener('prechange', function (event) {
+            if (event.target.matches('#appTabbar')) {
+                event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+            }
+        });
+    </script> -->
+    </ons-page>
+  </template>
+
+  <template id="sidemenu.html">
+      <ons-page>
+        <div class="profile-pic">
+            <img src="img/picpro3.gif">
+        </div>
+
+        
+
+        <ons-list-title>Access</ons-list-title>
+        <ons-list>
+
+            <ons-list-item onclick="window.location.href='profile.html'">
+              <div class="left">
+                  <ons-icon fixed-width class="list-item__icon" icon="ion-document-text"></ons-icon>
+              </div>
+              <div class="center">
+                  Docs
+              </div>
+              <div class="right">
+                  <ons-icon icon="fa-external-link"></ons-icon>
+              </div>
+          </ons-list-item>
+
+            <ons-list-item onclick="fn.loadView(0)">
+                <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-home, material:md-home"></ons-icon>
+                </div>
+                <div class="center">หน้าหลัก</div>
+                <!-- <div class="right">
+                    <ons-icon icon="fa-link"></ons-icon>
+                </div> -->
+            </ons-list-item>
+            <ons-list-item onclick="fn.loadView(1)">
+                <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-car, material:md-car"></ons-icon>
+                </div>
+                <div class="center">จองคิว</div>
+            </ons-list-item>
+            <ons-list-item onclick="fn.loadView(2)">
+                <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-envelope, material:md-email">
+                    </ons-icon>
+                </div>
+                <div class="center">ช้อความ</div>
+            </ons-list-item>
+            <ons-list-item onclick="fn.loadView(3)">
+                <div class="left">
+                    <ons-icon fixed-width class="list-item__icon" icon="ion-view-headline, material:md-view-headline">
+                    </ons-icon>
+                </div>
+                <div class="center">ประวัติการใช้งาน</div>
+            </ons-list-item>
+        </ons-list>
+
+
+
+
+      </ons-page>
+  </template>
 
 
   <template id="home.html">
@@ -122,17 +197,17 @@
 
       <div style="height: 200px; padding: 1px 0 0 0;">
         <div class="card">
-            <div class="list-item">
-              <div class="list-item__left">
-                <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
-              </div>
-
-              <div class="list-item__center">
-                <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562</div>
-                <div class="list-item__subtitle">ล้างอัดฉีดช่วงล้าง <br>
-                                                ล้างสีดูดฝุ่น</div>
-              </div>
+          <div class="list-item">
+            <div class="list-item__left">
+              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
             </div>
+
+            <div class="list-item__center">
+              <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562</div>
+              <div class="list-item__subtitle">ล้างอัดฉีดช่วงล้าง <br>
+                ล้างสีดูดฝุ่น</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -143,19 +218,27 @@
 </body>
 
 <script>
-  //function menu
   window.fn = {};
 
-  window.fn.open = function () {
-    var menu = document.getElementById('menu');
-    menu.open();
+  window.fn.toggleMenu = function () {
+    document.getElementById('appSplitter').right.toggle();
   };
 
-  window.fn.load = function (page) {
-    var content = document.getElementById('content');
-    var menu = document.getElementById('menu');
-    content.load(page)
-      .then(menu.close.bind(menu));
+  window.fn.loadView = function (index) {
+    document.getElementById('appTabbar').setActiveTab(index);
+    document.getElementById('sidemenu').close();
+  };
+
+  window.fn.loadLink = function (url) {
+    window.open(url, '_blank');
+  };
+
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
   };
 </script>
 

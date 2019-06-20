@@ -1,6 +1,6 @@
-p{
+/* p{
     margin: 20px 0px;
-}
+} */
 
 .background{
     /* background-color: rgb(224, 52, 0); */
@@ -18,13 +18,7 @@ p{
     color: #fffffff8;
     text-align: left;
     margin-left: 35px;
-    margin-top: 45px;
-}
-.profile{
-    color: rgb(255, 255, 255);
-    text-align: center;
-    margin-top: 45px;
-    font-size: 20px;
+    margin-top: 30px;
 }
 
 #pic{
@@ -43,7 +37,7 @@ p{
 }
 
 .detail{
-    margin-top: 180px;
+    margin-top: 95px;
 }
 
 .speed-dial.fab--top__center, button.fab--top__center, ons-fab.fab--top__center {
@@ -61,9 +55,9 @@ p{
     /* padding-top: 80px; */
 }
 
-.card{
+/* .card{
     margin-top: 30px;
-}
+} */
 .card, .card--material {
     background-color: rgb(255, 255, 255,0.8);
 }
@@ -71,7 +65,8 @@ p{
     background-color: rgb(255, 255, 255,0.0);
 }
 .setbtn{
-    margin-top: 30px;
+    margin-top: 20px;
+    text-align: center;
 }
 
 .title{
@@ -99,5 +94,6 @@ p{
     color: rgb(192, 0, 0);
     font-weight:bold;
     margin-top: 10px;
+    padding: 12px;
 
 }

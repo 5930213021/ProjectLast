@@ -43,11 +43,13 @@
                 <ons-input id="password" modifier="underbar" type="password" placeholder=" Password" float></ons-input>
             </p>
             <p>
-                <ons-button onclick="login()" id="fonts">
+                
+                <ons-button modifier="quiet" onclick="login()" id="fonts">
                     LOGIN
                 </ons-button>
             </p>
             <p>
+                
                 <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
                     - Sign up for a new user -
                 </ons-button>
@@ -71,8 +73,8 @@
     };
 
     function addUsers() {
-    window.location.href='register.html';
-  }
+        window.location.href = 'register.html';
+    }
 </script>
 
 </html>

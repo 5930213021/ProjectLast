@@ -37,18 +37,20 @@
         <div class="logo">
             <p>MCARCARE</p>
             <p>
-                <ons-input id="username" modifier="underbar" placeholder=" Username" float>
+                <ons-input id="username" modifier="material underbar" placeholder=" Username" float></ons-input>
             </p>
             <p>
-                <ons-input id="password" modifier="underbar" type="password" placeholder=" Password" float>
+                <ons-input id="password" modifier="underbar" type="password" placeholder=" Password" float></ons-input>
             </p>
             <p>
-                <ons-button onclick="login()" id="fonts">
+                
+                <ons-button modifier="quiet" onclick="login()" id="fonts">
                     LOGIN
                 </ons-button>
             </p>
             <p>
-                <ons-button onclick="  " modifier="quiet" id="fontquiet">
+                
+                <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
                     - Sign up for a new user -
                 </ons-button>
             </p>
@@ -56,5 +58,23 @@
     </ons-page>
 
 </body>
+<script>
+    //function login
+    var login = function () {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        if (username === '1111' && password === '1111') {
+            // ons.notification.alert('Congratulations!');
+            window.location.href = 'home.html';
+        } else {
+            ons.notification.alert('Incorrect username or password.');
+        }
+    };
+
+    function addUsers() {
+        window.location.href = 'register.html';
+    }
+</script>
 
 </html>

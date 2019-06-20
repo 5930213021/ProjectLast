@@ -3,7 +3,7 @@ p{
 }
 .background{
     /* background-color: rgb(224, 52, 0); */
-    background:url(../img/red.jpg);
+    background:url(../img/coolHue-92FFC0-002661.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -15,27 +15,41 @@ p{
 
 .logo{
     font-family: 'Archivo Black', sans-serif;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255,0.9);
     text-align: center;
     margin-top: 120px;
     font-size: 45px;
-   
 }
 
-ons-input .text-input, ons-search-input .search-input {
-    width: 100%;
-    display: inline-block;
-}
 .text-input--underbar {
-    background: 0 0;
-    line-height: 1;
+    line-height: 2;
     font-family:'Bai Jamjuree', sans-serif;
     -webkit-font-smoothing: antialiased;
-    color: #ffffff;
+    color: white;
     font-size: 16px;
     font-weight: 400;
     box-sizing: border-box;
-    border-bottom: 1px solid #ffffff;
+    border-bottom: 1px solid white;
+    border-radius: 0;
+}
+
+.text-input--material {
+    padding: 0 0 2px;
+    margin: 0;
+    background: center bottom no-repeat;
+    outline: 0;
+    line-height: 2;
+    font-family:'Bai Jamjuree', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-size: 100% 2px;
+    color: white;
+    font-size: 16px;
+    font-weight: 400;
+    /* border: none; */
+    border-bottom: 1px solid white;
+    border-radius: 0;
+    height: 24px;
+    vertical-align: top;
 }
 
 #username{
@@ -45,27 +59,45 @@ ons-input .text-input, ons-search-input .search-input {
 #fonts {
     font-family: 'Archivo Black', sans-serif;
     margin: 10px;
-    background-color:#143c6d;
+    /* background-color:#143c6d; */
+    border: 2px solid #fff;
+    color: #fff;
 }
 #fontquiet{
-    color: #fac000f8;
+    color: #fffffff8;
 }
-/* #inputregis{
-    font-family:'Bai Jamjuree', sans-serif;
-} */
 
 /* register.html */
 .regis{
     font-family: 'Archivo Black', sans-serif;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255,0.9);
     text-align: center;
     margin-top: 45px;
     font-size: 25px;
-   
 }
+
+.setbtn{
+    margin-top: 30px;
+}
+
 #btnback{
     color: #fffffff8;
     text-align: left;
     margin-left: 35px;
     margin-top: 45px;
 }
+
+#btnancle{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(29, 97, 245, 0.3);
+    color: rgb(120, 187, 250);
+    border: 2px solid rgb(120, 187, 250);
+    margin: 10px;
+}
+#btnsubmit{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(155, 155, 155, 0.3);
+    border: 2px solid #fff;
+    margin: 10px;
+}
+

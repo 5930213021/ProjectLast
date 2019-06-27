@@ -3,6 +3,10 @@
     position: absolute;
 }
 
+p{
+    margin: 2px 0px;
+}
+
 #headbar{
     background:rgb(37, 45, 61);
 }
@@ -18,9 +22,13 @@
     color: white;
 }
 
+.proname{
+    padding: 10px 10px 0px 70px
+}
+
 .list-item--material {
     border: 0;
-    padding: 10px 10px 10px 50px;
+    padding: 0px 0px 10px 5px;
     line-height: normal;
 }
 .list-item--material__left {
@@ -38,6 +46,19 @@
     margin: 0;
 }
 
+.list-item__center, .list-item__left {
+    line-height: 1.2em;
+    box-sizing: initial;
+}
+
+.list-item--material__center, .list-item--material__left:empty {
+    padding: 4px 6px 14px 1px;
+    border-color: #eee;
+    border-bottom: none;
+    /* background-image: linear-gradient(0deg,#eee,#eee 100%); */
+    min-height: 48px;
+}
+
 #btn{
     width: 100%; 
     margin: 0 auto;
@@ -49,6 +70,7 @@
     margin: 0 auto;
     /* line-height: 100px; */
     color: rgb(0, 0, 0);
+    height: 75%;
 }
 #btndatabooking{
     width: 100%; 

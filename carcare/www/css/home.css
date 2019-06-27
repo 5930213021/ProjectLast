@@ -1,10 +1,12 @@
 /* .background{
     background-color: aliceblue;
 } */
-.page, .page__background, .page__content {
+
+  .page, .page__background, .page__content {
     background-color:rgba(228, 228, 228, 0.2);
     position: absolute;
-}
+} 
+
 /* #headbar{
     background:url(../img/coolHue-92FFC0-002661.png);
     background-repeat: no-repeat;
@@ -26,9 +28,10 @@
     -webkit-background-size: 100% 100%, auto;
     background-size: 100% 100%, auto;
 }
+
 #appname{
     text-align:center; 
-    color:rgb(1, 53, 83);
+    color:rgb(22, 71, 111);
     margin-left: 20px;
 }
 .toolbaricon {
@@ -39,7 +42,7 @@
 }
 
 :checked+.tabbar__button {
-    color: rgb(7, 71, 167);
+    color: rgb(22, 71, 111);
 }
 .tabbar--material__button {
     background-color: transparent;
@@ -129,7 +132,6 @@ ons-list-item {
     padding: 8px 16px;
 }
 
-
 /* history_page */
 .list-item__thumbnail {
     width: 65px;
@@ -137,4 +139,19 @@ ons-list-item {
     border-radius: 6px;
     display: block;
     margin: 0;
+}
+
+/* modelclose */
+.modal__content {
+    background: rgb(76, 148, 147, 0.5);
+    line-height: normal;
+    background-clip: padding-box;
+    font-family: -apple-system,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    white-space: normal;
 }

@@ -43,10 +43,18 @@
             Mcarcare
           </div>
           <div class="right">
-            <ons-icon class="toolbaricon" size="25px" icon="md-power" style="margin-right:10px;" onclick="logout()">
+            <ons-icon class="toolbaricon" size="25px" icon="md-power" style="margin-right:10px;" onclick="showModal()">
             </ons-icon>
           </div>
         </ons-toolbar>
+
+        <ons-modal direction="up">
+            <div style="text-align: center">
+              <p>
+                <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
+              </p>
+            </div>
+          </ons-modal>
 
         <div class="proname">
           <ons-list-item>
@@ -73,14 +81,14 @@
                   <p>ภก 4621 ตรัง</p>
                   <p>09.30</p>
                 </button>
-                <button class="button button--light" id="btn">ส่งข้อความ</button>
+                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
 
               <ons-col width="50%">
                 <button class="button--cta" id="btndatabooking">
                   <p>กข 1777 ภูเก็ต</p>
                 </button>
-                <button class="button button--light" id="btn">ส่งข้อความ</button>
+                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
             </ons-row>
           </ons-list-item>
@@ -95,14 +103,14 @@
                 <button class="button--cta" id="btndatablank">
                   <p>ว่าง</p>
                 </button>
-                <button class="button button--light" id="btn">ส่งข้อความ</button>
+                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
 
               <ons-col width="50%">
                 <button class="button--cta" id="btndatablank">
                   <p>ว่าง</p>
                 </button>
-                <button class="button button--light" id="btn">ส่งข้อความ</button>
+                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
             </ons-row>
           </ons-list-item>
@@ -165,10 +173,10 @@
         </ons-row>
 
         <div class="setbtn">
-          <ons-button onclick="window.location.href='....'" id="btnpass">
+          <ons-button onclick="" id="btnpass">
             เลื่อนเวลา
           </ons-button>
-          <ons-button onclick="showConfirm()" id="btnsubmit">
+          <ons-button onclick="alertsubmit()" id="btnsubmit">
             ยืนยัน
           </ons-button>
           <ons-button onclick="window.location.href='....'" id="btncancle">
@@ -179,15 +187,44 @@
     </template>
 
 
+    <template id="alert-dialog.html">
+      <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
+        <!-- <div class="alert-dialog-title">Alert</div> -->
+        <div class="alert-dialog-content">
+          ระดับความสกปรก
+        </div>
+        <div class="alert-dialog-footer">
+          <ons-alert-dialog-button onclick="hideAlertDialog()">มาก</ons-alert-dialog-button>
+          <ons-alert-dialog-button onclick="hideAlertDialog()">น้อย</ons-alert-dialog-button>
+        </div>
+      </ons-alert-dialog>
+    </template>
 
+    <template id="alert-messenge.html">
+        <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
+          <!-- <div class="alert-dialog-title">Alert</div> -->
+          <div class="alert-dialog-content">
+            คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
+          </div>
+          <div class="alert-dialog-footer">
+            <ons-alert-dialog-button onclick="hideAlertDialog2()">ไม่</ons-alert-dialog-button>
+            <ons-alert-dialog-button onclick="hideAlertDialog2()">ส่งข้อความ</ons-alert-dialog-button>
+          </div>
+        </ons-alert-dialog>
+      </template>
 
 </body>
 
 <script>
-  function logout() {
-    window.location.href = 'login.html';
+  function showModal() {
+    var modal = document.querySelector('ons-modal');
+    modal.show();
+    setTimeout(function () {
+      // modal.hide();
+      window.location.href = 'login.html';
+    }, 1500);
   }
-
+ 
   document.addEventListener('init', function (event) {
     var page = event.target;
 
@@ -196,16 +233,51 @@
         document.querySelector('#myNavigator').pushPage('detailState.html');
         // , { data: { title: 'Page 2' } });
       };
-    } else if (page.id === 'page2') {
-      page.querySelector('ons-toolbar .center')
-      // .innerHTML = page.data.title;
-    }
+    } 
+    // else if (page.id === 'page2') {
+    //   page.querySelector('ons-toolbar .center')
+    //   // .innerHTML = page.data.title;
+    // }
   });
 
-  var showConfirm = function () {
-    ons.notification.confirm('Confirm!')
+  // Alert submit
+  var alertsubmit = function () {
+    var dialog = document.getElementById('my-alert-dialog');
+
+    if (dialog) {
+      dialog.show();
+    } else {
+      ons.createElement('alert-dialog.html', { append: true })
+        .then(function (dialog) {
+          dialog.show();
+        });
+    }
+  };
+  // Alert messenge
+  var alertmessenge = function () {
+    var dialog2 = document.getElementById('my-alert-messenge');
+
+    if (dialog2) {
+      dialog2.show();
+    } else {
+      ons.createElement('alert-messenge.html', { append: true })
+        .then(function (dialog2) {
+          dialog2.show();
+        });
+    }
   };
 
+  var hideAlertDialog = function () {
+    document
+      .getElementById('my-alert-dialog')
+      .hide();
+  };
+
+  var hideAlertDialog2 = function () {
+    document
+      .getElementById('my-alert-messenge')
+      .hide();
+  };
 
 </script>
 

@@ -184,3 +184,42 @@ p{
     font-weight:bold;
     font-size: 16px;
 }
+
+/* Alertsubmit */
+.alert-dialog-button--material {
+    font-family: Roboto,Noto,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-transform: uppercase;
+    display: inline-block;
+    width: auto;
+    float: right;
+    background: 0 0;
+    border: none;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 500;
+    outline: 0;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 50px;
+    margin: 8px 0px 2px 2px;
+    box-sizing: border-box;
+    min-width: 50px;
+    color: #0178b4;
+}
+
+
+/* modelclose */
+.modal__content {
+    background: rgba(7, 171, 177, 0.5);
+    line-height: normal;
+    background-clip: padding-box;
+    font-family: -apple-system,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    white-space: normal;
+}

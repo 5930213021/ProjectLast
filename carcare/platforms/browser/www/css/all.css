@@ -82,11 +82,18 @@ p{
 
 /* register.html */
 .regis{
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Athiti', sans-serif;
     color: rgb(255, 255, 255,0.9);
     text-align: center;
-    margin-top: 45px;
-    font-size: 25px;
+    /* margin-top: 45px; */
+    font-size: 30px;
+}
+.inputregis{
+    font-family: 'Athiti', sans-serif;
+    color: rgb(255, 255, 255,0.9);
+    text-align: center;
+    /* margin-top: 45px; */
+    font-size: 18px;
 }
 
 .setbtn{
@@ -109,10 +116,4 @@ p{
     margin: 10px;
 } */
 
-#btnsubmit{
-    font-family: 'Lato', sans-serif;
-    background-color: rgba(155, 155, 155, 0.3);
-    border: 2px solid #fff;
-    margin: 10px;
-}
 

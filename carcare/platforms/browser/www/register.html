@@ -12,11 +12,12 @@
     <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 
     <!-- icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Font Eng -->
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree&display=swap" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Lato&display=swap" rel="stylesheet">
+    <!-- Font Thai -->
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="css/all.css">
 
@@ -37,21 +38,20 @@
 <body>
     <ons-page>
         <div class="background"></div>
-        <p> 
-            
+        <p>
+
             <ons-button onclick="window.location.href='login.html'" modifier="quiet" id="btnback">
-              <ons-icon icon="md-chevron-left" ></ons-icon>  
-              Back
+                <ons-icon icon="md-chevron-left"></ons-icon>
+                กลับ
             </ons-button>
-            
+
         </p>
         <div class="regis">
-            <p>Register</p>
+            <p>ลงทะเบียน</p>
             <div class="inputregis">
                 <p>
                     <ons-icon icon="md-account-circle"></ons-icon>
                     <ons-input id="username" modifier="underbar" placeholder="ชื่อ" float>
-
                 </p>
                 <p>
                     <ons-icon icon="md-lock-outline"></ons-icon>
@@ -63,11 +63,11 @@
                 </p>
             </div>
             <div class="setbtn">
-                <ons-button onclick=" " id="btnancle">
+                <!-- <ons-button onclick=" " id="btnancle">
                     cancle
-                </ons-button>
-                <ons-button id="btnsubmit" onclick="window.location.href='profile.html'">
-                    Submit
+                </ons-button> -->
+                <ons-button modifier="quiet" id="fonts" onclick="window.location.href='profile.html'">
+                    ยืนยัน
                 </ons-button>
             </div>
         </div>
@@ -76,4 +76,5 @@
 <script>
 
 </script>
+
 </html>

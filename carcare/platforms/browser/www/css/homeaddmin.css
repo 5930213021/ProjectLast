@@ -8,9 +8,18 @@ p{
 }
 
 #headbar{
-    background:rgb(37, 45, 61);
+    background:url(../img/coolHue-52E5E7-130CB7.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
 }
+
 #appname{
+    /* font-family: 'Archivo Black', sans-serif; */
     text-align:center; 
     color:white;
     margin-left: 20px;
@@ -23,7 +32,34 @@ p{
 }
 
 .proname{
-    padding: 10px 10px 0px 70px
+    padding: 10px 10px 0px 70px;
+}
+
+.picuser{
+    padding: 10px 10px 0px 10px;
+}
+
+.progress-bar--material__primary, .progress-bar--material__secondary {
+    background-color: rgb(62, 163, 216);
+    border-radius: 0;
+}
+
+.list--inset {
+    margin: 0 8px;
+    border: 1.5px solid rgb(148, 199, 255);
+    border-radius: 4px;
+    background-image: none;
+}
+
+.list-header--material {
+    background: #fff;
+    border: none;
+    font-size: 14px;
+    text-transform: none;
+    margin: -1px 0 0;
+    color: #1f61b9;
+    font-weight: 500;
+    padding: 8px 16px;
 }
 
 .list-item--material {
@@ -53,7 +89,7 @@ p{
 
 .list-item--material__center, .list-item--material__left:empty {
     padding: 4px 6px 14px 1px;
-    border-color: #eee;
+    /* border-color: #eee; */
     border-bottom: none;
     /* background-image: linear-gradient(0deg,#eee,#eee 100%); */
     min-height: 48px;
@@ -62,29 +98,89 @@ p{
 #btn{
     width: 100%; 
     margin: 0 auto;
-    color: rgb(192, 56, 2);
+    color: rgb(11, 59, 87);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
 }
 
 #btndatawash{
     width: 100%; 
     margin: 0 auto;
-    /* line-height: 100px; */
     color: rgb(0, 0, 0);
     height: 75%;
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+
 }
 #btndatabooking{
     width: 100%; 
     height: 75%;
     margin: 0 auto;
-    /* line-height: 100px; */
     background: #ffb01fee;
     color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
 }
 #btndatablank{
     width: 100%; 
     height: 75%;
     margin: 0 auto;
-    /* line-height: 100px; */
     background: #40b40bee;
     color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+    border: 1px solid rgb(201, 201, 201);
+
+}
+
+/* page_detail */
+#btnback{
+    color: #d43b14f8;
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 30px;
+}
+
+.namedata{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.card, .card--material {
+    background-color: rgb(255, 255, 255,0.8);
+}
+
+.setbtn{
+    margin-left: 10px;
+    padding: 10px;
+}
+
+#btnsubmit{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(7, 157, 226, 0.8);
+    margin: 10px;
+}
+#btnpass{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(253, 167, 6, 0.8);
+    margin: 10px;
+}
+#btncancle{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(226, 33, 7, 0.8);
+    margin: 10px;
+}
+#pic{
+    width: 50%;
+    height: 100px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+}
+.title{
+    font-family: 'Athiti', sans-serif;
+    color: #000;
+    margin-bottom: 5px;
+    font-weight:bold;
+    font-size: 16px;
 }

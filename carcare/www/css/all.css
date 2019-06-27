@@ -1,6 +1,6 @@
-/* p{
+p{
     margin: 20px 0px;
-} */
+}
 .background{
     /* background-color: rgb(224, 52, 0); */
     background:url(../img/coolHue-92FFC0-002661.png);
@@ -93,7 +93,7 @@
     color: rgb(255, 255, 255,0.9);
     text-align: center;
     /* margin-top: 45px; */
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .setbtn{
@@ -116,10 +116,4 @@
     margin: 10px;
 } */
 
-#btnsubmit{
-    font-family: 'Lato', sans-serif;
-    background-color: rgba(155, 155, 155, 0.3);
-    border: 2px solid #fff;
-    margin: 10px;
-}
 

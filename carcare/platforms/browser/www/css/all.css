@@ -36,7 +36,7 @@ p{
 .text-input--material {
     padding: 0 0 2px;
     margin: 0;
-    background: center bottom no-repeat;
+    /* background: center bottom no-repeat; */
     outline: 0;
     line-height: 2;
     font-family:'Bai Jamjuree', sans-serif;
@@ -50,6 +50,18 @@ p{
     border-radius: 0;
     height: 24px;
     vertical-align: top;
+}
+
+.text-input--material__label {
+    font-family: Roboto,Noto,sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 16px;
+    font-weight: 400;
+    pointer-events: none;
 }
 
 #username{
@@ -90,7 +102,7 @@ p{
 #btnancle{
     font-family: 'Lato', sans-serif;
     background-color: rgba(29, 97, 245, 0.3);
-    color: rgb(120, 187, 250);
+    /* color: rgb(120, 187, 250); */
     border: 2px solid rgb(120, 187, 250);
     margin: 10px;
 }

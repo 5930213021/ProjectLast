@@ -40,7 +40,7 @@
                 <ons-input id="username" modifier="material underbar" placeholder=" Username" float></ons-input>
             </p>
             <p>
-                <ons-input id="password" modifier="underbar" type="password" placeholder=" Password" float></ons-input>
+                <ons-input id="password" modifier="material underbar" type="password" placeholder=" Password" float></ons-input>
             </p>
             <p>
                 
@@ -67,7 +67,9 @@
         if (username === '1111' && password === '1111') {
             // ons.notification.alert('Congratulations!');
             window.location.href = 'home.html';
-        } else {
+        } else if(username === '2222' && password === '1111') {
+            window.location.href = 'homeaddmin.html';
+        }else{
             ons.notification.alert('Incorrect username or password.');
         }
     };

@@ -35,7 +35,7 @@
 <body>
   <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-splitter id="appSplitter">
+      <ons-splitter id="appSplitter" page="booking.html">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
         </ons-splitter-side>
         <ons-splitter-content page="tabbar.html"></ons-splitter-content>
@@ -154,7 +154,7 @@
   </template>
 
   <template id="booking.html">
-    <ons-page>
+    <ons-page id="page1">
       <section>
         <p id="book">
           เวลาจอง
@@ -202,7 +202,6 @@
             incididunt ut labore et dolore magna aliqua.</div>
         </div>
       </div> -->
-
       <div style="height: 200px; padding: 1px 0 0 0;">
         <div class="card">
           <div class="list-item">
@@ -220,6 +219,74 @@
       </div>
 
 
+    </ons-page>
+  </template>
+
+  <template id="select_type.html">
+    <ons-page>
+        <div class="background"></div>
+        <p>
+          <ons-button onclick="window.location.href='homeaddmin.html'" modifier="quiet" id="btnback">
+            <ons-icon icon="md-chevron-left"></ons-icon>
+            กลับ
+          </ons-button>
+        </p>
+        <div class="namedata">รายละเอียดข้อมูล</div>
+        <div class="picuser">
+          <ons-list-item>
+            <div class="center">
+              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
+            </div>
+          </ons-list-item>
+        </div>
+
+        <ons-card>
+          <div class="title">ชื่อ :
+            <ons-input id="snap" placeholder="ส้มดี"></ons-input>
+          </div>
+          <div class="title">เบอร์โทรฯ :
+            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
+          </div>
+          <div class="title">ป้ายทะเบียน :
+            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+          </div>
+          <div class="title">ประเภทรถ :
+            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+          </div>
+          <div class="title">สีรถ :
+            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+          </div>
+          <div class="title">รายการลูกค้า :
+            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+          </div>
+        </ons-card>
+
+        <ons-row style="margin-top: 15px;">
+          <ons-col style="flex: 0 0 70%;margin: auto;max-width: 70%;">
+            <label class="radio-button radio-button--material" style="margin-left: 30px;">
+              <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+              ขนาดเล็ก
+            </label>
+            <label class="radio-button radio-button--material" style="margin-left: 30px;">
+              <input type="radio" class="radio-button__input radio-button--material__input" name="r">
+              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+              ขนาดใหญ่
+            </label>
+          </ons-col>
+        </ons-row>
+
+        <div class="setbtn">
+          <ons-button onclick="" id="btnpass">
+            เลื่อนเวลา
+          </ons-button>
+          <ons-button onclick="alertsubmit()" id="btnsubmit">
+            ยืนยัน
+          </ons-button>
+          <ons-button onclick="window.location.href='....'" id="btncancle">
+            ยกเลิก
+          </ons-button>
+        </div>
     </ons-page>
   </template>
 
@@ -258,6 +325,16 @@
       window.location.href = 'login.html';
     }, 1500);
   }
+
+  document.addEventListener('init', function (event) {
+    var page = event.target;
+  
+    if (page.id === 'page1') {
+      page.querySelector('#btndatabooking').onclick = function () {
+      document.querySelector('#myNavigator').pushPage('select_type.html');
+      };
+    }
+  });
 </script>
 
 </html>

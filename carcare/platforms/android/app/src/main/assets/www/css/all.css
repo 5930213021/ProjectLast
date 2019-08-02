@@ -23,7 +23,7 @@ p{
 
 .text-input--underbar {
     line-height: 2;
-    font-family:'Bai Jamjuree', sans-serif;
+    font-family: 'Athiti', sans-serif;
     -webkit-font-smoothing: antialiased;
     color: white;
     font-size: 16px;
@@ -36,10 +36,10 @@ p{
 .text-input--material {
     padding: 0 0 2px;
     margin: 0;
-    background: center bottom no-repeat;
+    /* background: center bottom no-repeat; */
     outline: 0;
     line-height: 2;
-    font-family:'Bai Jamjuree', sans-serif;
+    font-family: 'Athiti', sans-serif;
     -webkit-font-smoothing: antialiased;
     background-size: 100% 2px;
     color: white;
@@ -52,28 +52,48 @@ p{
     vertical-align: top;
 }
 
+.text-input--material__label {
+    font-family: 'Athiti', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #ffffff;
+    position: absolute;
+    left: 0;
+    top: 2px;
+    font-size: 16px;
+    font-weight: 400;
+    pointer-events: none;
+}
+
 #username{
     margin-top: 30px;
 }
 
 #fonts {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Athiti', sans-serif;
     margin: 10px;
-    /* background-color:#143c6d; */
-    border: 2px solid #fff;
+    border: 2px solid rgb(219, 219, 219);
     color: #fff;
 }
 #fontquiet{
     color: #fffffff8;
+    font-family: 'Athiti', sans-serif;
+    font-size: 16px;
 }
 
 /* register.html */
 .regis{
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Athiti', sans-serif;
     color: rgb(255, 255, 255,0.9);
     text-align: center;
-    margin-top: 45px;
-    font-size: 25px;
+    /* margin-top: 45px; */
+    font-size: 30px;
+}
+.inputregis{
+    font-family: 'Athiti', sans-serif;
+    color: rgb(255, 255, 255,0.9);
+    text-align: center;
+    /* margin-top: 45px; */
+    font-size: 18px;
 }
 
 .setbtn{
@@ -85,19 +105,15 @@ p{
     text-align: left;
     margin-left: 35px;
     margin-top: 45px;
+    font-size: 16px;
+    font-family: 'Athiti', sans-serif;
 }
 
-#btnancle{
+/* #btnancle{
     font-family: 'Lato', sans-serif;
     background-color: rgba(29, 97, 245, 0.3);
-    color: rgb(120, 187, 250);
     border: 2px solid rgb(120, 187, 250);
     margin: 10px;
-}
-#btnsubmit{
-    font-family: 'Lato', sans-serif;
-    background-color: rgba(155, 155, 155, 0.3);
-    border: 2px solid #fff;
-    margin: 10px;
-}
+} */
+
 

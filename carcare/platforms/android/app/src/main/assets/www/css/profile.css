@@ -4,7 +4,7 @@
 
 .background{
     /* background-color: rgb(224, 52, 0); */
-    background:url(../img/coolHue-C2FFD8-465EFB.png);
+    background:url(../img/blueblur.jpg);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -12,6 +12,10 @@
     -moz-background-size: 100% 100%, auto;
     -webkit-background-size: 100% 100%, auto;
     background-size: 100% 100%, auto;
+}
+
+.top{
+    margin-top: 98px;
 }
 
 #btnback{

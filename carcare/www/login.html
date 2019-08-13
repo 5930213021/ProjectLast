@@ -14,22 +14,22 @@
     <!-- Font Eng -->
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
     <!-- Font Thai -->
-    <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">  
-    
-    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.js"
-        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
 
     <link rel="stylesheet" type="text/css" href="css/all.css">
 
     <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
 
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- //axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    <script>
-        // Initialize Firebase
-    </script>
+
 
 </head>
 
@@ -43,7 +43,8 @@
                 <ons-input id="username" modifier="material underbar" placeholder="ชื่อผู้เข้าใข้งาน" float></ons-input>
             </p>
             <p>
-                <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float></ons-input>
+                <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float>
+                </ons-input>
             </p>
             <p>
                 <ons-button modifier="quiet" onclick="login()" id="fonts">
@@ -51,27 +52,29 @@
                 </ons-button>
             </p>
             <p>
-                
+
                 <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
                     - ลงทะเบียนเข้าใช้งาน -
                 </ons-button>
             </p>
         </div>
+   
+
+    <div id="test"></div>
     </ons-page>
 
 </body>
-<script>
+<!-- <script>
     //function login
     var login = function () {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
         if (username === '1111' && password === '1111') {
-            // ons.notification.alert('Congratulations!');
             window.location.href = 'home.html';
-        } else if(username === '2222' && password === '1111') {
+        } else if (username === '2222' && password === '1111') {
             window.location.href = 'homeaddmin.html';
-        }else{
+        } else {
             ons.notification.alert('Incorrect username or password.');
         }
     };
@@ -79,6 +82,52 @@
     function addUsers() {
         window.location.href = 'register.html';
     }
+</script> -->
+
+<script>
+    axios.get('http://localhost:8080/user/loginapp')  
+      .then(function (response) {
+        // handle success
+        var html=''
+        let data = response.data
+        data.forEach(element => {
+        
+            console.log(element.id);
+            console.log(element.password);
+            console.log(element.username);
+             html +='<div>'+element.id+'</div>'
+          
+        });
+          document.getElementById('test').innerHTML=html
+          console.log(html);
+          
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+    
+    
+</script>
+
+<script>
+$("#login").click(function () {
+    var user = $("#username").val();
+    var pass = $("#password").val();
+    console.log(user);
+    console.log(pass);
+    firebase.auth().signInWithEmailAndPassword(user, pass).catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.log(error.code + ':' + error.message);
+        //ons.notification.alert("Login failed!!!!! ");
+        alert("Login failed!!!!! ");    
+    });
+});
 </script>
 
 </html>

@@ -47,7 +47,7 @@
                 </ons-input>
             </p>
             <p>
-                <ons-button modifier="quiet" onclick="login()" id="fonts">
+                <ons-button modifier="quiet" class="login" onclick="login()" id="fonts">
                     เข้าสู่ระบบ
                 </ons-button>
             </p>
@@ -58,76 +58,74 @@
                 </ons-button>
             </p>
         </div>
-   
 
-    <div id="test"></div>
+
+        <div id="test"></div>
     </ons-page>
 
 </body>
-<!-- <script>
-    //function login
+
+
+<script>
     var login = function () {
         var username = document.getElementById('username').value;
         var password = document.getElementById('password').value;
 
-        if (username === '1111' && password === '1111') {
-            window.location.href = 'home.html';
-        } else if (username === '2222' && password === '1111') {
-            window.location.href = 'homeaddmin.html';
-        } else {
-            ons.notification.alert('Incorrect username or password.');
-        }
-    };
-
-    function addUsers() {
-        window.location.href = 'register.html';
-    }
-</script> -->
-
-<script>
-    axios.get('http://localhost:8080/user/loginapp')  
+        axios.get('http://localhost:8080/user/getuserall')  
       .then(function (response) {
         // handle success
         var html=''
         let data = response.data
+        // for (data = 0; data < a.length; ++data) {
+        //      console.log(data[data]);
+        // }
         data.forEach(element => {
-        
-            console.log(element.id);
-            console.log(element.password);
+            // console.log(element.id);
             console.log(element.username);
-             html +='<div>'+element.id+'</div>'
-          
+             console.log(element.password);
+           // alert(element.username);
+        if(element.username == username && element.password == password){
+            window.location.href = 'home.html';
+            close();
+        }
+        else if(username === '2222' && password === '1111'){
+            // ons.notification.alert('Incorrect username or password.');
+            
+            window.location.href = 'homeaddmin.html';
+             close();
+        }
         });
-          document.getElementById('test').innerHTML=html
-          console.log(html);
+         console.log(html);
+
+        // if (username === elment.username && password === element.password) {
+        //     window.location.href = 'home.html';
+        //     return false;
+        // // } else if (username === '2222' && password === '1111') {
+        // //     window.location.href = 'homeaddmin.html';
+        // } else {
+        //     ons.notification.alert('Incorrect username or password.');
+        //     // window.location.href = 'login.html';
+        // }
+            
+       
+        // html +='<div>'+element.id+'</div>'
+        // document.getElementById('test').innerHTML=html
+       
           
       })
       .catch(function (error) {
         // handle error
         console.log(error);
       })
-      .finally(function () {
-        // always executed
-      });
-    
+     
+    };
     
 </script>
 
 <script>
-$("#login").click(function () {
-    var user = $("#username").val();
-    var pass = $("#password").val();
-    console.log(user);
-    console.log(pass);
-    firebase.auth().signInWithEmailAndPassword(user, pass).catch(function (error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.log(error.code + ':' + error.message);
-        //ons.notification.alert("Login failed!!!!! ");
-        alert("Login failed!!!!! ");    
-    });
-});
+    function addUsers(){
+        window.location.href = 'register.html';
+    }
 </script>
 
 </html>

@@ -16,6 +16,7 @@
   <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">  
 
   <link rel="stylesheet" type="text/css" href="css/home.css">
+  
 
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
@@ -147,7 +148,8 @@
       <ons-list modifier="inset">
         <ons-list-item expandable>
           คู่มือการใช้งาน
-          <div class="expandable-content">....................</div>
+          <div class="expandable-content">ผู้ใช้ต้องทำการกรอกข้อมูลส่วนตัวและแก้ไขได้ คุณสามารถทำรายการจองเวลาเลือกการล้างที่คุณต้องการ
+          </div>
         </ons-list-item>
       </ons-list>
     </ons-page>
@@ -175,6 +177,47 @@
       </ons-list><br>
       <ons-list modifier="inset">
         <ons-list-header>11.00 - 12.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+      <ons-list modifier="inset">
+        <ons-list-header>13.00 - 15.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+    </ons-page>
+  </template>
+
+  <template id="booking.html">
+    <ons-page id="page1">
+      <section>
+        <p id="book">
+          เวลาจอง
+        </p>
+      </section>
+      <!-- <ons-list modifier="inset">
+        <ons-list-header>8.00 - 9.30</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set1" style="width: 50%; margin: 0 auto;">ไม่ว่าง</button>
+          <button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br> -->
+      <ons-list modifier="inset">
+        <ons-list-header>9.30 - 11.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" disabled id="set1" style="width: 100%; margin: 0 auto;">ไม่ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+      <ons-list modifier="inset">
+        <ons-list-header>11.00 - 12.00</ons-list-header>
+        <ons-list-item>
+          <button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>
+        </ons-list-item>
+      </ons-list><br>
+      <ons-list modifier="inset">
+        <ons-list-header>13.00 - 15.00</ons-list-header>
         <ons-list-item>
           <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
         </ons-list-item>
@@ -290,9 +333,111 @@
     </ons-page>
   </template>
 
+  <template id="detailState.html">
+      <ons-page id="page2">
+        <div class="background"></div>
+        <p>
+          <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
+            <ons-icon icon="md-chevron-left"></ons-icon>
+            กลับ
+          </ons-button>
+        </p>
+        <div class="namedata">รายละเอียดข้อมูล</div>
+        <div class="picuser">
+          <ons-list-item>
+            <div class="center">
+              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
+            </div>
+          </ons-list-item>
+        </div>
+
+        <ons-card>
+          <div class="title">ชื่อ :
+            <ons-input id="snap" placeholder="ส้มดี"></ons-input>
+          </div>
+          <div class="title">เบอร์โทรฯ :
+            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
+          </div>
+          <div class="title">ป้ายทะเบียน :
+            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
+          </div>
+          <div class="title">ประเภทรถ :
+            <ons-input id="snap" placeholder="เก๋ง"></ons-input>
+          </div>
+          <div class="title">สีรถ :
+            <ons-input id="snap" placeholder="แดง"></ons-input>
+          </div>
+        </ons-card>
+
+        <div class="namedata">เลือกประเภทการล้าง</div>
+
+        <ons-row style="margin-top: 15px;">
+          <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+            <label class="radio-button radio-button--material" style="margin-left: 30px;">
+              <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+             ล้างห้องเครื่อง
+            </label>
+          </ons-col>
+          <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+              <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+                <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                ล้างอัดฉีดช่วงล้าง
+              </label>
+            </ons-col>
+            <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+                <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                  <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+                  <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                  ล้างสีดูดฝุ่น
+                </label>
+              </ons-col>
+              <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+                  <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                    <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+                    <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                    ล้างยางมะตอย
+                  </label>
+                </ons-col>
+                <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+                    <label class="radio-button radio-button--material" style="margin-left: 30px;">
+                      <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
+                      <div class="radio-button__checkmark radio-button--material__checkmark"></div>
+                      ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)
+                    </label>
+                  </ons-col>
+
+                  <div class="warn">
+                      กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
+                  </div>
+
+            <!-- <ons-list-item tappable>
+                <label class="left">
+                  <ons-radio class="radio-fruit" input-id="radio-0" value="Apples"></ons-radio>
+                </label>
+                <label for="radio-0" class="center">Apples</label>
+              </ons-list-item> -->
+
+        </ons-row>
+
+        <div class="setbtn">
+          <ons-button onclick="insert()" id="btnsubmit">
+            ยืนยัน
+          </ons-button>
+        </div>
+      </ons-page>
+    </template>
+
 </body>
 
 <script>
+function insert() {
+        window.location.href = 'home.html';
+}
+
+
+
   window.fn = {};
 
   window.fn.toggleMenu = function () {
@@ -334,6 +479,21 @@
       document.querySelector('#myNavigator').pushPage('select_type.html');
       };
     }
+  });
+
+  document.addEventListener('init', function (event) {
+    var page = event.target;
+
+    if (page.id === 'page1') {
+      page.querySelector('#set2').onclick = function () {
+        document.querySelector('#myNavigator').pushPage('detailState.html');
+        // , { data: { title: 'Page 2' } });
+      };
+    } 
+    // else if (page.id === 'page2') {
+    //   page.querySelector('ons-toolbar .center')
+    //   // .innerHTML = page.data.title;
+    // }
   });
 </script>
 

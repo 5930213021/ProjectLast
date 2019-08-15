@@ -26,13 +26,10 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
         </script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
-
-    <script>
-    // Initialize Firebase
-    </script>
 </head>
 
 <body>
@@ -46,35 +43,112 @@
             </ons-button>
 
         </p>
-        <div class="regis">
-            <p>ลงทะเบียน</p>
-            <div class="inputregis">
-                <p>
-                    <ons-icon icon="md-account-circle"></ons-icon>
-                    <ons-input id="username" modifier="underbar" placeholder="ชื่อ" float>
-                </p>
-                <p>
-                    <ons-icon icon="md-lock-outline"></ons-icon>
-                    <ons-input id="password" modifier="underbar" type="password" placeholder="รหัสผ่าน" float>
-                </p>
-                <p>
-                    <ons-icon icon="md-lock"></ons-icon>
-                    <ons-input id="password" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
-                </p>
-            </div>
-            <div class="setbtn">
-                <!-- <ons-button onclick=" " id="btnancle">
+        <div class="info" id="info"></div>
+        <form method="post" id="myform">
+            <div class="regis">
+                <p>ลงทะเบียน</p>
+                <div class="inputregis">
+                    <p>
+                        <ons-icon icon="md-account-circle"></ons-icon>
+                        <ons-input id="username" modifier="underbar" placeholder="ชื่อ" float>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock-outline"></ons-icon>
+                        <ons-input id="passwordsub" modifier="underbar" type="text" placeholder="รหัสผ่าน" float>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock"></ons-icon>
+                        <ons-input id="password" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
+                    </p>
+                </div>
+                <div class="setbtn">
+                    <!-- <ons-button onclick=" " id="btnancle">
                     cancle
                 </ons-button> -->
-                <ons-button modifier="quiet" id="fonts" onclick="window.location.href='profile.html'">
-                    ยืนยัน
-                </ons-button>
+                    <ons-button modifier="quiet" id="fonts" onclick="insert()">
+                        ยืนยัน
+                    </ons-button>
+                </div>
             </div>
-        </div>
+        </form>
     </ons-page>
 </body>
+
+<!-- <script>
+    $(document).ready(function () {
+        $ajax({
+            url: "http://localhost:8080/user/getinsertlog",
+            type: "post",
+            data: $("#myform").serialize(),
+            sql:`insert into loginapp(Username,Password)value('${Username}','${Password}');`
+          
+       });
+    
+    });
+
+    $('#myform').click(function(){
+
+    })
+</script> -->
 <script>
 
+    function insert() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+
+        console.log("username: " + username, "password: " + password);
+        window.location.href = 'profile.html';
+
+        // window.axios = require('axios');
+    //     axios.post('http://localhost:8080/user/getuserall', {
+    //         Username: 'Toey',
+    //         Password: '1234'
+    //     })
+    //     let data = response.data
+    //         .then(function (response) {
+    //             console.log(response);
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+//     axios.post('http://localhost:8080/user/getinsertlog'+ Username + password, {
+//         Username: 'Toey',
+//         Password: '1234',
+//     completed: false
+//   })
+//   .then(function (response) {
+//    console.log(response);
+//   })
+//   .catch(function (error) {
+//     resultElement.innerHTML = generateErrorHTMLOutput(error);
+//   });
+  
+}
+
+    
+
 </script>
+<script>
+    // function inData(){
+    //     var username = document.getElementById("username").value;
+    //     var password = document.getElementById("password").value;
+
+
+    //     db.collection("person").add({
+    //             username: username,
+    //             password: password
+    //         })
+    //             .then(function (docRef) {
+    //                 // console.log("Document written with ID: ", docRef.id);
+    //                 // gohome();
+    //             })
+    //             .catch(function (error) {
+    //                 console.error("Error adding document: ", error);
+    //             });
+
+    // }
+</script>
+
+
 
 </html>

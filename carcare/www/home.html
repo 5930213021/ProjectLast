@@ -143,7 +143,7 @@
   </template>
 
 
-  <template id="home.html">
+  <!-- <template id="home.html">
     <ons-page><br>
       <ons-list modifier="inset">
         <ons-list-item expandable>
@@ -153,22 +153,49 @@
         </ons-list-item>
       </ons-list>
     </ons-page>
+  </template> -->
+
+  <template id="home.html">
+    <ons-page><br>
+      <ons-list modifier="inset">
+        <ons-list-item expandable>
+          คู่มือการใช้งาน
+          <div class="expandable-content">ผู้ใช้ต้องทำการกรอกข้อมูลส่วนตัวและแก้ไขได้ คุณสามารถทำรายการจองเวลาเลือกการล้างที่คุณต้องการ </div>
+        </ons-list-item>
+      </ons-list>
+
+      <div style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card">
+          <div class="list-item">
+            <div class="list-item__left">
+              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
+            </div>
+
+            <div class="list-item__center">
+              <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562 (11.00-12.00)</div>
+              <div class="list-item__subtitle">ล้างห้องเครื่อง</div>
+               
+            </div>
+          </div>
+        </div>
+      </div>
+    </ons-page>
   </template>
 
-  <template id="booking.html">
+  <!-- <template id="booking.html">
     <ons-page id="page1">
       <section>
         <p id="book">
           เวลาจอง
         </p>
       </section>
-      <!-- <ons-list modifier="inset">
+       <ons-list modifier="inset">
         <ons-list-header>8.00 - 9.30</ons-list-header>
         <ons-list-item>
           <button class="button--cta" id="set1" style="width: 50%; margin: 0 auto;">ไม่ว่าง</button>
           <button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;">ว่าง</button>
         </ons-list-item>
-      </ons-list><br> -->
+      </ons-list><br> 
       <ons-list modifier="inset">
         <ons-list-header>9.30 - 11.00</ons-list-header>
         <ons-list-item>
@@ -188,7 +215,7 @@
         </ons-list-item>
       </ons-list><br>
     </ons-page>
-  </template>
+  </template> -->
 
   <template id="booking.html">
     <ons-page id="page1">
@@ -205,19 +232,19 @@
         </ons-list-item>
       </ons-list><br> -->
       <ons-list modifier="inset">
-        <ons-list-header>9.30 - 11.00</ons-list-header>
+        <ons-list-header>7.30 - 8.00</ons-list-header>
         <ons-list-item>
           <button class="button--cta" disabled id="set1" style="width: 100%; margin: 0 auto;">ไม่ว่าง</button>
         </ons-list-item>
       </ons-list><br>
       <ons-list modifier="inset">
-        <ons-list-header>11.00 - 12.00</ons-list-header>
+        <ons-list-header>8.00 - 9.30</ons-list-header>
         <ons-list-item>
           <button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>
         </ons-list-item>
       </ons-list><br>
       <ons-list modifier="inset">
-        <ons-list-header>13.00 - 15.00</ons-list-header>
+        <ons-list-header>9.30 - 11.00</ons-list-header>
         <ons-list-item>
           <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
         </ons-list-item>
@@ -265,7 +292,7 @@
     </ons-page>
   </template>
 
-  <template id="select_type.html">
+  <!-- <template id="select_type.html">
     <ons-page>
         <div class="background"></div>
         <p>
@@ -331,7 +358,7 @@
           </ons-button>
         </div>
     </ons-page>
-  </template>
+  </template> -->
 
   <template id="detailState.html">
       <ons-page id="page2">
@@ -356,7 +383,7 @@
             <ons-input id="snap" placeholder="ส้มดี"></ons-input>
           </div>
           <div class="title">เบอร์โทรฯ :
-            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
+            <ons-input id="snap" type="number" placeholder="099-7654321"></ons-input>
           </div>
           <div class="title">ป้ายทะเบียน :
             <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
@@ -471,15 +498,15 @@ function insert() {
     }, 1500);
   }
 
-  document.addEventListener('init', function (event) {
-    var page = event.target;
+  // document.addEventListener('init', function (event) {
+  //   var page = event.target;
   
-    if (page.id === 'page1') {
-      page.querySelector('#btndatabooking').onclick = function () {
-      document.querySelector('#myNavigator').pushPage('select_type.html');
-      };
-    }
-  });
+  //   if (page.id === 'page1') {
+  //     page.querySelector('#btndatabooking').onclick = function () {
+  //     document.querySelector('#myNavigator').pushPage('select_type.html');
+  //     };
+  //   }
+  // });
 
   document.addEventListener('init', function (event) {
     var page = event.target;

@@ -16,7 +16,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
     <!-- <link href="https://fonts.googleapis.com/css?family=Athiti:300&display=swap" rel="stylesheet"> -->
-    <link href="https://fonts.googleapis.com/css?family=Athiti:300|Sarabun:200&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300|Sarabun:200&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" type="text/css" href="css/profile.css">
 
@@ -28,6 +28,8 @@
 
     <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
+    <!-- //axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
     // Initialize Firebase
@@ -44,64 +46,69 @@
                 Back
             </ons-button> -->
         </p>
-            <ons-row>
-                <ons-col>
-                    <ons-fab id="pic" position="top center">
-                            <!-- <input type="file" id="myFile"> -->
-                        <ons-icon icon="md-account-add" id="icons"></ons-icon>
-                    </ons-fab>
-                    <!-- <div class="namepic">รูปภาพ</div> -->
-                </ons-col>
-            </ons-row>
-
-            <div class="detail">
-                <ons-card>
-                    <div class="title">ชื่อ :
-                        <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-                    </div>
-                    <div class="title">เบอร์โทรฯ :
-                        <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
-                    </div>
-                    <div class="title">ป้ายทะเบียน :
-                        <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-                    </div>
-                    <div class="title">ประเภทรถ :
-                        <ons-select class="select" id="snap">
-                            <select class="select-input">
-                                <option> รถกระบะ</option>
-                                <option> รถเก๋ง</option>
-                                <option> รถSuv</option>
-                                <option> รถมอเตอร์ไซต์</option>
-                            </select>
-                        </ons-select>
-                    </div>
-                    <div class="title">สีรถ :
-                        <ons-select class="select" id="snap">
-                            <select class="select-input">
-                                <option> แดง</option>
-                                <option> ขาว</option>
-                                <option> บลอนเงิน</option>
-                                <option> บลอนทอง</option>S
-                                <option> เหลือง</option>
-                                <option> เขียว</option>
-                                <option> น้ำเงิน</option>
-                            </select>
-                        </ons-select>
-                    </div>
-                </ons-card>
-            </div>
-
-            <div class="setbtn">
-                <ons-button onclick="window.location.href='home.html'" id="btnsubmit">
-                    ยืนยัน
-                </ons-button>
-                <div class="warn">
-                    กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
+        <ons-row>
+            <ons-col>
+                <ons-fab id="pic" position="top center">
+                    <!-- <input type="file" id="myFile"> -->
+                    <ons-icon icon="md-account-add" id="icons"></ons-icon>
+                </ons-fab>
+                <!-- <div class="namepic">รูปภาพ</div> -->
+            </ons-col>
+        </ons-row>
+        <form method="POST" action="javascript:regis();" id="registration"></form>
+        <div class="detail">
+            <ons-card>
+                <div class="title">ชื่อ :
+                    <ons-input id="fname" placeholder="ส้มดี"></ons-input>
                 </div>
+                <div class="title">นามสกุล :
+                    <ons-input id="lname" placeholder="ส้มดี"></ons-input>
+                </div>
+                <div class="title">เบอร์โทรฯ :
+                    <ons-input id="phone" type="number" placeholder="xxx-xxxxxxx"></ons-input>
+                </div>
+                <div class="title">ป้ายทะเบียน :
+                    <ons-input id="carcode" placeholder="กข ภูเก็ต 2541"></ons-input>
+                </div>
+                <div class="title">ประเภทรถ :
+                    <ons-select class="select" id="typecar">
+                        <select class="select-input">
+                            <option> รถกระบะ</option>
+                            <option> รถเก๋ง</option>
+                            <option> รถSuv</option>
+                            <option> รถมอเตอร์ไซต์</option>
+                        </select>
+                    </ons-select>
+                </div>
+                <div class="title">สีรถ :
+                    <ons-select class="select" id="colorcar">
+                        <select class="select-input">
+                            <option> แดง</option>
+                            <option> ขาว</option>
+                            <option> บลอนเงิน</option>
+                            <option> บลอนทอง</option>S
+                            <option> เหลือง</option>
+                            <option> เขียว</option>
+                            <option> น้ำเงิน</option>
+                        </select>
+                    </ons-select>
+                </div>
+            </ons-card>
+        </div>
+        </form>
+
+        <div class="setbtn">
+            <ons-button type="submit" id="btnsubmit" onclick="getData()">
+                ยืนยัน
+            </ons-button>
+
+            <div class="warn">
+                กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
             </div>
+        </div>
 
 
-           
+
     </ons-page>
 </body>
 <script>
@@ -119,6 +126,40 @@
         text = '';
         document.getElementById('dynamic-sel').appendChild(option);
     }
+
+
+    async function getData() {
+        let fname = document.getElementById('fname').value;
+        let lname = document.getElementById('lname').value;
+        let phone = document.getElementById('phone').value;
+        let car_num = document.getElementById('carcode').value;
+        let type = document.getElementById('typecar').value;
+        let colorcar = document.getElementById('colorcar').value;
+        console.log(fname,lname,phone)
+        postAPI(fname,lname,phone)
+        // let validate = await checkValidateUser(usern,email);
+    }
+    var data = [];
+    async function postAPI(fname, lname, phone) {
+        // var objectMoon = {}
+        let html = '';
+        await axios.post('http://localhost:8080/user/gettesting/' + 'fname' + '/' + 'lname' + '/' + 'phone')
+            .then(function (response) {
+               // let data = response.data
+                console.log(response);
+
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+
+        // return objectMoon
+
+    }
+
+
+    
+           
 
 
 </script>

@@ -121,6 +121,25 @@ p{
     border-radius: 0px;
     font-family: 'Athiti', sans-serif;
 }
+#btndatabooking2{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
+#btndatabooking3{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    background: #40b40bee;
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
 #btndatablank{
     width: 100%; 
     height: 75%;
@@ -192,7 +211,7 @@ p{
     text-transform: uppercase;
     display: inline-block;
     width: auto;
-    float: right;
+    /* float: right; */
     background: 0 0;
     border: none;
     border-radius: 2px;

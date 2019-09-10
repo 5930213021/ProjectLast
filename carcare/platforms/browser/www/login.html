@@ -83,6 +83,11 @@
             // console.log(element.id);
             console.log(element.username);
              console.log(element.password);
+
+            
+        html +='<div>'+element.fname+'</div>'
+        document.getElementById('test').innerHTML=html
+
            // alert(element.username);
         if(element.username == username && element.password == password){
             window.location.href = 'home.html';

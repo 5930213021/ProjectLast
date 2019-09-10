@@ -2,6 +2,11 @@
     margin: 20px 0px;
 } */
 
+ons-input .text-input, ons-search-input .search-input {
+    /* width: 100%; */
+    display: inline-block;
+}
+
 .background{
     /* background-color: rgb(224, 52, 0); */
     background:url(../img/blueblur.jpg);
@@ -100,5 +105,4 @@
     font-weight:bold;
     margin-top: 10px;
     padding: 12px;
-
 }

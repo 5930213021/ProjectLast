@@ -28,6 +28,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        window.location.href = 'login.html';
     },
 
     // Update DOM on a Received Event
@@ -40,7 +41,8 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    }
+    },
+
 };
 
 app.initialize();

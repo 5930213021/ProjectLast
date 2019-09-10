@@ -85,9 +85,8 @@
               </ons-col>
 
               <ons-col width="50%">
-                <button class="button--cta" id="btndatabooking">
-                  <p>กข 1777 ภูเก็ต</p>
-                  <p>(ลูกค้าจอง)</p>
+                <button class="button--cta" id="btndatabooking3">
+                  <p>ว่าง</p>
                 </button>
                 <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
@@ -142,7 +141,7 @@
             <ons-input id="snap" placeholder="ส้มดี"></ons-input>
           </div>
           <div class="title">เบอร์โทรฯ :
-            <ons-input id="snap" type="number" placeholder="099-7654321"></ons-input>
+            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
           </div>
           <div class="title">ป้ายทะเบียน :
             <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
@@ -226,9 +225,8 @@
             ต้องการยกเลิกการจองลูกค้า?
           </div>
           <div class="alert-dialog-footer">
-            <ons-alert-dialog-button onclick="window.location.href='addmincancle.html'">ตกลง</ons-alert-dialog-button>
-            <ons-alert-dialog-button onclick="window.location.href='homeaddmin.html'">ยกเลิก</ons-alert-dialog-button>
-            <!-- <ons-alert-dialog-button onclick="hideAlertDialog3()">ยกเลิก</ons-alert-dialog-button> -->
+            <ons-alert-dialog-button onclick="window.location.href='addmincancle.html'">มาก</ons-alert-dialog-button>
+            <ons-alert-dialog-button onclick="hideAlertDialog3()">น้อย</ons-alert-dialog-button>
           </div>
         </ons-alert-dialog>
       </template>
@@ -316,11 +314,9 @@
 
   var hideAlertDialog3 = function () {
     document
-      .getElementById('my-alert-messenge')
+      .getElementById('my-alert-cancle')
       .hide();
-
   };
-  
 
 </script>
 

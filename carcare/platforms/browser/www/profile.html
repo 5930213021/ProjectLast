@@ -136,17 +136,15 @@
         let type = document.getElementById('typecar').value;
         let colorcar = document.getElementById('colorcar').value;
         console.log(fname,lname,phone)
-        postAPI(fname, lname, phone)
+        postAPI(fname,lname,phone)
         // let validate = await checkValidateUser(usern,email);
     }
     var data = [];
     async function postAPI(fname, lname, phone) {
         // var objectMoon = {}
         let html = '';
-        await axios.post('http://localhost:8080/user/gettesting/' + '0993166314' + '/' + 'tree' + '/' + 'leave')
+        await axios.post('http://localhost:8080/user/gettesting/' + 'fname' + '/' + 'lname' + '/' + 'phone')
             .then(function (response) {
-                // objectMoon = response.data.data
-                // exercisesArr = response.data;n
                // let data = response.data
                 console.log(response);
 

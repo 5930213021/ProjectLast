@@ -140,14 +140,13 @@
         // let validate = await checkValidateUser(usern,email);
     }
     var data = [];
-    async function postAPI(fname, lname, phone) {
+    async function postAPI(phone, fname, lname) {
         // var objectMoon = {}
         let html = '';
-        await axios.post('http://localhost:8080/user/gettesting/' + 'fname' + '/' + 'lname' + '/' + 'phone')
+        await axios.post('http://localhost:8080/user/gettesting/' + phone + '/' + fname + '/' + lname)
             .then(function (response) {
                // let data = response.data
                 console.log(response);
-
             })
             .catch(function (error) {
                 console.log(error)

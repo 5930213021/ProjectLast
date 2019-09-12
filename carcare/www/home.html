@@ -35,9 +35,9 @@
 </head>
 
 <body>
-  <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-splitter id="appSplitter" page="booking.html">
+      <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
         </ons-splitter-side>
         <ons-splitter-content page="tabbar.html"></ons-splitter-content>
@@ -61,8 +61,6 @@
         <div class="right">
           <ons-toolbar-button onclick="fn.toggleMenu()">
             <ons-icon icon="ion-navicon, material:md-menu" style="color: rgb(1, 100, 117);"></ons-icon>
-            <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
-                </ons-icon> -->
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
@@ -74,13 +72,13 @@
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
       </ons-tabbar>
 
-      <!-- <script>
+      <script>
         ons.getScriptPage().addEventListener('prechange', function (event) {
             if (event.target.matches('#appTabbar')) {
                 event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
             }
         });
-    </script> -->
+    </script>
     </ons-page>
   </template>
 
@@ -94,6 +92,7 @@
       <!-- เมนู -->
       <ons-list>
         <ons-list-item onclick="window.location.href='profile2.html'">
+          
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
           </div>
@@ -143,19 +142,6 @@
     </ons-page>
   </template>
 
-
-  <!-- <template id="home.html">
-    <ons-page><br>
-      <ons-list modifier="inset">
-        <ons-list-item expandable>
-          คู่มือการใช้งาน
-          <div class="expandable-content">ผู้ใช้ต้องทำการกรอกข้อมูลส่วนตัวและแก้ไขได้ คุณสามารถทำรายการจองเวลาเลือกการล้างที่คุณต้องการ
-          </div>
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
-  </template> -->
-
   <template id="home.html">
     <ons-page><br>
       <ons-list modifier="inset">
@@ -185,7 +171,7 @@
   </template>
 
   <template id="booking.html">
-    <ons-page id="page1">
+    <ons-page>
       <section>
         <p id="book">
           เวลาจอง
@@ -200,7 +186,6 @@
       </ons-list><br> -->
       <div class="row" id="data2">
         default
-
       </div>
 
 
@@ -337,7 +322,7 @@
   </template> -->
 
   <template id="detailState.html">
-    <ons-page id="page2">
+    <ons-page>
       <div class="background"></div>
       <p>
         <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
@@ -439,8 +424,6 @@
     window.location.href = 'home.html';
   }
 
-
-
   window.fn = {};
 
   window.fn.toggleMenu = function () {
@@ -452,17 +435,17 @@
     document.getElementById('sidemenu').close();
   };
 
-  // window.fn.loadLink = function (url) {
-  //   window.open(url, '_blank');
-  // };
+  window.fn.loadLink = function (url) {
+    window.open(url, '_blank');
+  };
 
-  // window.fn.pushPage = function (page, anim) {
-  //   if (anim) {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
-  //   } else {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
-  //   }
-  // };
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
+  };
 
   //Showreload
   function showModal() {
@@ -474,31 +457,8 @@
     }, 1500);
   }
 
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
 
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#btndatabooking').onclick = function () {
-  //     document.querySelector('#myNavigator').pushPage('select_type.html');
-  //     };
-  //   }
-  // });
-
-
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
-
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#set2').onclick = function (event) {
-  //       document.querySelector('#myNavigator').pushPage('detailState.html');
-  //       // , { data: { title: 'Page 2' } });
-  //     };
-  //   }
-  //   // else if (page.id === 'page2') {
-  //   //   page.querySelector('ons-toolbar .center')
-  //   //   // .innerHTML = page.data.title;
-  //   // }
-  // });
+ 
 
   function book() {
     axios.get('http://localhost:8080/user/showtimes')
@@ -509,7 +469,7 @@
           dc += '<ons-list modifier="inset">' +
             '<ons-list-header>' + element.times + '</ons-list-header>' +
             '<ons-list-item>' +
-            '<button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>' +
+            '<button class="button--cta" style="width: 100%; margin: 0 auto;" id="set2" '+'onclick="fn.pushPage({'+'id'+':'+'detailState.html','title'+':'+'book'+'})">ว่าง</button>' +
             '</ons-list-item>' +
             '</ons-list><br>'
 

@@ -135,30 +135,36 @@
         let car_num = document.getElementById('carcode').value;
         let type = document.getElementById('typecar').value;
         let colorcar = document.getElementById('colorcar').value;
-        console.log(fname,lname,phone)
-        postAPI(fname,lname,phone)
+        console.log(fname, lname, phone)
+        postAPI(phone, fname, lname)
         // let validate = await checkValidateUser(usern,email);
     }
     var data = [];
     async function postAPI(phone, fname, lname) {
         // var objectMoon = {}
         let html = '';
-        await axios.post('http://localhost:8080/user/gettesting/' + phone + '/' + fname + '/' + lname)
-            .then(function (response) {
-               // let data = response.data
-                console.log(response);
-            })
-            .catch(function (error) {
-                console.log(error)
-            });
+        var bodyFormData = new FormData();
+        bodyFormData.set('phone', phone); // param1 :ชื่อตัวแปร , param2 : ค่าของมัน
+        bodyFormData.set('fname', fname);
+        bodyFormData.set('lname', lname);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8080/user/gettesting',
+            data: bodyFormData, // เอามาใส่ตรงนี้ 
+            config: { headers: { 'Content-Type': 'multipart/form-data' } } //ประการ header เป็น form-data
+                .then(function (response) {
+                    //handle success
+                    console.log(response);
+                })
+                .catch(function (response) {
+                    //handle error
+                    console.log(response);
+                })
 
-        // return objectMoon
+            // return objectMoon
 
+        })
     }
-
-
-    
-           
 
 
 </script>

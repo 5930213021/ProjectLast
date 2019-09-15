@@ -35,9 +35,9 @@
 </head>
 
 <body>
-  <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-splitter id="appSplitter" page="booking.html">
+      <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
         </ons-splitter-side>
         <ons-splitter-content page="tabbar.html"></ons-splitter-content>
@@ -61,26 +61,25 @@
         <div class="right">
           <ons-toolbar-button onclick="fn.toggleMenu()">
             <ons-icon icon="ion-navicon, material:md-menu" style="color: rgb(1, 100, 117);"></ons-icon>
-            <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
-                </ons-icon> -->
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
 
       <ons-tabbar swipeable position="auto" id="appTabbar">
-        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
-        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" onclick="book()"></ons-tab>
+        <ons-tab page="home2.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
+        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books" onclick="book()">
+        </ons-tab>
         <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="1"></ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
       </ons-tabbar>
 
-      <!-- <script>
+      <script>
         ons.getScriptPage().addEventListener('prechange', function (event) {
-            if (event.target.matches('#appTabbar')) {
-                event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
-            }
+          if (event.target.matches('#appTabbar')) {
+            event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+          }
         });
-    </script> -->
+      </script>
     </ons-page>
   </template>
 
@@ -94,6 +93,7 @@
       <!-- เมนู -->
       <ons-list>
         <ons-list-item onclick="window.location.href='profile2.html'">
+
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
           </div>
@@ -143,20 +143,7 @@
     </ons-page>
   </template>
 
-
-  <!-- <template id="home.html">
-    <ons-page><br>
-      <ons-list modifier="inset">
-        <ons-list-item expandable>
-          คู่มือการใช้งาน
-          <div class="expandable-content">ผู้ใช้ต้องทำการกรอกข้อมูลส่วนตัวและแก้ไขได้ คุณสามารถทำรายการจองเวลาเลือกการล้างที่คุณต้องการ
-          </div>
-        </ons-list-item>
-      </ons-list>
-    </ons-page>
-  </template> -->
-
-  <template id="home.html">
+  <template id="home2.html" var="MyNav">
     <ons-page><br>
       <ons-list modifier="inset">
         <ons-list-item expandable>
@@ -185,7 +172,7 @@
   </template>
 
   <template id="booking.html">
-    <ons-page id="page1">
+    <ons-page>
       <section>
         <p id="book">
           เวลาจอง
@@ -200,7 +187,6 @@
       </ons-list><br> -->
       <div class="row" id="data2">
         default
-
       </div>
 
 
@@ -268,82 +254,35 @@
     </ons-page>
   </template>
 
-  <!-- <template id="select_type.html">
+  <template id="select_car.html">
     <ons-page>
-        <div class="background"></div>
-        <p>
-          <ons-button onclick="window.location.href='homeaddmin.html'" modifier="quiet" id="btnback">
-            <ons-icon icon="md-chevron-left"></ons-icon>
-            กลับ
-          </ons-button>
-        </p>
-        <div class="namedata">รายละเอียดข้อมูล</div>
-        <div class="picuser">
-          <ons-list-item>
-            <div class="center">
-              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
-            </div>
-          </ons-list-item>
-        </div>
-
-        <ons-card>
-          <div class="title">ชื่อ :
-            <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-          </div>
-          <div class="title">เบอร์โทรฯ :
-            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
-          </div>
-          <div class="title">ป้ายทะเบียน :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">ประเภทรถ :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">สีรถ :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">รายการลูกค้า :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-        </ons-card>
-
-        <ons-row style="margin-top: 15px;">
-          <ons-col style="flex: 0 0 70%;margin: auto;max-width: 70%;">
-            <label class="radio-button radio-button--material" style="margin-left: 30px;">
-              <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-              ขนาดเล็ก
-            </label>
-            <label class="radio-button radio-button--material" style="margin-left: 30px;">
-              <input type="radio" class="radio-button__input radio-button--material__input" name="r">
-              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-              ขนาดใหญ่
-            </label>
-          </ons-col>
-        </ons-row>
-
-        <div class="setbtn">
-          <ons-button onclick="" id="btnpass">
-            เลื่อนเวลา
-          </ons-button>
-          <ons-button onclick="alertsubmit()" id="btnsubmit">
-            ยืนยัน
-          </ons-button>
-          <ons-button onclick="window.location.href='....'" id="btncancle">
-            ยกเลิก
-          </ons-button>
-        </div>
-    </ons-page>
-  </template> -->
-
-  <template id="detailState.html">
-    <ons-page id="page2">
       <div class="background"></div>
       <p>
-        <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
+        <!-- modifier="quiet" id="btnback" -->
+        <ons-back-button>
           <ons-icon icon="md-chevron-left"></ons-icon>
           กลับ
-        </ons-button>
+        </ons-back-button>
+      </p>
+      <div class="namedata">รถของท่าน</div>
+
+      <div class="row" id="showcar">
+        default
+      </div>
+
+    </ons-page>
+  </template>
+
+
+  <template id="detailbook.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <!-- <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
+          <ons-icon icon="md-chevron-left"></ons-icon>
+          กลับ
+        </ons-button> -->
+        <ons-back-button>Back</ons-back-button>
       </p>
       <div class="namedata">รายละเอียดข้อมูล</div>
       <div class="picuser">
@@ -354,80 +293,71 @@
         </ons-list-item>
       </div>
 
-      <ons-card>
-        <div class="title">ชื่อ :
-          <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-        </div>
-        <div class="title">เบอร์โทรฯ :
-          <ons-input id="snap" type="number" placeholder="099-7654321"></ons-input>
-        </div>
-        <div class="title">ป้ายทะเบียน :
-          <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-        </div>
-        <div class="title">ประเภทรถ :
-          <ons-input id="snap" placeholder="เก๋ง"></ons-input>
-        </div>
-        <div class="title">สีรถ :
-          <ons-input id="snap" placeholder="แดง"></ons-input>
-        </div>
-      </ons-card>
+      <div class="row" id="data3">
+        default
+      </div>
 
       <div class="namedata">เลือกประเภทการล้าง</div>
-
+      <form method="POST">
       <ons-row style="margin-top: 15px;">
         <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างห้องเครื่อง
-          </label>
+            <ons-list>
+                <ons-list-item >
+                  <label class="left">
+                    <ons-checkbox input-id="wash" value="ล้างห้องเครื่อง"></ons-checkbox>
+                  </label>
+                  <label for="wash" class="center">
+                      ล้างห้องเครื่อง
+                  </label>
+                </ons-list-item>
+                <ons-list-item >
+                    <label class="left">
+                      <ons-checkbox input-id="spary" value="ล้างอัดฉีดช่วงล้าง"></ons-checkbox>
+                    </label>
+                    <label for="spary" class="center">
+                        ล้างอัดฉีดช่วงล้าง
+                    </label>
+                  </ons-list-item>
+                  <ons-list-item >
+                      <label class="left">
+                        <ons-checkbox input-id="color" value="ล้างสีดูดฝุ่น"></ons-checkbox>
+                      </label>
+                      <label for="color" class="center">
+                          ล้างสีดูดฝุ่น
+                      </label>
+                    </ons-list-item>
+                    <ons-list-item >
+                        <label class="left">
+                          <ons-checkbox input-id="fuel" value="ล้างยางมะตอย"></ons-checkbox>
+                        </label>
+                        <label for="fuel" class="center">
+                            ล้างยางมะตอย
+                        </label>
+                      </ons-list-item>
+                      <ons-list-item >
+                          <label class="left">
+                            <ons-checkbox input-id="dust" value="ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)"></ons-checkbox>
+                          </label>
+                          <label for="dust" class="center">
+                              ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)
+                          </label>
+                        </ons-list-item>
+            </ons-list>          
         </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างอัดฉีดช่วงล้าง
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างสีดูดฝุ่น
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างยางมะตอย
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)
-          </label>
-        </ons-col>
+  
 
         <div class="warn">
           กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
         </div>
-
-        <!-- <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="radio-fruit" input-id="radio-0" value="Apples"></ons-radio>
-                </label>
-                <label for="radio-0" class="center">Apples</label>
-              </ons-list-item> -->
-
       </ons-row>
-
+  </form>
       <div class="setbtn">
         <ons-button onclick="insert()" id="btnsubmit">
           ยืนยัน
         </ons-button>
+        <!-- <ons-button id="btnsubmit">
+          ยืนยัน
+        </ons-button> -->
       </div>
     </ons-page>
   </template>
@@ -435,10 +365,15 @@
 </body>
 
 <script>
-  function insert() {
-    window.location.href = 'home.html';
-  }
 
+
+  window.onload = async function () {
+    console.log("phone" + localStorage.getItem("phone"));
+    let book = await localStorage.getItem("green");
+    console.log("statusbook:" + book);
+    alert(localStorage.getItem('save'));
+
+  };
 
 
   window.fn = {};
@@ -452,17 +387,25 @@
     document.getElementById('sidemenu').close();
   };
 
-  // window.fn.loadLink = function (url) {
-  //   window.open(url, '_blank');
-  // };
+  window.fn.loadLink = function (url) {
+    window.open(url, '_blank');
+  };
 
-  // window.fn.pushPage = function (page, anim) {
-  //   if (anim) {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
-  //   } else {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
-  //   }
-  // };
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
+  };
+
+  window.fn.load = function (page) {
+    var myNavigator = document.getElementById('appNavigator');
+
+    menu.close();
+    myNavigator.resetToPage(page, { animation: 'fade' });
+  };
+
 
   //Showreload
   function showModal() {
@@ -474,32 +417,6 @@
     }, 1500);
   }
 
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
-
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#btndatabooking').onclick = function () {
-  //     document.querySelector('#myNavigator').pushPage('select_type.html');
-  //     };
-  //   }
-  // });
-
-
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
-
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#set2').onclick = function (event) {
-  //       document.querySelector('#myNavigator').pushPage('detailState.html');
-  //       // , { data: { title: 'Page 2' } });
-  //     };
-  //   }
-  //   // else if (page.id === 'page2') {
-  //   //   page.querySelector('ons-toolbar .center')
-  //   //   // .innerHTML = page.data.title;
-  //   // }
-  // });
-
   function book() {
     axios.get('http://localhost:8080/user/showtimes')
       .then(function (response) {
@@ -509,17 +426,22 @@
           dc += '<ons-list modifier="inset">' +
             '<ons-list-header>' + element.times + '</ons-list-header>' +
             '<ons-list-item>' +
-            '<button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>' +
+            '<button class="button--cta" style="width: 100%; margin: 0 auto;" id="set2" onclick="check()">ว่าง</button>' +
             '</ons-list-item>' +
             '</ons-list><br>'
 
+          // dc +=
+          //   '<ons-list modifier="inset">' +
+          //   '<ons-list-header>' + element.times + '</ons-list-header>' +
+          //   '<ons-list-item>' +
+          //   '<button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;" onclick="check()">ว่าง</button>' +
+          //   '<button class="button--cta" id="set4" style="width: 50%; margin: 0 auto;" onclick="check()">ว่าง</button>' +
+          //   '</ons-list-item>' +
+          //   '</ons-list><br>'
         })
         myobj = document.getElementById("data2");
         myobj.innerHTML = dc;
-        
-
         console.log(myobj);
-
       })
       .catch(function (error) {
         // handle error
@@ -528,6 +450,142 @@
   }
 
 
+  // var count = 1;
+  // localStorage.setItem("count", count);
+
+  // var check = function () {
+  //   var count = localStorage.getItem("save");
+
+  //   if (count == 2) {
+  //     alert("แล้วววว");
+  //     console.log(count);
+  //     appNavigator.pushPage('detailbook.html')
+  //     localStorage.clear();
+  //   } else {
+  //     alert("จอง");
+  //     console.log(count);
+  //     // count += 1;
+  //     appNavigator.pushPage('detailbook.html')
+  //     // document.getElementById('set2').id = 'set1';
+
+  //   }
+  // };
+
+  var check = function () {
+    if ('#set2') {
+      appNavigator.pushPage('select_car.html')
+      let phone = localStorage.getItem("phone");
+      axios.get('http://localhost:8080/user/getshowcar/' + phone)
+        .then(function (response) {
+          var dc = [];
+          let data = response.data
+          console.log(data);
+          data.forEach(element => {
+           
+            dc +=
+              '<ons-card onclick=selectwork("'+element.car_num+'")>' +
+              '<div class="carnum">' + element.car_num + '</div>' +
+              '<div class="datailcar">' + element.type + element.color + '</div>' +
+              '</ons-card>'
+          })
+          myobj = document.getElementById("showcar");
+          myobj.innerHTML = dc;
+          // localStorage.setItem("car_num" , car_num);
+          console.log(myobj);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+    }
+  }
+
+
+  var selectwork = function (car_num) {
+   
+      appNavigator.pushPage('detailbook.html')
+      console.log("car_num"+car_num)
+      axios.get('http://localhost:8080/user/showdetailuser/' + encodeURIComponent(car_num))
+        .then(function (response) {
+          var dc = [];
+          let data = response.data
+          console.log("response:"+data);
+          data.forEach(element => {
+            dc +=
+              '<ons-card><div class="title">ชื่อ :' + element.fname +
+              '</div>' +
+              '<div class="title">เบอร์โทรฯ :' + element.phone +
+              '</div>' +
+              '<div class="title">ป้ายทะเบียน :' + element.car_num +
+              '</div>' +
+              '<div class="title">ประเภทรถ :' + element.type +
+              '</div>' +
+              '<div class="title">สีรถ :' + element.color +
+              '</div>' +
+              '</ons-card>'
+          })
+          let myobj = document.getElementById("data3");
+          myobj.innerHTML = dc;
+          console.log(myobj);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+  
+  }
+
+  // $("#btnsubmit").click(function () {
+  //   console.log("test");
+  //   // set storage
+  //   localStorage.setItem("green", $("#set2").val());
+  //   window.location = "home.html";
+  // });
+
+  // $(document).ready(function () {
+  //   // get value from storage
+  //   // button click
+  //   $("#books").click(function () {
+  //     $("#set1").html(localStorage.getItem("green"));
+
+  //   });
+  // });
+
+
+  async function insert() {
+   
+        let wash = 0
+        let spary = 0
+        let color = 0
+        let fuel = 0
+        let dust = 0
+    
+        console.log(wash,spary,color,fuel,dust)
+        if(document.getElementById('wash').checked == true){
+          wash = 1
+        }
+        if(document.getElementById('spary').checked == true){
+          spary = 1
+        }
+        if(document.getElementById('color').checked == true){
+          color = 1
+        }
+        if(document.getElementById('fuel').checked == true){
+          fuel = 1
+        }
+        if(document.getElementById('dust').checked == true){
+          dust = 1
+        }
+        // postAPI(phone,fname,lname)
+       
+    
+
+
+    // console.log("comein Insert")
+    // await localStorage.setItem("green", "#set2");
+    // console.log("testbook:" + localStorage.getItem("save"))
+    // window.location.href = 'home.html';
+  }
 </script>
 
 </html>

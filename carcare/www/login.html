@@ -40,7 +40,7 @@
         <div class="logo">
             <p>MCARCARE</p>
             <p>
-                <ons-input id="username" modifier="material underbar" placeholder="ชื่อผู้เข้าใข้งาน" float></ons-input>
+                <ons-input id="phone" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน" float></ons-input>
             </p>
             <p>
                 <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float>
@@ -68,7 +68,7 @@
 
 <script>
     var login = function () {
-        var username = document.getElementById('username').value;
+        var phone = document.getElementById('phone').value;
         var password = document.getElementById('password').value;
 
         axios.get('http://localhost:8080/user/getuserall')  
@@ -81,24 +81,25 @@
         // }
         data.forEach(element => {
             // console.log(element.id);
-            console.log(element.username);
+            console.log(element.phone);
              console.log(element.password);
 
             
-        html +='<div>'+element.fname+'</div>'
-        document.getElementById('test').innerHTML=html
+        // html +='<div>'+element.phone+'</div>'
+        // document.getElementById('test').innerHTML=html
 
            // alert(element.username);
-        if(element.username == username && element.password == password){
+        if(element.phone == phone && element.password == password){
+            localStorage.setItem("phone" , phone);
             window.location.href = 'home.html';
-            close();
+            // close();
         }
-        else if(username === '2222' && password === '1111'){
-            // ons.notification.alert('Incorrect username or password.');
+        // else if(username === '2222' && password === '1111'){
+        //     // ons.notification.alert('Incorrect username or password.');
             
-            window.location.href = 'homeaddmin.html';
-             close();
-        }
+        //     window.location.href = 'homeaddmin.html';
+        //      close();
+        // }
         });
          console.log(html);
 

@@ -297,7 +297,7 @@
         default
       </div>
 
-      <div class="namedata">เลือกประเภทการล้าง</div>
+      <!-- <div class="namedata">เลือกประเภทการล้าง</div>
       <form method="POST">
       <ons-row style="margin-top: 15px;">
         <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
@@ -354,8 +354,9 @@
       <div class="setbtn">
         <ons-button onclick="insert()" id="btnsubmit">
           ยืนยัน
-        </ons-button>
-        <!-- <ons-button id="btnsubmit">
+        </ons-button> -->
+
+      <!-- <ons-button id="btnsubmit">
           ยืนยัน
         </ons-button> -->
       </div>
@@ -481,9 +482,9 @@
           let data = response.data
           console.log(data);
           data.forEach(element => {
-           
+
             dc +=
-              '<ons-card onclick=selectwork("'+element.car_num+'")>' +
+              '<ons-card onclick=selectwork("' + element.car_num + '")>' +
               '<div class="carnum">' + element.car_num + '</div>' +
               '<div class="datailcar">' + element.type + element.color + '</div>' +
               '</ons-card>'
@@ -502,37 +503,98 @@
 
 
   var selectwork = function (car_num) {
-   
-      appNavigator.pushPage('detailbook.html')
-      console.log("car_num"+car_num)
-      axios.get('http://localhost:8080/user/showdetailuser?car_num=' + car_num)
-        .then(function (response) {
-          var dc = [];
-          let data = response.data
-          console.log("response:"+data);
-          data.forEach(element => {
-            dc +=
-              '<ons-card><div class="title">ชื่อ :' + element.fname +
-              '</div>' +
-              '<div class="title">เบอร์โทรฯ :' + element.phone +
-              '</div>' +
-              '<div class="title">ป้ายทะเบียน :' + element.car_num +
-              '</div>' +
-              '<div class="title">ประเภทรถ :' + element.type +
-              '</div>' +
-              '<div class="title">สีรถ :' + element.color +
-              '</div>' +
-              '</ons-card>'
-          })
-          let myobj = document.getElementById("data3");
-          myobj.innerHTML = dc;
-          console.log(myobj);
+
+    appNavigator.pushPage('detailbook.html')
+    console.log("car_num" + car_num)
+    axios.get('http://localhost:8080/user/showdetailuser?car_num=' + car_num)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log("response:" + data);
+        data.forEach(element => {
+          dc +=
+            '<ons-card><div class="title">ชื่อ :' + element.fname +
+            '</div>' +
+            '<div class="title">เบอร์โทรฯ :' + element.phone +
+            '</div>' +
+            '<div class="title">ป้ายทะเบียน :' + element.car_num +
+            '</div>' +
+            '<div class="title">ประเภทรถ :' + element.type +
+            '</div>' +
+            '<div class="title">สีรถ :' + element.color +
+            '</div>' +
+            '</ons-card>' +
+
+
+            '<div class="namedata">เลือกประเภทการล้าง</div>' +
+            '<form method="POST">' +
+            '<ons-row style="margin-top: 15px;">' +
+            '<ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">' +
+            '<ons-list>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="wash" value="ล้างห้องเครื่อง"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="wash">' +
+            'ล้างห้องเครื่อง' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="spary" value="ล้างอัดฉีดช่วงล้าง"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="spary">' +
+            'ล้างอัดฉีดช่วงล้าง' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="color" value="ล้างสีดูดฝุ่น"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="color">' +
+            'ล้างสีดูดฝุ่น' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="fuel" value="ล้างยางมะตอย"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="fuel" >' +
+            'ล้างยางมะตอย' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="dust" value="ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="dust" >' +
+            'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)' +
+            '</label>' +
+            '</ons-list-item>' +
+            '</ons-list>' +
+            '</ons-col>' +
+            '<div class="warn">' +
+            ' กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง' +
+            '</div></ons-row></form>' +
+            ' <div class="setbtn">' +
+            '<ons-button onclick="insert()" id="btnsubmit">' +
+            ' ยืนยัน' +
+            ' </ons-button>' +
+            '</div>'
+
+
+
+
         })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-  
+        let myobj = document.getElementById("data3");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
   }
 
   // $("#btnsubmit").click(function () {
@@ -553,32 +615,46 @@
 
 
   async function insert() {
-   
-        let wash = 0
-        let spary = 0
-        let color = 0
-        let fuel = 0
-        let dust = 0
-    
-        console.log(wash,spary,color,fuel,dust)
-        if(document.getElementById('wash').checked == true){
-          wash = 1
-        }
-        if(document.getElementById('spary').checked == true){
-          spary = 1
-        }
-        if(document.getElementById('color').checked == true){
-          color = 1
-        }
-        if(document.getElementById('fuel').checked == true){
-          fuel = 1
-        }
-        if(document.getElementById('dust').checked == true){
-          dust = 1
-        }
- 
-    
 
+    let wash = document.getElementById('spary').checked
+    let spary = document.getElementById('spary').checked
+    let color = document.getElementById('spary').checked
+    let fuel = document.getElementById('spary').checked
+    let dust = document.getElementById('spary').checked
+
+    console.log(wash, spary, color, fuel, dust)
+    // postAPI(wash)
+    if (wash == true) {
+      wash = 1 
+    }
+    if (spary == true) {
+      spary = 1
+    }
+    if (color == true) {
+      color = 1
+    }
+    if (fuel == true) {
+      fuel = 1
+    }
+    if (dust == true) {
+      dust = 1
+    }
+
+    // if (document.getElementById('wash').checked == true) {
+    //   wash = 1
+    // }
+    // if (document.getElementById('spary').checked == true) {
+    //   spary = 1
+    // }
+    // if (document.getElementById('color').checked == true) {
+    //   color = 1
+    // }
+    // if (document.getElementById('fuel').checked == true) {
+    //   fuel = 1
+    // }
+    // if (document.getElementById('dust').checked == true) {
+    //   dust = 1
+    // }
 
     // console.log("comein Insert")
     // await localStorage.setItem("green", "#set2");

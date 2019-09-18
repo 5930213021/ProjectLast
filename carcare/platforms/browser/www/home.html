@@ -28,10 +28,6 @@
   <script src="cordova.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-  <script>
-        // Initialize Firebase
-  </script>
-
 </head>
 
 <body>
@@ -178,38 +174,9 @@
           เวลาจอง
         </p>
       </section>
-      <!-- <ons-list modifier="inset">
-        <ons-list-header>8.00 - 9.30</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set1" style="width: 50%; margin: 0 auto;">ไม่ว่าง</button>
-          <button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br> -->
       <div class="row" id="data2">
         default
       </div>
-
-
-      <!-- <ons-list modifier="inset">
-        <ons-list-header>7.30 - 8.00</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" disabled id="set1" style="width: 100%; margin: 0 auto;">ไม่ว่าง</button>
-        </ons-list-item>
-      </ons-list><br>
-
-      <ons-list modifier="inset">
-        <ons-list-header>8.00 - 9.30</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br>
-      <ons-list modifier="inset">
-        <ons-list-header>9.30 - 11.00</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br> -->
-
 
     </ons-page>
   </template>
@@ -296,68 +263,6 @@
       <div class="row" id="data3">
         default
       </div>
-
-      <div class="namedata">เลือกประเภทการล้าง</div>
-      <form method="POST">
-      <ons-row style="margin-top: 15px;">
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-            <ons-list>
-                <ons-list-item >
-                  <label class="left">
-                    <ons-checkbox input-id="wash" value="ล้างห้องเครื่อง"></ons-checkbox>
-                  </label>
-                  <label for="wash" class="center">
-                      ล้างห้องเครื่อง
-                  </label>
-                </ons-list-item>
-                <ons-list-item >
-                    <label class="left">
-                      <ons-checkbox input-id="spary" value="ล้างอัดฉีดช่วงล้าง"></ons-checkbox>
-                    </label>
-                    <label for="spary" class="center">
-                        ล้างอัดฉีดช่วงล้าง
-                    </label>
-                  </ons-list-item>
-                  <ons-list-item >
-                      <label class="left">
-                        <ons-checkbox input-id="color" value="ล้างสีดูดฝุ่น"></ons-checkbox>
-                      </label>
-                      <label for="color" class="center">
-                          ล้างสีดูดฝุ่น
-                      </label>
-                    </ons-list-item>
-                    <ons-list-item >
-                        <label class="left">
-                          <ons-checkbox input-id="fuel" value="ล้างยางมะตอย"></ons-checkbox>
-                        </label>
-                        <label for="fuel" class="center">
-                            ล้างยางมะตอย
-                        </label>
-                      </ons-list-item>
-                      <ons-list-item >
-                          <label class="left">
-                            <ons-checkbox input-id="dust" value="ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)"></ons-checkbox>
-                          </label>
-                          <label for="dust" class="center">
-                              ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)
-                          </label>
-                        </ons-list-item>
-            </ons-list>          
-        </ons-col>
-  
-
-        <div class="warn">
-          กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
-        </div>
-      </ons-row>
-  </form>
-      <div class="setbtn">
-        <ons-button onclick="insert()" id="btnsubmit">
-          ยืนยัน
-        </ons-button>
-        <!-- <ons-button id="btnsubmit">
-          ยืนยัน
-        </ons-button> -->
       </div>
     </ons-page>
   </template>
@@ -374,7 +279,6 @@
     alert(localStorage.getItem('save'));
 
   };
-
 
   window.fn = {};
 
@@ -417,61 +321,51 @@
     }, 1500);
   }
 
-  function book() {
-    axios.get('http://localhost:8080/user/showtimes')
-      .then(function (response) {
-        var dc = [];
-        let data = response.data
-        data.forEach(element => {
-          dc += '<ons-list modifier="inset">' +
-            '<ons-list-header>' + element.times + '</ons-list-header>' +
-            '<ons-list-item>' +
-            '<button class="button--cta" style="width: 100%; margin: 0 auto;" id="set2" onclick="check()">ว่าง</button>' +
-            '</ons-list-item>' +
-            '</ons-list><br>'
+  async function book() {
+    try {
+    let phone = localStorage.getItem("phone");
+    const responseCar = await axios.get('http://localhost:8080/user/getshowcar/' + phone)
+    const responseTime = await axios.get('http://localhost:8080/user/showtimes');
+    const responseWork = await axios.get('http://localhost:8080/user/showwork');
+    let data = responseTime.data
+    if (responseWork.data || responseCar.data) {
+      data = responseTime.data.map(time => {
+        if (responseWork.data.some(work => work.times === time.times)) {
+          time.hasWork = true;
+        }
+        if (responseCar.data.some(car => car.car_num === time.car_num)) {
+          time.hasMyCar = true;
+        }
+        return time;
+      })
+    }
 
-          // dc +=
-          //   '<ons-list modifier="inset">' +
-          //   '<ons-list-header>' + element.times + '</ons-list-header>' +
-          //   '<ons-list-item>' +
-          //   '<button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;" onclick="check()">ว่าง</button>' +
-          //   '<button class="button--cta" id="set4" style="width: 50%; margin: 0 auto;" onclick="check()">ว่าง</button>' +
-          //   '</ons-list-item>' +
-          //   '</ons-list><br>'
-        })
-        myobj = document.getElementById("data2");
-        myobj.innerHTML = dc;
-        console.log(myobj);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
+    var dc = [];
+    
+    data.forEach(element => {
+      const className = element.hasMyCar ? 'my-car' : element.hasWork ? 'has-work' : 'empty';
+      const text = element.hasMyCar ? 'รถของคุณ' : element.hasWork ? 'ไม่ว่าง' : 'ว่าง';
+      dc += '<ons-list modifier="inset">' +
+        '<ons-list-header>' + element.times + '</ons-list-header>' +
+        '<ons-list-item>' +
+        '<button class="button--cta '+className+'" style="width: 100%; margin: 0 auto;" onclick=check("' + element.times + '")>'+text+'</button>' +
+        '</ons-list-item>' +
+        '</ons-list><br>'
+    })
+    myobj = document.getElementById("data2");
+    myobj.innerHTML = dc;
+    console.log(myobj);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
-  // var count = 1;
-  // localStorage.setItem("count", count);
+  var check = function (times) {
+    console.log(times);
 
-  // var check = function () {
-  //   var count = localStorage.getItem("save");
+    localStorage.setItem("times", times);
 
-  //   if (count == 2) {
-  //     alert("แล้วววว");
-  //     console.log(count);
-  //     appNavigator.pushPage('detailbook.html')
-  //     localStorage.clear();
-  //   } else {
-  //     alert("จอง");
-  //     console.log(count);
-  //     // count += 1;
-  //     appNavigator.pushPage('detailbook.html')
-  //     // document.getElementById('set2').id = 'set1';
-
-  //   }
-  // };
-
-  var check = function () {
     if ('#set2') {
       appNavigator.pushPage('select_car.html')
       let phone = localStorage.getItem("phone");
@@ -481,9 +375,9 @@
           let data = response.data
           console.log(data);
           data.forEach(element => {
-           
+
             dc +=
-              '<ons-card onclick=selectwork("'+element.car_num+'")>' +
+              '<ons-card onclick=selectwork("' + element.car_num + '")>' +
               '<div class="carnum">' + element.car_num + '</div>' +
               '<div class="datailcar">' + element.type + element.color + '</div>' +
               '</ons-card>'
@@ -502,89 +396,160 @@
 
 
   var selectwork = function (car_num) {
-   
-      appNavigator.pushPage('detailbook.html')
-      console.log("car_num"+car_num)
-      axios.get('http://localhost:8080/user/showdetailuser/' + encodeURIComponent(car_num))
-        .then(function (response) {
-          var dc = [];
-          let data = response.data
-          console.log("response:"+data);
-          data.forEach(element => {
-            dc +=
-              '<ons-card><div class="title">ชื่อ :' + element.fname +
-              '</div>' +
-              '<div class="title">เบอร์โทรฯ :' + element.phone +
-              '</div>' +
-              '<div class="title">ป้ายทะเบียน :' + element.car_num +
-              '</div>' +
-              '<div class="title">ประเภทรถ :' + element.type +
-              '</div>' +
-              '<div class="title">สีรถ :' + element.color +
-              '</div>' +
-              '</ons-card>'
-          })
-          let myobj = document.getElementById("data3");
-          myobj.innerHTML = dc;
-          console.log(myobj);
+
+    appNavigator.pushPage('detailbook.html')
+    console.log("car_num" + car_num)
+    axios.get('http://localhost:8080/user/showdetailuser?car_num=' + car_num)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log("response:" + data);
+        data.forEach(element => {
+          dc +=
+            '<ons-card><div class="title">ชื่อ :' + element.fname +
+            '</div>' +
+            '<div class="title">เบอร์โทรฯ :' + element.phone +
+            '</div>' +
+            '<div class="title">ป้ายทะเบียน :' + element.car_num +
+            '</div>' +
+            '<div class="title">ประเภทรถ :' + element.type +
+            '</div>' +
+            '<div class="title">สีรถ :' + element.color +
+            '</div>' +
+            '</ons-card>' +
+
+
+            '<div class="namedata">เลือกประเภทการล้าง</div>' +
+            '<form method="POST">' +
+            '<ons-row style="margin-top: 15px;">' +
+            '<ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">' +
+            '<ons-list>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="wash" value="ล้างห้องเครื่อง"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="wash">' +
+            'ล้างห้องเครื่อง' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="spray" value="ล้างอัดฉีดช่วงล้าง"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="spray">' +
+            'ล้างอัดฉีดช่วงล้าง' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="dust" value="ล้างสีดูดฝุ่น"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="dust">' +
+            'ล้างสีดูดฝุ่น' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="asphalt" value="ล้างยางมะตอย"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="asphalt" >' +
+            'ล้างยางมะตอย' +
+            '</label>' +
+            '</ons-list-item>' +
+            '<ons-list-item tappable>' +
+            '<label class="left">' +
+            '<ons-checkbox input-id="fuel" value="ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)"></ons-checkbox>' +
+            '</label>' +
+            '<label class="center" for="fuel" >' +
+            'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)' +
+            '</label>' +
+            '</ons-list-item>' +
+            '</ons-list>' +
+            '</ons-col>' +
+            '<div class="warn">' +
+            ' กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง' +
+            '</div></ons-row></form>' +
+            ' <div class="setbtn">' +
+            '<ons-button onclick="insert(' + "'" + car_num + "'" + ')" id="btnsubmit">' +
+            ' ยืนยัน' +
+            ' </ons-button>' +
+            '</div>'
+
         })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-  
+        let myobj = document.getElementById("data3");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
   }
 
-  // $("#btnsubmit").click(function () {
-  //   console.log("test");
-  //   // set storage
-  //   localStorage.setItem("green", $("#set2").val());
-  //   window.location = "home.html";
-  // });
+  async function insert(car_num) {
+    var wash_engin = 0;
+    var spray_under = 0;
+    var clean_dust = 0;
+    var wash_asphalt = 0;
+    var chang_fuel = 0;
 
-  // $(document).ready(function () {
-  //   // get value from storage
-  //   // button click
-  //   $("#books").click(function () {
-  //     $("#set1").html(localStorage.getItem("green"));
+    if (document.getElementById('wash').checked === true) {
+      wash_engin = 1
+    }
+    if (document.getElementById('spray').checked === true) {
+      spray_under = 1
+    }
+    if (document.getElementById('dust').checked === true) {
+      clean_dust = 1
+    }
+    if (document.getElementById('asphalt').checked === true) {
+      wash_asphalt = 1
+    }
+    if (document.getElementById('fuel').checked === true) {
+      chang_fuel = 1
+    }
+    console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
+    let time = localStorage.getItem("times")
+    console.log(time);
+    postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
 
-  //   });
-  // });
+  }
 
+  var data = [];
+  async function postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time) {
+    console.log(car_num);
+    // let time = localStorage.getItem("times")
+    // console.log(time);
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num); // param1 :ชื่อตัวแปร , param2 : ค่าของมัน
+    bodyFormData.set('wash_engin', wash_engin);
+    bodyFormData.set('spray_under', spray_under);
+    bodyFormData.set('clean_dust', clean_dust);
+    bodyFormData.set('wash_asphalt', wash_asphalt);
+    bodyFormData.set('chang_fuel', chang_fuel);
+    bodyFormData.set('times', time);
 
-  async function insert() {
-   
-        let wash = 0
-        let spary = 0
-        let color = 0
-        let fuel = 0
-        let dust = 0
-    
-        console.log(wash,spary,color,fuel,dust)
-        if(document.getElementById('wash').checked == true){
-          wash = 1
+    await axios({
+      method: 'post',
+      url: 'http://localhost:8080/user/selecttypework',
+      data: bodyFormData, // เอามาใส่ตรงนี้ 
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
         }
-        if(document.getElementById('spary').checked == true){
-          spary = 1
-        }
-        if(document.getElementById('color').checked == true){
-          color = 1
-        }
-        if(document.getElementById('fuel').checked == true){
-          fuel = 1
-        }
-        if(document.getElementById('dust').checked == true){
-          dust = 1
-        }
-        // postAPI(phone,fname,lname)
-       
-    
-
-
-    // console.log("comein Insert")
-    // await localStorage.setItem("green", "#set2");
-    // console.log("testbook:" + localStorage.getItem("save"))
-    // window.location.href = 'home.html';
+      } //ประการ header เป็น form-data
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "home.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
   }
 </script>
 

@@ -89,22 +89,19 @@ ons-list-item {
     font-size: 20px;
 }
 
-#set1{
+.has-car{
     background: #b9370fee;
     font-family: 'Athiti', sans-serif;
 }
-#set2{
+.empty{
     background: #48b30b;
     font-family: 'Athiti', sans-serif;
 }
-#set3{
-    background: #b9370fee;
+.my-car{
+    background: #ffd900;
     font-family: 'Athiti', sans-serif;
 }
-#set4{
-    background: #48b30b;
-    font-family: 'Athiti', sans-serif;
-}
+
 
 /* messenger_page */
 /* #bor{

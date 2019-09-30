@@ -52,10 +52,9 @@
                 </ons-button>
             </p>
             <p>
-
-                <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
+                <!-- <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
                     - ลงทะเบียนเข้าใช้งาน -
-                </ons-button>
+                </ons-button> -->
             </p>
         </div>
 
@@ -70,68 +69,54 @@
     var login = function () {
         var phone = document.getElementById('phone').value;
         var password = document.getElementById('password').value;
+        console.log(phone, password);
 
-        axios.get('http://localhost:8080/user/getuserall')  
-      .then(function (response) {
-        // handle success
-        var html=''
-        let data = response.data
-        // for (data = 0; data < a.length; ++data) {
-        //      console.log(data[data]);
-        // }
-        data.forEach(element => {
-            // console.log(element.id);
-            console.log(element.phone);
-             console.log(element.password);
 
-            
-        // html +='<div>'+element.phone+'</div>'
-        // document.getElementById('test').innerHTML=html
+        axios.get('http://localhost:8080/user/checkstatus?phone=' + phone + '&password=' + password)
+            .then(function (response) {
+                var dc = [];
+                let data = response.data
 
-           // alert(element.username);
-        if(element.phone == phone && element.password == password){
-            localStorage.setItem("phone" , phone);
-            window.location.href = 'home.html';
-            // close();
-        }
-        // else if(username === '2222' && password === '1111'){
-        //     // ons.notification.alert('Incorrect username or password.');
-            
-        //     window.location.href = 'homeaddmin.html';
-        //      close();
-        // }
-        });
-         console.log(html);
+                console.log("11 :: " + phone);
+                console.log(JSON.stringify(data));
+                console.log("33 :: " + password);
+                if (data == '') {
 
-        // if (username === elment.username && password === element.password) {
-        //     window.location.href = 'home.html';
-        //     return false;
-        // // } else if (username === '2222' && password === '1111') {
-        // //     window.location.href = 'homeaddmin.html';
-        // } else {
-        //     ons.notification.alert('Incorrect username or password.');
-        //     // window.location.href = 'login.html';
-        // }
-            
-       
-        // html +='<div>'+element.id+'</div>'
-        // document.getElementById('test').innerHTML=html
-       
-          
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-     
+                    dc += ``
+                    console.log("No data");
+                } else {
+                    data.forEach(check => {
+                        // console.log("1 :: " + phone);
+                        // console.log("2 ::" + check.phone);
+                        // console.log("3 :: " + password);
+                        // console.log("4 ::" + check.password);
+                        if (check.status == 'Admin') {
+                            // window.location = "homeaddmin.html";
+                            console.log("Admin");
+                        } else {
+                            // window.location = "home.html";
+                            console.log("Customer");
+                        }
+
+                    })
+                }
+
+
+
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
     };
-    
+
 </script>
 
-<script>
+<!-- <script>
     function addUsers(){
         window.location.href = 'register.html';
     }
-</script>
+</script> -->
 
 </html>

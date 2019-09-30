@@ -192,15 +192,6 @@
 
   <template id="history.html">
     <ons-page><br>
-      <!-- <div style="height: 200px; padding: 1px 0 0 0;">
-        <div class="card">
-            <div class="list-item__left list-item--material__left">
-                <img class="list-item__thumbnail list-item--material__thumbnail" src="https://placekitten.com/g/42/41" alt="Cute kitten">
-              </div>
-          <div class="card__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.</div>
-        </div>
-      </div> -->
       <div style="height: 200px; padding: 1px 0 0 0;">
         <div class="card">
           <div class="list-item">
@@ -270,13 +261,12 @@
 </body>
 
 <script>
-
-
+  
   window.onload = async function () {
     console.log("phone" + localStorage.getItem("phone"));
     let book = await localStorage.getItem("green");
     console.log("statusbook:" + book);
-    alert(localStorage.getItem('save'));
+    // alert(localStorage.getItem('save'));
 
   };
 
@@ -323,75 +313,82 @@
 
   async function book() {
     try {
-    let phone = localStorage.getItem("phone");
-    const responseCar = await axios.get('http://localhost:8080/user/getshowcar/' + phone)
-    const responseTime = await axios.get('http://localhost:8080/user/showtimes');
-    const responseWork = await axios.get('http://localhost:8080/user/showwork');
-    let data = responseTime.data
-    if (responseWork.data || responseCar.data) {
-      data = responseTime.data.map(time => {
-        if (responseWork.data.some(work => work.times === time.times)) {
-          time.hasWork = true;
-        }
-        if (responseCar.data.some(car => car.car_num === time.car_num)) {
-          time.hasMyCar = true;
-        }
-        return time;
-      })
-    }
+      let phone = localStorage.getItem("phone");
+      const responseCar = await axios.get('http://localhost:8080/user/getshowcar/' + phone)
+      const responseTime = await axios.get('http://localhost:8080/user/showtimes');
+      const responseWork = await axios.get('http://localhost:8080/user/showwork');
+      let data = responseTime.data // ให้ data เป็นก้อน time ที่ว่างหมดทุกช่อง
+      if (responseWork.data || responseCar.data) { // เช็คว่าวันนี้มี work มั้ย (เป็น js อะไรที่ว่างไม่มีค่าอ่ะ เป็น false หมดเลย)
+        var dc = [];
+        data = responseTime.data.map(time => { // ให้ data ก้อนข้างบนอ่ะ ใส่ time เข้าไปใหม่ ตามเงื่อนไขข้างล่างโดยการ map (map เหมือน forEach แต่ ได้ก้อนใหม่ตามมแต่ที่เรา คืนค่า)
+          console.log('ก่อน', time);
+          time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
+          console.log('หลัง', time);
+          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times)
+          if (workOnThisTime) {
+            time.hasWork = workOnThisTime.length;
+            console.log('ถ้ามีwork', time);
+          }
+          workOnThisTime.forEach(workInForEach => {
+            if (responseCar.data.some(car => car.car_num === workInForEach.car_num)) {
+              time.hasMyCar = true;
+              console.log('ถ้ามีรถเรา', time);
+            }
+          })
 
-    var dc = [];
-    
-    data.forEach(element => {
-      const className = element.hasMyCar ? 'my-car' : element.hasWork ? 'has-work' : 'empty';
-      const text = element.hasMyCar ? 'รถของคุณ' : element.hasWork ? 'ไม่ว่าง' : 'ว่าง';
-      dc += '<ons-list modifier="inset">' +
-        '<ons-list-header>' + element.times + '</ons-list-header>' +
-        '<ons-list-item>' +
-        '<button class="button--cta '+className+'" style="width: 100%; margin: 0 auto;" onclick=check("' + element.times + '")>'+text+'</button>' +
-        '</ons-list-item>' +
-        '</ons-list><br>'
-    })
-    myobj = document.getElementById("data2");
-    myobj.innerHTML = dc;
-    console.log(myobj);
+          const className = time.hasMyCar ? 'my-car' : time.hasWork === 2 ? 'has-car' : 'empty';
+          const text = time.hasMyCar ? 'รถของคุณ' : time.hasWork === 2 ? 'ไม่ว่าง' : 'ว่าง';
+
+          dc += `
+        <ons-list modifier="inset">
+          <ons-list-header> ${time.times}</ons-list-header>
+          <ons-list-item>
+            <button class="button--cta ${className}" style="width: 100%; margin: 0 auto;" onclick="check('${time.times}')" ${(time.hasWork === 2) ? 'disabled' : ''}>${text}</button>
+          </ons-list-item>
+        </ons-list>
+        <br>`
+          return time;
+        })
+      }
+      myobj = document.getElementById("data2");
+      myobj.innerHTML = dc;
+      console.log(myobj);
+   
     } catch (error) {
       console.log(error);
     }
   }
-
 
   var check = function (times) {
     console.log(times);
 
     localStorage.setItem("times", times);
 
-    if ('#set2') {
-      appNavigator.pushPage('select_car.html')
-      let phone = localStorage.getItem("phone");
-      axios.get('http://localhost:8080/user/getshowcar/' + phone)
-        .then(function (response) {
-          var dc = [];
-          let data = response.data
-          console.log(data);
-          data.forEach(element => {
+    appNavigator.pushPage('select_car.html')
+    let phone = localStorage.getItem("phone");
+    axios.get('http://localhost:8080/user/getshowcar/' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        data.forEach(element => {
 
-            dc +=
-              '<ons-card onclick=selectwork("' + element.car_num + '")>' +
-              '<div class="carnum">' + element.car_num + '</div>' +
-              '<div class="datailcar">' + element.type + element.color + '</div>' +
-              '</ons-card>'
-          })
-          myobj = document.getElementById("showcar");
-          myobj.innerHTML = dc;
-          // localStorage.setItem("car_num" , car_num);
-          console.log(myobj);
+          dc +=
+            '<ons-card onclick=selectwork("' + element.car_num + '")>' +
+            '<div class="carnum">' + element.car_num + '</div>' +
+            '<div class="datailcar">' + element.type + element.color + '</div>' +
+            '</ons-card>'
         })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        })
-    }
+        myobj = document.getElementById("showcar");
+        myobj.innerHTML = dc;
+        // localStorage.setItem("car_num" , car_num);
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
   }
 
 
@@ -487,6 +484,7 @@
 
   }
 
+
   async function insert(car_num) {
     var wash_engin = 0;
     var spray_under = 0;
@@ -509,9 +507,12 @@
     if (document.getElementById('fuel').checked === true) {
       chang_fuel = 1
     }
+
     console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
     let time = localStorage.getItem("times")
+    
     console.log(time);
+    console.log(book);
     postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
 
   }
@@ -530,7 +531,7 @@
     bodyFormData.set('wash_asphalt', wash_asphalt);
     bodyFormData.set('chang_fuel', chang_fuel);
     bodyFormData.set('times', time);
-
+   
     await axios({
       method: 'post',
       url: 'http://localhost:8080/user/selecttypework',
@@ -539,7 +540,7 @@
         headers: {
           'Content-Type': 'multipart/form-data'
         }
-      } //ประการ header เป็น form-data
+      }
     })
       .then(function (response) {
         //handle success

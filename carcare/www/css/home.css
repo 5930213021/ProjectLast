@@ -182,7 +182,7 @@ ons-list-item {
     padding: 10px;
 }
 
-#btnsubmit{
+/* #btnsubmit{
     font-family: 'Lato', sans-serif;
     background-color: rgba(7, 157, 226, 0.8);
     margin: 10px;
@@ -196,7 +196,7 @@ ons-list-item {
     font-family: 'Lato', sans-serif;
     background-color: rgba(226, 33, 7, 0.8);
     margin: 10px;
-}
+} */
 #pic{
     width: 50%;
     height: 100px;

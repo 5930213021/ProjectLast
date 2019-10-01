@@ -43,7 +43,7 @@
     <ons-modal direction="up">
       <div style="text-align: center">
         <p>
-          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
         </p>
       </div>
     </ons-modal>
@@ -129,7 +129,7 @@
 
         <ons-list-item onclick="showModal()">
           <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power""></ons-icon>
+            <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power"></ons-icon>
                 </div>
                 <div class=" center">ออกจากระบบ
           </div>
@@ -141,6 +141,7 @@
 
   <template id="home2.html" var="MyNav">
     <ons-page><br>
+
       <ons-list modifier="inset">
         <ons-list-item expandable>
           คู่มือการใช้งาน
@@ -267,7 +268,6 @@
     let book = await localStorage.getItem("green");
     console.log("statusbook:" + book);
     // alert(localStorage.getItem('save'));
-
   };
 
   window.fn = {};

@@ -39,6 +39,8 @@
         <div class="background"></div>
         <div class="logo">
             <p>MCARCARE</p>
+        </div>
+        <div class="center">
             <p>
                 <ons-input id="phone" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน" float></ons-input>
             </p>
@@ -46,20 +48,29 @@
                 <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float>
                 </ons-input>
             </p>
+
             <p>
                 <ons-button modifier="quiet" class="login" onclick="login()" id="fonts">
                     เข้าสู่ระบบ
                 </ons-button>
             </p>
-            <p>
-                <!-- <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
+
+            <!-- <p>
+                <ons-button onclick="addUsers();" modifier="quiet" id="fontquiet">
                     - ลงทะเบียนเข้าใช้งาน -
-                </ons-button> -->
-            </p>
+                </ons-button>
+            </p> -->
+
+            <ons-modal direction="down" id="modalcolor">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> หมายเลขโทรศัพท์ รหัสผ่านผิด
+                        <br>กรุณากรอกใหม่
+                    </p>
+                </div>
+            </ons-modal>
         </div>
 
-
-        <div id="test"></div>
     </ons-page>
 
 </body>
@@ -69,40 +80,30 @@
     var login = function () {
         var phone = document.getElementById('phone').value;
         var password = document.getElementById('password').value;
-        console.log(phone, password);
-
 
         axios.get('http://localhost:8080/user/checkstatus?phone=' + phone + '&password=' + password)
             .then(function (response) {
-                var dc = [];
                 let data = response.data
-
-                console.log("11 :: " + phone);
-                console.log(JSON.stringify(data));
-                console.log("33 :: " + password);
                 if (data == '') {
-
-                    dc += ``
-                    console.log("No data");
+                    var modal = document.querySelector('ons-modal');
+                    modal.show();
+                    setTimeout(function () {
+                        modal.hide();
+                    }, 1500);
+                    console.log("No data :: " + JSON.stringify(data));
                 } else {
                     data.forEach(check => {
-                        // console.log("1 :: " + phone);
-                        // console.log("2 ::" + check.phone);
-                        // console.log("3 :: " + password);
-                        // console.log("4 ::" + check.password);
-                        if (check.status == 'Admin') {
-                            // window.location = "homeaddmin.html";
-                            console.log("Admin");
+                        if (check.status == 'Staff') {
+                            console.log("Staff");
+                            localStorage.setItem("phone" , phone);
+                            window.location = "homeStaff.html";
                         } else {
-                            // window.location = "home.html";
                             console.log("Customer");
+                            localStorage.setItem("phone" , phone);
+                            window.location = "home.html";
                         }
-
                     })
                 }
-
-
-
             })
             .catch(function (error) {
                 // handle error

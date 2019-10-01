@@ -21,6 +21,14 @@ p{
     font-size: 45px;
 }
 
+.center{
+    font-family: 'Archivo Black', sans-serif;
+    color: rgb(255, 255, 255,0.9);
+    text-align: center;
+    margin-top: 30px;
+    /* font-size: 45px; */
+}
+
 .text-input--underbar {
     line-height: 2;
     font-family: 'Athiti', sans-serif;
@@ -116,4 +124,24 @@ p{
     margin: 10px;
 } */
 
+/* #modalcolor .modal__content{
+    background: rgb(76, 148, 147, 0.5);
+    background-clip: padding-box;
+} */
+
+
+/* modelclose */
+.modal__content {
+    background: rgb(76, 148, 147, 0.5);
+    line-height: normal;
+    background-clip: padding-box;
+    font-family: -apple-system,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    color: #fff;
+    white-space: normal;
+}
 

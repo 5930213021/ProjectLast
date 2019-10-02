@@ -26,7 +26,9 @@
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script src="js/ejs.js"></script>
   <script src="cordova.js"></script>
+  <!-- <script src="moment.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
 
 </head>
 
@@ -62,7 +64,7 @@
       </ons-toolbar>
 
       <ons-tabbar swipeable position="auto" id="appTabbar">
-        <ons-tab page="home2.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books" onclick="book()">
         </ons-tab>
         <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="1"></ons-tab>
@@ -130,8 +132,8 @@
         <ons-list-item onclick="showModal()">
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power"></ons-icon>
-                </div>
-                <div class=" center">ออกจากระบบ
+          </div>
+          <div class=" center">ออกจากระบบ
           </div>
         </ons-list-item>
       </ons-list>
@@ -139,7 +141,7 @@
     </ons-page>
   </template>
 
-  <template id="home2.html" var="MyNav">
+  <template id="home.html" var="MyNav">
     <ons-page><br>
 
       <ons-list modifier="inset">
@@ -244,13 +246,13 @@
         <ons-back-button>Back</ons-back-button>
       </p>
       <div class="namedata">รายละเอียดข้อมูล</div>
-      <div class="picuser">
+      <!-- <div class="picuser">
         <ons-list-item>
           <div class="center">
             <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
           </div>
         </ons-list-item>
-      </div>
+      </div> -->
 
       <div class="row" id="data3">
         default
@@ -262,7 +264,7 @@
 </body>
 
 <script>
-  
+
   window.onload = async function () {
     console.log("phone" + localStorage.getItem("phone"));
     let book = await localStorage.getItem("green");
@@ -321,9 +323,14 @@
       if (responseWork.data || responseCar.data) { // เช็คว่าวันนี้มี work มั้ย (เป็น js อะไรที่ว่างไม่มีค่าอ่ะ เป็น false หมดเลย)
         var dc = [];
         data = responseTime.data.map(time => { // ให้ data ก้อนข้างบนอ่ะ ใส่ time เข้าไปใหม่ ตามเงื่อนไขข้างล่างโดยการ map (map เหมือน forEach แต่ ได้ก้อนใหม่ตามมแต่ที่เรา คืนค่า)
+         
+         var checktime = moment(time.times, "hh:mm");
+          console.log(checktime);
+
           console.log('ก่อน', time);
           time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
           console.log('หลัง', time);
+
           const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times)
           if (workOnThisTime) {
             time.hasWork = workOnThisTime.length;
@@ -336,6 +343,7 @@
             }
           })
 
+
           const className = time.hasMyCar ? 'my-car' : time.hasWork === 2 ? 'has-car' : 'empty';
           const text = time.hasMyCar ? 'รถของคุณ' : time.hasWork === 2 ? 'ไม่ว่าง' : 'ว่าง';
 
@@ -347,13 +355,15 @@
           </ons-list-item>
         </ons-list>
         <br>`
+
           return time;
+
         })
       }
       myobj = document.getElementById("data2");
       myobj.innerHTML = dc;
       console.log(myobj);
-   
+
     } catch (error) {
       console.log(error);
     }
@@ -510,7 +520,7 @@
 
     console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
     let time = localStorage.getItem("times")
-    
+
     console.log(time);
     console.log(book);
     postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
@@ -531,7 +541,7 @@
     bodyFormData.set('wash_asphalt', wash_asphalt);
     bodyFormData.set('chang_fuel', chang_fuel);
     bodyFormData.set('times', time);
-   
+
     await axios({
       method: 'post',
       url: 'http://localhost:8080/user/selecttypework',

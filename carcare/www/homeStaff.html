@@ -33,10 +33,10 @@
 </head>
 
 <body onload="show_staff(),show_times()">
-  <ons-navigator swipeable id="myNavigator" page="homeStaff.html"></ons-navigator>
+  <ons-navigator swipeable id="appNavigator" page="homeStaff.html"></ons-navigator>
 
   <template id="homeStaff.html">
-    <ons-page>
+    <ons-page id="page2">
       <ons-toolbar id="headbar">
         <div class="left" id="appname">
           Mcarcare
@@ -82,7 +82,7 @@
   </template>
 
   <template id="detailState.html">
-    <ons-page>
+    <ons-page id="page2">
       <div class="background"></div>
       <p>
         <ons-back-button>
@@ -91,12 +91,11 @@
         </ons-back-button>
       </p>
       <div class="namedata">รายละเอียดข้อมูล</div>
-      <div class="picuser">
-        <ons-list-item>
-          <div class="center">
-            <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
-          </div>
-        </ons-list-item>
+      <!-- <div class="picuser">
+      </div> -->
+
+      <div class="row" id="showdetailbook">
+        default
       </div>
 
       <ons-card>
@@ -198,6 +197,24 @@
 </body>
 
 <script>
+
+  window.fn = {};
+
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
+  };
+
+  window.fn.load = function (page) {
+    var myNavigator = document.getElementById('appNavigator');
+
+    menu.close();
+    myNavigator.resetToPage(page, { animation: 'fade' });
+  };
+
   console.log("phone :: " + localStorage.getItem("phone"));
 
   function showModal() {
@@ -237,7 +254,6 @@
 
   async function show_times() {
     try {
-      // const responseCar = await axios.get('http://localhost:8080/user/getshowcar' )
       const responseTime = await axios.get('http://localhost:8080/user/showtimes');
       const responseWork = await axios.get('http://localhost:8080/user/showwork');
 
@@ -256,18 +272,18 @@
           // console.log('ถ้ามีwork', time);
           // }
           time.hasWork = workOnThisTime.length;
-
-          localStorage.setItem("numwork", time.hasWork);
-
+          time.work = workOnThisTime;
           time.hascar = workOnThisTime;
           console.log('ถ้ามีwork', time);
 
-          const className = time.hasWork ? 'has-book' : 'empty';
-          const text = time.hasWork ? 'มีการจอง' : 'ว่าง';
+          const className1 = time.work[0] ? 'has-book' : 'empty';
+          const text1 = time.work[0] ? 'มีการจอง' : 'ว่าง';
+          const carNum1 = time.work[0] ?  time.work[0] : '';
 
-          let num = localStorage.getItem("numwork");
-          console.log(num);
-         
+          const className2 = time.work[1] ? 'has-book' : 'empty';
+          const text2 = time.work[1] ? 'มีการจอง' : 'ว่าง';
+          const carNum2 = time.work[1] ?  time.work[1] : '';
+
           dc += `
           <ons-card >
           <ons-list>
@@ -275,29 +291,27 @@
             <ons-list-item>
               <ons-row idth="50%">
 
-                <ons-col>
-                  <button class="button--cta ${className}" onclick="detail(${time.times})">
-                    <p>${time.hascar}</p>
-                    <p>${text}</p>
+                <ons-col id="book1">
+                  <button class="button--cta ${className1}" id="workbtn" onclick="detail()">
+                    <p>${carNum1}</p>
+                    <p>${text1}</p>
                   </button>
                   <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
                 </ons-col>
  
-                <ons-col>
-                  <button class="button--cta ${className}">
-                      <p>${time.hascar}</p>
-                    <p>${text}</p>
+                <ons-col id="book2">
+                  <button class="button--cta ${className2}" id="workbtn" onclick="detail('')">
+                    <p>${carNum2}</p>
+                    <p>${text2}</p>
                   </button>
                   <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
                 </ons-col>
-
 
               </ons-row>
             </ons-list-item>
           </ons-list>
         </ons-card>
                `
-
           return time;
         })
         myobj = document.getElementById("showTimes");
@@ -311,14 +325,12 @@
   }
 
 
-  var detail = function (times) {
-    console.log(times);
-    localStorage.setItem("times", times);
+  var detail = function detail() {
+
+    // localStorage.setItem("times", times);
+    // console.log(times);
     appNavigator.pushPage('detailState.html')
   }
-
-
-
 
   // Alert submit
   var alertsubmit = function () {

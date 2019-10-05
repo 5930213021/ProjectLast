@@ -74,7 +74,7 @@ ons-list-item {
     -webkit-font-smoothing: antialiased;
     font-weight: bold;
     background-image: none;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255);
     font-family: 'Athiti', sans-serif;
     border: #fff;
 }
@@ -98,6 +98,10 @@ ons-list-item {
 }
 .my-car{
     background: #ffd900;
+    font-family: 'Athiti', sans-serif;
+}
+.no-time{
+    background: #d80902;
     font-family: 'Athiti', sans-serif;
 }
 
@@ -125,7 +129,7 @@ ons-list-item {
     word-wrap: break-word;
 }
 
-.list-header--material {
+/* .list-header--material {
     background-color: rgba(255, 255, 255, 0.8);
     border: none;
     font-size: 14px;
@@ -134,7 +138,7 @@ ons-list-item {
     color: #000000;
     font-weight: 500;
     padding: 8px 16px;
-}
+} */
 
 /* history_page */
 .list-item__thumbnail {
@@ -232,4 +236,11 @@ ons-list-item {
     /* margin-top: 1px; */
     text-align: center;
     margin-bottom: 10px;
+}
+
+.intro {
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 40px;
+    color: rgb(63, 63, 63);
 }

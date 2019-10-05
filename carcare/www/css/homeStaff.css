@@ -38,28 +38,9 @@ p{
 .picuser{
     padding: 10px 10px 0px 10px;
 }
-
 .progress-bar--material__primary, .progress-bar--material__secondary {
     background-color: rgb(62, 163, 216);
     border-radius: 0;
-}
-
-.list--inset {
-    margin: 0 8px;
-    border: 1.5px solid rgb(148, 199, 255);
-    border-radius: 4px;
-    background-image: none;
-}
-
-.list-header--material {
-    background: #fff;
-    border: none;
-    font-size: 14px;
-    text-transform: none;
-    margin: -1px 0 0;
-    color: #1f61b9;
-    font-weight: 500;
-    padding: 8px 16px;
 }
 
 .list-item--material {
@@ -67,33 +48,7 @@ p{
     padding: 0px 0px 10px 5px;
     line-height: normal;
 }
-.list-item--material__left {
-    padding: 1px;
-    min-width: 56px;
-    line-height: 1;
-    min-height: 48px;
-    margin-right: 30px;
-}
-.list-item__thumbnail {
-    width: 65px;
-    height: 65px;
-    border-radius: 50px;
-    display: block;
-    margin: 0;
-}
 
-.list-item__center, .list-item__left {
-    line-height: 1.2em;
-    box-sizing: initial;
-}
-
-.list-item--material__center, .list-item--material__left:empty {
-    padding: 4px 6px 14px 1px;
-    /* border-color: #eee; */
-    border-bottom: none;
-    /* background-image: linear-gradient(0deg,#eee,#eee 100%); */
-    min-height: 48px;
-}
 
 #btn{
     width: 100%; 
@@ -132,6 +87,17 @@ p{
     font-family: 'Athiti', sans-serif;
 }
 
+.upwork{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    background: rgba(7, 157, 226, 0.8);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
+
 #btndatablank{
     width: 100%; 
     height: 75%;
@@ -162,8 +128,9 @@ p{
 }
 
 .setbtn{
-    margin-left: 10px;
+    text-align: center;
     padding: 10px;
+    padding-top: 20px;
 }
 
 #btnsubmit{
@@ -241,6 +208,10 @@ p{
     margin-bottom: 10px;  
 }
 
+#mar-butm{
+    margin-bottom: 5px;
+}
+
 #colorback{
     background-color: white;
 }
@@ -248,10 +219,15 @@ p{
 .card {
     -webkit-font-smoothing: antialiased;
     font-weight: 400;
-    box-shadow: 0 1px 2px rgba(0,0,0,.12);
+    box-shadow: 0px 1px 2px rgba(0,0,0,.12);
     border-radius: 8px;
     margin: 8px;
     padding: 0px;
     text-align: left;
     word-wrap: break-word;
 }
+
+.pad-datail{
+    padding: 10px 0px 10px 35px;
+}
+

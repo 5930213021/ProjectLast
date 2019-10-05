@@ -28,8 +28,6 @@
   <script src="js/ejs.js"></script>
   <script src="cordova.js"></script>
 
-
-
 </head>
 
 <body onload="show_staff(),show_times()">
@@ -58,18 +56,6 @@
         default
       </div>
 
-      <!--  <div class="proname">
-        <ons-list-item>
-            <div class="left">
-              <img class="list-item__thumbnail" src="img/picpro3.gif">
-            </div>
-            <div class="center">
-              <span class="list-item__title">ป้านิด ศรีราชา</span>
-              <span class="list-item__subtitle">พนักงานดูแล</span>
-            </div>
-          </ons-list-item> 
-      </div>-->
-
       <div class="progress-bar progress-bar--material">
         <div class="progress-bar__primary progress-bar--material__primary" style="width: 100%"></div>
       </div><br>
@@ -86,86 +72,19 @@
       <div class="background"></div>
       <p>
         <ons-back-button>
-          <ons-icon icon="md-chevron-left"></ons-icon>
+          <!-- <ons-icon icon="md-chevron-left"></ons-icon> -->
           กลับ
         </ons-back-button>
       </p>
       <div class="namedata">รายละเอียดข้อมูล</div>
-      <!-- <div class="picuser">
-      </div> -->
 
       <div class="row" id="showdetailbook">
         default
       </div>
 
-      <ons-card>
-        <div class="title">ชื่อ :
-          <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-        </div>
-        <div class="title">เบอร์โทรฯ :
-          <ons-input id="snap" type="number" placeholder="099-7654321"></ons-input>
-        </div>
-        <div class="title">ป้ายทะเบียน :
-          <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-        </div>
-        <div class="title">ประเภทรถ :
-          <ons-input id="snap" placeholder="เก๋ง"></ons-input>
-        </div>
-        <div class="title">สีรถ :
-          <ons-input id="snap" placeholder="แดง"></ons-input>
-        </div>
-        <div class="title">รายการลูกค้า :
-          <ons-input id="snap" placeholder="ล้างห้องเครื่อง"></ons-input>
-        </div>
-      </ons-card>
-
-      <ons-row style="margin-top: 15px;">
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 70%;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ขนาดเล็ก
-          </label>
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ขนาดใหญ่
-          </label>
-        </ons-col>
-      </ons-row>
-
-      <div class="setbtn">
-        <ons-button onclick="" id="btnpass">
-          เลื่อนเวลา
-        </ons-button>
-        <ons-button onclick="alertsubmit()" id="btnsubmit">
-          ยืนยัน
-        </ons-button>
-        <ons-button onclick="alertcancle()" id="btncancle">
-          ยกเลิก
-        </ons-button>
-      </div>
     </ons-page>
   </template>
 
-
-  <template id="alert-dialog.html">
-    <ons-alert-dialog id="my-alert-dialog" modifier="rowfooter">
-      <!-- <div class="alert-dialog-title">Alert</div> -->
-      <div class="alert-dialog-content">
-        ระดับความสกปรก
-      </div>
-      <!-- <div class="alert-dialog-footer">
-          <ons-alert-dialog-button onclick="hideAlertDialog()">มาก</ons-alert-dialog-button>
-          <ons-alert-dialog-button onclick="hideAlertDialog()">น้อย</ons-alert-dialog-button>
-        </div> -->
-      <div class="alert-dialog-footer">
-        <ons-alert-dialog-button onclick="window.location.href='homeaddmin2.html'">มาก</ons-alert-dialog-button>
-        <ons-alert-dialog-button onclick="window.location.href='homeaddmin2.html'">น้อย</ons-alert-dialog-button>
-        <!-- <ons-alert-dialog-button onclick="hideAlertDialog()">น้อย</ons-alert-dialog-button> -->
-      </div>
-    </ons-alert-dialog>
-  </template>
 
   <template id="alert-messenge.html">
     <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
@@ -187,8 +106,8 @@
         ต้องการยกเลิกการจองลูกค้า?
       </div>
       <div class="alert-dialog-footer">
-        <ons-alert-dialog-button onclick="window.location.href='addmincancle.html'">ตกลง</ons-alert-dialog-button>
-        <ons-alert-dialog-button onclick="window.location.href='homeaddmin.html'">ยกเลิก</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="">ตกลง</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="">ยกเลิก</ons-alert-dialog-button>
         <!-- <ons-alert-dialog-button onclick="hideAlertDialog3()">ยกเลิก</ons-alert-dialog-button> -->
       </div>
     </ons-alert-dialog>
@@ -210,7 +129,6 @@
 
   window.fn.load = function (page) {
     var myNavigator = document.getElementById('appNavigator');
-
     menu.close();
     myNavigator.resetToPage(page, { animation: 'fade' });
   };
@@ -254,6 +172,9 @@
 
   async function show_times() {
     try {
+      let times = localStorage.getItem("times");
+      let car_num = localStorage.getItem("car_num");
+      const responseupWork = await axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
       const responseTime = await axios.get('http://localhost:8080/user/showtimes');
       const responseWork = await axios.get('http://localhost:8080/user/showwork');
 
@@ -265,24 +186,28 @@
           time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
           console.log('หลัง', time);
 
-          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times).map(workInFilter => workInFilter.car_num)
-          // if (workOnThisTime) {
-          //   time.hasWork = workOnThisTime.length;
-          // time.hascar = workOnThisTime;
-          // console.log('ถ้ามีwork', time);
-          // }
+          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times).map(workInFilter => ({ car_num: workInFilter.car_num }))
+          if (workOnThisTime) { 
           time.hasWork = workOnThisTime.length;
-          time.work = workOnThisTime;
-          time.hascar = workOnThisTime;
           console.log('ถ้ามีwork', time);
+          }
 
-          const className1 = time.work[0] ? 'has-book' : 'empty';
-          const text1 = time.work[0] ? 'มีการจอง' : 'ว่าง';
-          const carNum1 = time.work[0] ?  time.work[0] : '';
+          time.work = workOnThisTime.map(workInForEach => {
+            if (responseupWork.data.some(upwork => upwork.car_num === workInForEach.car_num)) {
+              workInForEach.upwork = true;
+              console.log('ถ้ามีการทำรายการ', workInForEach);
+              
+            }
+            return workInForEach
+          })
 
-          const className2 = time.work[1] ? 'has-book' : 'empty';
-          const text2 = time.work[1] ? 'มีการจอง' : 'ว่าง';
-          const carNum2 = time.work[1] ?  time.work[1] : '';
+          const className1 = time.work[0] && time.work[0].upwork ? 'upwork' : time.work[0] ? 'has-book' : 'empty';
+          const text1 = time.work[0] && time.work[0].upwork ? 'กำลังดำเนินการ' : time.work[0] ? 'มีการจอง' : 'ว่าง';
+          const carNum1 = time.work[0] ? time.work[0].car_num : '';
+
+          const className2 = time.work[1] && time.work[1].upwork ? 'upwork' : time.work[1] ? 'has-book' : 'empty';
+          const text2 =  time.work[1] && time.work[1].upwork ? 'กำลังดำเนินการ' : time.work[1] ? 'มีการจอง' : 'ว่าง';
+          const carNum2 = time.work[1] ? time.work[1].car_num : '';
 
           dc += `
           <ons-card >
@@ -291,16 +216,16 @@
             <ons-list-item>
               <ons-row idth="50%">
 
-                <ons-col id="book1">
-                  <button class="button--cta ${className1}" id="workbtn" onclick="detail()">
+                <ons-col id="mar-butm">
+                  <button class="button--cta ${className1}" id="workbtn" onclick="detail('${time.times}','${carNum1}')">
                     <p>${carNum1}</p>
                     <p>${text1}</p>
                   </button>
                   <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
                 </ons-col>
  
-                <ons-col id="book2">
-                  <button class="button--cta ${className2}" id="workbtn" onclick="detail('')">
+                <ons-col id="mar-butm">
+                  <button class="button--cta ${className2}" id="workbtn" onclick="detail('${time.times}','${carNum2}')">
                     <p>${carNum2}</p>
                     <p>${text2}</p>
                   </button>
@@ -321,29 +246,178 @@
     } catch (error) {
       console.log(error);
     }
-
   }
 
+  var detail = function detail(times, car_num) {
+    console.log('time ::' + times);
+    console.log('car_num::' + car_num);
 
-  var detail = function detail() {
+    localStorage.setItem("times", times);
+    localStorage.setItem("car_num", car_num);
 
-    // localStorage.setItem("times", times);
-    // console.log(times);
     appNavigator.pushPage('detailState.html')
+
+    axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        data.forEach(detailcus => {
+
+          var ordercus = ''
+
+          if (detailcus.wash_engin == 1) {
+            ordercus += 'ล้างห้องเครื่อง= ';
+          } if (detailcus.spray_under == 1) {
+            ordercus += 'ล้างอัดฉีดช่วงล้าง ';
+          } if (detailcus.clean_dust == 1) {
+            ordercus += 'ล้างสีดูดฝุ่น ';
+          } if (detailcus.wash_asphalt == 1) {
+            ordercus += 'ล้างยางมะตอย ';
+          } if (detailcus.chang_fuel == 1) {
+            ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
+          }
+
+          console.log(ordercus);
+
+          dc += `
+                <ons-card>
+                  <ons-row>
+                    <ons-col style="padding: 10px 0px 10px 35px;">
+                      <div class="title">ชื่อ : ${detailcus.fname} ${detailcus.lname} </div>
+                      <div class="title">เบอร์โทรฯ : ${detailcus.phone} </div>
+                      <div class="title">ป้ายทะเบียน : ${detailcus.car_num} </div>
+                      <div class="title">ประเภทรถ : ${detailcus.type} </div>
+                      <div class="title">สีรถ : ${detailcus.color} </div>
+                      <div class="title">รายการลูกค้า : ${ordercus}</div>
+                    </ons-col>
+                  </ons-row>
+                </ons-card>
+
+                <ons-row style="margin-top: 15px;">
+                  <ons-col style="flex: 0 0 70%;margin: auto; max-width: 30%; >
+                    <label class="radio-button radio-button">
+                     <ons-radio class="radio-select" input-id="small" value="ขนาดเล็ก" name="r"></ons-radio>
+                      </label>
+                      <label for="small" class="center">ขนาดเล็ก</label>
+                  </ons-col>
+
+                  <ons-col style="flex: 0 0 70%;margin: auto;max-width: 30%;">
+                    <label class="radio-button radio-button">
+                      <ons-radio class="radio-select" input-id="big" value="ขนาดใหญ่" name="r" ></ons-radio>
+                      <label for="big" class="center">ขนาดใหญ่</label>
+                    </label>
+                  </ons-col>
+                </ons-row>
+
+                <div class="setbtn">
+                  <ons-button onclick="" id="btnpass"> เลื่อนเวลา </ons-button>
+                  <ons-button onclick="alertsubmit()" id="btnsubmit"> ยืนยัน </ons-button>
+                  <ons-button onclick="alertcancle()" id="btncancle"> ยกเลิก </ons-button>
+                </div>
+
+
+                <template id="alert-submit.html">
+                  <ons-alert-dialog id="my-alert-submit" modifier="rowfooter">
+                  <ons-row>
+                    <ons-col>
+                    <div class="alert-dialog-content"> ระดับความสกปรก </div>
+                    </ons-col>
+                    <ons-button modifier="quiet" onclick="close()">
+                      <ons-icon class="icon_bk" icon="md-chevron-down" style="font-size: 30px; color:black;"></ons-icon>
+                    </ons-button>
+                  </ons-row>
+                    
+                    <div class="alert-dialog-footer">
+                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertDialog('${car_num}', 'มาก')">มาก</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertDialog('${car_num}', 'น้อย')">น้อย</ons-alert-dialog-button>
+                   </div>
+                  </ons-alert-dialog>
+                </template>
+                `
+        })
+        let myobj = document.getElementById("showdetailbook");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
   }
 
   // Alert submit
-  var alertsubmit = function () {
-    var dialog = document.getElementById('my-alert-dialog');
+  async function alertsubmit() {
+    // console.log("CAR ::" + car_num)
+    // var small = document.getElementById('small').checked
+    // var big = document.getElementById('big').checked
+    // console.log(small)
+    // console.log(big)
 
-    if (dialog) {
-      dialog.show();
+    var size = '';
+    if (document.getElementById('small').checked === true) {
+      size = 'เล็ก'
+    } if (document.getElementById('big').checked === true) {
+      size = 'ใหญ่'
+    }
+    localStorage.setItem("size", size);
+
+    var alert_submit = document.getElementById('my-alert-submit');
+    if (alert_submit) {
+      alert_submit.show();
     } else {
-      ons.createElement('alert-dialog.html', { append: true })
-        .then(function (dialog) {
-          dialog.show();
+      ons.createElement('alert-submit.html', { append: true })
+        .then(function (alert_submit) {
+          alert_submit.show();
         });
     }
+  };
+
+  async function hideAlertDialog(car_num, value) {
+    console.log(car_num)
+    console.log(value)
+    let size = localStorage.getItem("size")
+    let times = localStorage.getItem("times")
+    console.log(size,times)
+
+    postAPI(car_num,size,value,times)
+    document.getElementById('my-alert-submit').hide();
+  }; 
+
+  var data = [];
+  async function postAPI(car_num,size,value,times) {
+    let html= '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('size', size);
+    bodyFormData.set('level', value);
+    bodyFormData.set('times', times);
+
+    await axios({
+      method: 'post',
+      url: 'http://localhost:8080/user/updatedatail',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "homeStaff.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+  
+ function close() {
+    document
+      .getElementById('my-alert-submit')
+      .hide();
   };
 
   // Alert cancle
@@ -374,24 +448,20 @@
     }
   };
 
-  var hideAlertDialog = function () {
-    document
-      .getElementById('my-alert-dialog')
-      .hide();
-  };
+ 
 
-  var hideAlertDialog2 = function () {
-    document
-      .getElementById('my-alert-messenge')
-      .hide();
-  };
+  // var hideAlertDialog2 = function () {
+  //   document
+  //     .getElementById('my-alert-messenge')
+  //     .hide();
+  // };
 
-  var hideAlertDialog3 = function () {
-    document
-      .getElementById('my-alert-messenge')
-      .hide();
+  // var hideAlertDialog3 = function () {
+  //   document
+  //     .getElementById('my-alert-messenge')
+  //     .hide();
 
-  };
+  // };
 
 
 </script>

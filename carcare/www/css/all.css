@@ -145,3 +145,26 @@ p{
     white-space: normal;
 }
 
+.forgetpass {
+    text-align: center;
+    padding: 0 20px;
+    padding-top: 50%
+}
+
+.button--large--quiet, .button--large--quiet:active {
+    color: rgb(255, 255, 255,0.6);
+    font-family: 'Athiti', sans-serif;
+    background: 0 0;
+    box-shadow: none;
+    transition: none;
+}
+
+.toast--material {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    background-color: rgba(19, 3, 105, 0.3);
+    border-radius: 0;
+    padding: 16px 24px;
+}

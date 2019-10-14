@@ -18,7 +18,7 @@
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
-  <link rel="stylesheet" type="text/css" href="css/homeaddmin.css">
+  <link rel="stylesheet" type="text/css" href="css/homeStaff.css">
 
 
 
@@ -49,65 +49,78 @@
         </ons-toolbar>
 
         <ons-modal direction="up">
-            <div style="text-align: center">
-              <p>
-                <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
-              </p>
-            </div>
+          <div style="text-align: center">
+            <p>
+              <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
+            </p>
+          </div>
         </ons-modal>
 
-        <div class="proname">
+        <!--   <div class="proname">
           <ons-list-item>
             <div class="left">
               <img class="list-item__thumbnail" src="img/picpro3.gif">
             </div>
             <div class="center">
               <span class="list-item__title">ป้านิด ศรีราชา</span>
-              <span class="list-item__subtitle">พนักงานดูแล</span>
+              <span class="list-item__subtitle">พนักงานดูแล</span> 
             </div>
-          </ons-list-item>
+          </ons-list-item> -->
+        <!-- <ons-list-item>
+                  <div class="left">
+                    <img class="list-item__thumbnail" src="${kitten.url}">
+                  </div>
+                  <div class="center">ป้านิด ศรีราชา</div>
+            </ons-list-item> 
+        </div>-->
+
+        <!-- <ons-list-item modifier="nodivider">ป้านิด ศรีราชา</ons-list-item> -->
+        <div class="toolbar" id="name_staff">
+          <div class="toolbar__center" id="colorback">ป้านิด ศรีราชา</div>
         </div>
 
         <div class="progress-bar progress-bar--material">
           <div class="progress-bar__primary progress-bar--material__primary" style="width: 100%"></div>
         </div><br>
 
-        <ons-list modifier="inset">
-          <ons-list-header>8.00 - 9.30</ons-list-header>
-          <ons-list-item>
-            <ons-row>
-              <ons-col width="50%">
-                <button class="button--cta" id="btndatawash">
-                  <p>ภก 4621 ตรัง</p>
-                  <p>(กำลังดำเนินการ)</p>
-                </button>
-                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
-              </ons-col>
+        <ons-card>
+          <ons-list>
+            <ons-list-header>8.00 - 9.30</ons-list-header>
+            <ons-list-item>
+              <ons-row idth="50%">
+                <ons-col>
+                  <button class="button--cta" id="btndatawash">
+                    <p>ภก 4621 ตรัง</p>
+                    <p>(กำลังดำเนินการ)</p>
+                  </button>
+                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
+                </ons-col>
 
-              <ons-col width="50%">
-                <button class="button--cta" id="btndatabooking2">
-                  <p>กข 1777 ภูเก็ต</p>
-                  <p>(กำลังดำเนินการ)</p>
-                </button>
-                <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
-              </ons-col>
-            </ons-row>
-          </ons-list-item>
-        </ons-list><br>
-
+                <ons-col>
+                  <button class="button--cta" id="btndatabooking2">
+                    <p>กข 1777 ภูเก็ต</p>
+                    <!-- <p>(กำลังดำเนินการ)</p> -->
+                  </button>
+                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
+                </ons-col>
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+        </ons-card>
+        <!-- <br> -->
 
         <ons-list modifier="inset">
           <ons-list-header>9.30 - 11.00</ons-list-header>
           <ons-list-item>
-            <ons-row>
-              <ons-col width="50%">
+            <ons-row width="50%">
+              <ons-col>
                 <button class="button--cta" id="btndatablank">
                   <p>ว่าง</p>
                 </button>
                 <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
               </ons-col>
 
-              <ons-col width="50%">
+              <ons-col>
                 <button class="button--cta" id="btndatablank">
                   <p>ว่าง</p>
                 </button>
@@ -202,30 +215,30 @@
     </template>
 
     <template id="alert-cancle.html">
-        <ons-alert-dialog id="my-alert-cancle" modifier="rowfooter">
-          <!-- <div class="alert-dialog-title">Alert</div> -->
-          <div class="alert-dialog-content">
-            ต้องการยกเลิกการจองลูกค้า?
-          </div>
-          <div class="alert-dialog-footer">
-            <ons-alert-dialog-button onclick="hideAlertDialog3()">มาก</ons-alert-dialog-button>
-            <ons-alert-dialog-button onclick="hideAlertDialog3()">น้อย</ons-alert-dialog-button>
-          </div>
-        </ons-alert-dialog>
-      </template>
+      <ons-alert-dialog id="my-alert-cancle" modifier="rowfooter">
+        <!-- <div class="alert-dialog-title">Alert</div> -->
+        <div class="alert-dialog-content">
+          ต้องการยกเลิกการจองลูกค้า?
+        </div>
+        <div class="alert-dialog-footer">
+          <ons-alert-dialog-button onclick="hideAlertDialog3()">มาก</ons-alert-dialog-button>
+          <ons-alert-dialog-button onclick="hideAlertDialog3()">น้อย</ons-alert-dialog-button>
+        </div>
+      </ons-alert-dialog>
+    </template>
 
     <template id="alert-messenge.html">
-        <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
-          <!-- <div class="alert-dialog-title">Alert</div> -->
-          <div class="alert-dialog-content">
-            คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
-          </div>
-          <div class="alert-dialog-footer">
-            <ons-alert-dialog-button onclick="hideAlertDialog2()">ไม่</ons-alert-dialog-button>
-            <ons-alert-dialog-button onclick="hideAlertDialog2()">ส่งข้อความ</ons-alert-dialog-button>
-          </div>
-        </ons-alert-dialog>
-      </template>
+      <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
+        <!-- <div class="alert-dialog-title">Alert</div> -->
+        <div class="alert-dialog-content">
+          คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
+        </div>
+        <div class="alert-dialog-footer">
+          <ons-alert-dialog-button onclick="hideAlertDialog2()">ไม่</ons-alert-dialog-button>
+          <ons-alert-dialog-button onclick="hideAlertDialog2()">ส่งข้อความ</ons-alert-dialog-button>
+        </div>
+      </ons-alert-dialog>
+    </template>
 
 </body>
 
@@ -238,7 +251,7 @@
       window.location.href = 'login.html';
     }, 1500);
   }
- 
+
   document.addEventListener('init', function (event) {
     var page = event.target;
 
@@ -247,7 +260,7 @@
         document.querySelector('#myNavigator').pushPage('detailState.html');
         // , { data: { title: 'Page 2' } });
       };
-    } 
+    }
     // else if (page.id === 'page2') {
     //   page.querySelector('ons-toolbar .center')
     //   // .innerHTML = page.data.title;
@@ -267,7 +280,7 @@
         });
     }
   };
-// Alert cancle
+  // Alert cancle
   var alertcancle = function () {
     var dialog3 = document.getElementById('my-alert-cancle');
 

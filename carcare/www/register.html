@@ -13,7 +13,7 @@
 
     <!-- icons -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
     <!-- Font Eng -->
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
     <!-- Font Thai -->
@@ -26,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
         </script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
@@ -36,21 +36,25 @@
     <ons-page>
         <div class="background"></div>
         <p>
-
-            <ons-button onclick="window.location.href='login.html'" modifier="quiet" id="btnback">
+            <ons-button onclick="back()" modifier="quiet" id="btnback">
                 <ons-icon icon="md-chevron-left"></ons-icon>
                 กลับ
             </ons-button>
-
         </p>
+        <script>
+            function back() {
+                location.href = 'login.html';
+            }
+        </script>
+
         <div class="info" id="info"></div>
         <form method="post" id="myform">
             <div class="regis">
                 <p>ลงทะเบียน</p>
                 <div class="inputregis">
                     <p>
-                        <ons-icon icon="md-account-circle"></ons-icon>
-                        <ons-input id="username" modifier="underbar" placeholder="ชื่อ" float>
+                        <ons-icon icon="ion-home, material:md-home"></ons-icon>
+                        <ons-input id="phone" modifier="underbar" placeholder="เบอร์โทรศัพท์" float>
                     </p>
                     <p>
                         <ons-icon icon="md-lock-outline"></ons-icon>
@@ -74,23 +78,9 @@
     </ons-page>
 </body>
 
-<!-- <script>
-    $(document).ready(function () {
-        $ajax({
-            url: "http://localhost:8080/user/getinsertlog",
-            type: "post",
-            data: $("#myform").serialize(),
-            sql:`insert into loginapp(Username,Password)value('${Username}','${Password}');`
-          
-       });
-    
-    });
 
-    $('#myform').click(function(){
-
-    })
-</script> -->
 <script>
+
 
     function insert() {
         var username = document.getElementById('username').value;
@@ -100,55 +90,33 @@
         window.location.href = 'profile.html';
 
         // window.axios = require('axios');
-    //     axios.post('http://localhost:8080/user/getuserall', {
-    //         Username: 'Toey',
-    //         Password: '1234'
-    //     })
-    //     let data = response.data
-    //         .then(function (response) {
-    //             console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-//     axios.post('http://localhost:8080/user/getinsertlog'+ Username + password, {
-//         Username: 'Toey',
-//         Password: '1234',
-//     completed: false
-//   })
-//   .then(function (response) {
-//    console.log(response);
-//   })
-//   .catch(function (error) {
-//     resultElement.innerHTML = generateErrorHTMLOutput(error);
-//   });
-  
-}
+        //     axios.post('http://localhost:8080/user/getuserall', {
+        //         Username: 'Toey',
+        //         Password: '1234'
+        //     })
+        //     let data = response.data
+        //         .then(function (response) {
+        //             console.log(response);
+        //         })
+        //         .catch(function (error) {
+        //             console.log(error);
+        //         });
+        //     axios.post('http://localhost:8080/user/getinsertlog'+ Username + password, {
+        //         Username: 'Toey',
+        //         Password: '1234',
+        //     completed: false
+        //   })
+        //   .then(function (response) {
+        //    console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     resultElement.innerHTML = generateErrorHTMLOutput(error);
+        //   });
 
-    
+    }
+
+
 
 </script>
-<script>
-    // function inData(){
-    //     var username = document.getElementById("username").value;
-    //     var password = document.getElementById("password").value;
-
-
-    //     db.collection("person").add({
-    //             username: username,
-    //             password: password
-    //         })
-    //             .then(function (docRef) {
-    //                 // console.log("Document written with ID: ", docRef.id);
-    //                 // gohome();
-    //             })
-    //             .catch(function (error) {
-    //                 console.error("Error adding document: ", error);
-    //             });
-
-    // }
-</script>
-
-
 
 </html>

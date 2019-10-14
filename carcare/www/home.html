@@ -22,7 +22,7 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://unpkg.com/onsnui/js/onsenui.min.js"></script>
   <script src="js/ejs.js"></script>
   <script src="cordova.js"></script>
   <!-- <script src="js/moment.js"></script> -->
@@ -208,7 +208,7 @@
 
             <div class="list-item__center">
               <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562</div>
-              <div class="list-item__subtitle">ล้างอัดฉีดช่วงล้าง <br>
+              <div class="list-item__subtitle">ล้างอัดฉีดช่วงล่าง <br>
                 ล้างสีดูดฝุ่น</div>
             </div>
           </div>
@@ -380,8 +380,8 @@
         data.forEach(element => {
           dc +=
             '<ons-card onclick=selectwork("' + element.car_num + '")>' +
-            '<div class="carnum">' + element.car_num + '</div>' +
-            '<div class="datailcar">' + element.type + element.color + '</div>' +
+            '<div class="carnum">ป้ายทะเบียนรถ ::  ' + element.car_num + '</div>' +
+            '<div class="datailcar">ข้อมูลรถ ::  ' + element.type +' ,  '+ element.color + '</div>' +
             '</ons-card>'
         })
         myobj = document.getElementById("showcar");
@@ -430,7 +430,7 @@
                       
                       <ons-list-item tappable>
                         <label class="left">
-                          <ons-checkbox input-id="spray" value="ล้างอัดฉีดช่วงล้าง"></ons-checkbox>
+                          <ons-checkbox input-id="spray" value="ล้างอัดฉีดช่วงล่าง"></ons-checkbox>
                         </label>
                         <label class="center" for="spray"> ล้างอัดฉีดช่วงล่าง </label>
                       </ons-list-item>
@@ -572,7 +572,7 @@
             if (myBook.wash_engin == 1) {
               orderMycar += 'ล้างห้องเครื่อง ';
             } if (myBook.spray_under == 1) {
-              orderMycar += 'ล้างอัดฉีดช่วงล้าง ';
+              orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
             } if (myBook.clean_dust == 1) {
               orderMycar += 'ล้างสีดูดฝุ่น ';
             } if (myBook.wash_asphalt == 1) {

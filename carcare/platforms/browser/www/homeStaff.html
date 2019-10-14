@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>MCarcare</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bai+Jamjuree|Lato&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="css/homeStaff.css">
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+  <script src="js/ejs.js"></script>
+  <script src="cordova.js"></script>
+
+</head>
+
+<body onload="show_staff(),show_times()">
+  <ons-navigator swipeable id="appNavigator" page="homeStaff.html"></ons-navigator>
+
+  <template id="homeStaff.html">
+    <ons-page id="page2">
+      <ons-toolbar id="headbar">
+        <div class="left" id="appname">
+          Mcarcare
+        </div>
+        <div class="right">
+          <ons-icon class="toolbaricon" size="25px" icon="md-power" style="margin-right:10px;" onclick="showModal()">
+          </ons-icon>
+        </div>
+      </ons-toolbar>
+      <ons-modal direction="up">
+        <div style="text-align: center">
+          <p>
+            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
+          </p>
+        </div>
+      </ons-modal>
+
+      <div class="row" id="showStaff">
+        default
+      </div>
+
+      <div class="progress-bar progress-bar--material">
+        <div class="progress-bar__primary progress-bar--material__primary" style="width: 100%"></div>
+      </div><br>
+
+      <div class="row" id="showTimes">
+        defaultTimes
+      </div>
+
+    </ons-page>
+  </template>
+
+  <template id="detailState.html">
+    <ons-page id="page2">
+      <div class="background"></div>
+      <p>
+        <ons-back-button>
+          <!-- <ons-icon icon="md-chevron-left"></ons-icon> -->
+          กลับ
+        </ons-back-button>
+      </p>
+      <div class="namedata">รายละเอียดข้อมูล</div>
+
+      <div class="row" id="showdetailbook">
+        default
+      </div>
+
+    </ons-page>
+  </template>
+
+
+  <template id="alert-messenge.html">
+    <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
+      <!-- <div class="alert-dialog-title">Alert</div> -->
+      <div class="alert-dialog-content">
+        คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
+      </div>
+      <div class="alert-dialog-footer">
+        <ons-alert-dialog-button onclick="hideAlertDialog2()">ไม่</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="hideAlertDialog2()">ส่งข้อความ</ons-alert-dialog-button>
+      </div>
+    </ons-alert-dialog>
+  </template>
+
+  <template id="alert-cancle.html">
+    <ons-alert-dialog id="my-alert-cancle" modifier="rowfooter">
+      <!-- <div class="alert-dialog-title">Alert</div> -->
+      <div class="alert-dialog-content">
+        ต้องการยกเลิกการจองลูกค้า?
+      </div>
+      <div class="alert-dialog-footer">
+        <ons-alert-dialog-button onclick="">ตกลง</ons-alert-dialog-button>
+        <ons-alert-dialog-button onclick="">ยกเลิก</ons-alert-dialog-button>
+        <!-- <ons-alert-dialog-button onclick="hideAlertDialog3()">ยกเลิก</ons-alert-dialog-button> -->
+      </div>
+    </ons-alert-dialog>
+  </template>
+
+</body>
+
+<script>
+
+  window.fn = {};
+
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
+  };
+
+  window.fn.load = function (page) {
+    var myNavigator = document.getElementById('appNavigator');
+    menu.close();
+    myNavigator.resetToPage(page, { animation: 'fade' });
+  };
+
+  console.log("phone :: " + localStorage.getItem("phone"));
+
+  function showModal() {
+    var modal = document.querySelector('ons-modal');
+    modal.show();
+    setTimeout(function () {
+      // modal.hide();
+      window.location.href = 'login.html';
+    }, 1500);
+  }
+
+  async function show_staff() {
+
+    let phone = localStorage.getItem("phone");
+    axios.get('http://localhost:8080/user/showStaff?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log("Data :: " + JSON.stringify(data));
+        data.forEach(staff => {
+          dc += `
+                  <div class="toolbar" id="name_staff">
+                    <div class="toolbar__center" id="colorback">${staff.fname} ${staff.lname}</div>
+                  </div>
+                `
+        })
+        myobj = document.getElementById("showStaff");
+        myobj.innerHTML = dc;
+        // localStorage.setItem("car_num" , car_num);
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+  async function show_times() {
+    try {
+      let times = localStorage.getItem("times");
+      let car_num = localStorage.getItem("car_num");
+      const responseupWork = await axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      const responseTime = await axios.get('http://localhost:8080/user/showtimes');
+      const responseWork = await axios.get('http://localhost:8080/user/showwork');
+
+      let data = responseTime.data
+      if (responseWork.data) {
+        var dc = [];
+        data = responseTime.data.map(time => {
+          console.log('ก่อน', time);
+          time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
+          console.log('หลัง', time);
+
+          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times).map(workInFilter => ({ car_num: workInFilter.car_num }))
+          if (workOnThisTime) { 
+          time.hasWork = workOnThisTime.length;
+          console.log('ถ้ามีwork', time);
+          }
+
+          time.work = workOnThisTime.map(workInForEach => {
+            if (responseupWork.data.some(upwork => upwork.car_num === workInForEach.car_num)) {
+              workInForEach.upwork = true;
+              console.log('ถ้ามีการทำรายการ', workInForEach);
+              
+            }
+            return workInForEach
+          })
+
+          const className1 = time.work[0] && time.work[0].upwork ? 'upwork' : time.work[0] ? 'has-book' : 'empty';
+          const text1 = time.work[0] && time.work[0].upwork ? 'กำลังดำเนินการ' : time.work[0] ? 'มีการจอง' : 'ว่าง';
+          const carNum1 = time.work[0] ? time.work[0].car_num : '';
+
+          const className2 = time.work[1] && time.work[1].upwork ? 'upwork' : time.work[1] ? 'has-book' : 'empty';
+          const text2 =  time.work[1] && time.work[1].upwork ? 'กำลังดำเนินการ' : time.work[1] ? 'มีการจอง' : 'ว่าง';
+          const carNum2 = time.work[1] ? time.work[1].car_num : '';
+
+          dc += `
+          <ons-card >
+          <ons-list>
+            <ons-list-header>${time.times}</ons-list-header>
+            <ons-list-item>
+              <ons-row idth="50%">
+
+                <ons-col id="mar-butm">
+                  <button class="button--cta ${className1}" id="workbtn" onclick="detail('${time.times}','${carNum1}')">
+                    <p>${carNum1}</p>
+                    <p>${text1}</p>
+                  </button>
+                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
+                </ons-col>
+ 
+                <ons-col id="mar-butm">
+                  <button class="button--cta ${className2}" id="workbtn" onclick="detail('${time.times}','${carNum2}')">
+                    <p>${carNum2}</p>
+                    <p>${text2}</p>
+                  </button>
+                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
+                </ons-col>
+
+              </ons-row>
+            </ons-list-item>
+          </ons-list>
+        </ons-card>
+               `
+          return time;
+        })
+        myobj = document.getElementById("showTimes");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  var detail = function detail(times, car_num) {
+    console.log('time ::' + times);
+    console.log('car_num::' + car_num);
+
+    localStorage.setItem("times", times);
+    localStorage.setItem("car_num", car_num);
+
+    appNavigator.pushPage('detailState.html')
+
+    axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        data.forEach(detailcus => {
+
+          var ordercus = ''
+
+          if (detailcus.wash_engin == 1) {
+            ordercus += 'ล้างห้องเครื่อง= ';
+          } if (detailcus.spray_under == 1) {
+            ordercus += 'ล้างอัดฉีดช่วงล้าง ';
+          } if (detailcus.clean_dust == 1) {
+            ordercus += 'ล้างสีดูดฝุ่น ';
+          } if (detailcus.wash_asphalt == 1) {
+            ordercus += 'ล้างยางมะตอย ';
+          } if (detailcus.chang_fuel == 1) {
+            ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
+          }
+
+          console.log(ordercus);
+
+          dc += `
+                <ons-card>
+                  <ons-row>
+                    <ons-col style="padding: 10px 0px 10px 35px;">
+                      <div class="title">ชื่อ : ${detailcus.fname} ${detailcus.lname} </div>
+                      <div class="title">เบอร์โทรฯ : ${detailcus.phone} </div>
+                      <div class="title">ป้ายทะเบียน : ${detailcus.car_num} </div>
+                      <div class="title">ประเภทรถ : ${detailcus.type} </div>
+                      <div class="title">สีรถ : ${detailcus.color} </div>
+                      <div class="title">รายการลูกค้า : ${ordercus}</div>
+                    </ons-col>
+                  </ons-row>
+                </ons-card>
+
+                <ons-row style="margin-top: 15px;">
+                  <ons-col style="flex: 0 0 70%;margin: auto; max-width: 30%; >
+                    <label class="radio-button radio-button">
+                     <ons-radio class="radio-select" input-id="small" value="ขนาดเล็ก" name="r"></ons-radio>
+                      </label>
+                      <label for="small" class="center">ขนาดเล็ก</label>
+                  </ons-col>
+
+                  <ons-col style="flex: 0 0 70%;margin: auto;max-width: 30%;">
+                    <label class="radio-button radio-button">
+                      <ons-radio class="radio-select" input-id="big" value="ขนาดใหญ่" name="r" ></ons-radio>
+                      <label for="big" class="center">ขนาดใหญ่</label>
+                    </label>
+                  </ons-col>
+                </ons-row>
+
+                <div class="setbtn">
+                  <ons-button onclick="" id="btnpass"> เลื่อนเวลา </ons-button>
+                  <ons-button onclick="alertsubmit()" id="btnsubmit"> ยืนยัน </ons-button>
+                  <ons-button onclick="alertcancle()" id="btncancle"> ยกเลิก </ons-button>
+                </div>
+
+
+                <template id="alert-submit.html">
+                  <ons-alert-dialog id="my-alert-submit" modifier="rowfooter">
+                  <ons-row>
+                    <ons-col>
+                    <div class="alert-dialog-content"> ระดับความสกปรก </div>
+                    </ons-col>
+                    <ons-button modifier="quiet" onclick="close()">
+                      <ons-icon class="icon_bk" icon="md-chevron-down" style="font-size: 30px; color:black;"></ons-icon>
+                    </ons-button>
+                  </ons-row>
+                    
+                    <div class="alert-dialog-footer">
+                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertDialog('${car_num}', '2')">มาก</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertDialog('${car_num}', '1')">น้อย</ons-alert-dialog-button>
+                   </div>
+                  </ons-alert-dialog>
+                </template>
+                `
+        })
+        let myobj = document.getElementById("showdetailbook");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+  // Alert submit
+  async function alertsubmit() {
+    // console.log("CAR ::" + car_num)
+    // var small = document.getElementById('small').checked
+    // var big = document.getElementById('big').checked
+    // console.log(small)
+    // console.log(big)
+
+    var size = '';
+    if (document.getElementById('small').checked === true) {
+      size = 'เล็ก'
+    } if (document.getElementById('big').checked === true) {
+      size = 'ใหญ่'
+    }
+    localStorage.setItem("size", size);
+
+    var alert_submit = document.getElementById('my-alert-submit');
+    if (alert_submit) {
+      alert_submit.show();
+    } else {
+      ons.createElement('alert-submit.html', { append: true })
+        .then(function (alert_submit) {
+          alert_submit.show();
+        });
+    }
+  };
+
+  async function hideAlertDialog(car_num, value) {
+    console.log(car_num)
+    console.log(value)
+    let size = localStorage.getItem("size")
+    let times = localStorage.getItem("times")
+    console.log(size,times)
+
+    postAPI(car_num,size,value,times)
+    document.getElementById('my-alert-submit').hide();
+  }; 
+
+  var data = [];
+  async function postAPI(car_num,size,value,times) {
+    let html= '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('size', size);
+    bodyFormData.set('level', value);
+    bodyFormData.set('times', times);
+
+    await axios({
+      method: 'post',
+      url: 'http://localhost:8080/user/updatedatail',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+    .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "homeStaff.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+  
+ function close() {
+    document
+      .getElementById('my-alert-submit')
+      .hide();
+  };
+
+  // Alert cancle
+  var alertcancle = function () {
+    var dialog3 = document.getElementById('my-alert-cancle');
+
+    if (dialog3) {
+      dialog3.show();
+    } else {
+      ons.createElement('alert-cancle.html', { append: true })
+        .then(function (dialog3) {
+          dialog3.show();
+        });
+    }
+  };
+
+  // Alert messenge
+  var alertmessenge = function () {
+    var dialog2 = document.getElementById('my-alert-messenge');
+
+    if (dialog2) {
+      dialog2.show();
+    } else {
+      ons.createElement('alert-messenge.html', { append: true })
+        .then(function (dialog2) {
+          dialog2.show();
+        });
+    }
+  };
+
+ 
+
+  // var hideAlertDialog2 = function () {
+  //   document
+  //     .getElementById('my-alert-messenge')
+  //     .hide();
+  // };
+
+  // var hideAlertDialog3 = function () {
+  //   document
+  //     .getElementById('my-alert-messenge')
+  //     .hide();
+
+  // };
+
+
+</script>
+
+</html>

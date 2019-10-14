@@ -13,7 +13,7 @@
 
     <!-- icons -->
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css"> -->
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
     <!-- Font Eng -->
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
     <!-- Font Thai -->
@@ -41,19 +41,15 @@
                 กลับ
             </ons-button>
         </p>
-        <script>
-            function back() {
-                location.href = 'login.html';
-            }
-        </script>
 
         <div class="info" id="info"></div>
-        <form method="post" id="myform">
-            <div class="regis">
-                <p>ลงทะเบียน</p>
+
+        <div class="regis">
+            <p>ลงทะเบียน</p>
+            <form method="POST">
                 <div class="inputregis">
                     <p>
-                        <ons-icon icon="ion-home, material:md-home"></ons-icon>
+                        <ons-icon icon="md-smartphone"></ons-icon>
                         <ons-input id="phone" modifier="underbar" placeholder="เบอร์โทรศัพท์" float>
                     </p>
                     <p>
@@ -65,56 +61,65 @@
                         <ons-input id="password" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
                     </p>
                 </div>
-                <div class="setbtn">
-                    <!-- <ons-button onclick=" " id="btnancle">
-                    cancle
-                </ons-button> -->
-                    <ons-button modifier="quiet" id="fonts" onclick="insert()">
-                        ยืนยัน
-                    </ons-button>
-                </div>
+            </form>
+            <div class="setbtn">
+                <ons-button modifier="quiet" id="fonts" onclick="insertData()">
+                    ยืนยัน
+                </ons-button>
             </div>
-        </form>
+        </div>
+
     </ons-page>
 </body>
 
 
 <script>
-
-
-    function insert() {
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
-
-        console.log("username: " + username, "password: " + password);
-        window.location.href = 'profile.html';
-
-        // window.axios = require('axios');
-        //     axios.post('http://localhost:8080/user/getuserall', {
-        //         Username: 'Toey',
-        //         Password: '1234'
-        //     })
-        //     let data = response.data
-        //         .then(function (response) {
-        //             console.log(response);
-        //         })
-        //         .catch(function (error) {
-        //             console.log(error);
-        //         });
-        //     axios.post('http://localhost:8080/user/getinsertlog'+ Username + password, {
-        //         Username: 'Toey',
-        //         Password: '1234',
-        //     completed: false
-        //   })
-        //   .then(function (response) {
-        //    console.log(response);
-        //   })
-        //   .catch(function (error) {
-        //     resultElement.innerHTML = generateErrorHTMLOutput(error);
-        //   });
-
+    function back() {
+        location.href = 'login.html';
     }
 
+    async function insertData() {
+        let phone = document.getElementById('phone').value;
+        let passwordsub = document.getElementById('passwordsub').value;
+        let password = document.getElementById('password').value;
+        console.log(phone, passwordsub, password)
+
+        if (passwordsub === password) {
+            // ons.notification.alert('ลงทะเบียนเรียบร้อย !');
+            localStorage.setItem("phone", phone);
+            postAPI(phone, password)
+        } else {
+            ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+        }
+
+       
+    }
+    var data = [];
+    async function postAPI(phone, password) {
+        let html = '';
+        var bodyFormData = new FormData();
+        bodyFormData.set('phone', phone);
+        bodyFormData.set('password', password);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8080/user/regisCus',
+            data: bodyFormData,
+            config: {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+                location.href = "profile.html";
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            })
+    }
 
 
 </script>

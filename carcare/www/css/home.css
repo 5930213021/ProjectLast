@@ -28,6 +28,11 @@
     -webkit-background-size: 100% 100%, auto;
     background-size: 100% 100%, auto;
 }
+.background{
+    /* background: -webkit-linear-gradient(left, rgb(92, 143, 236),#3FA3D9 ,#6CD4F1); */
+    background: white;
+
+}
 
 #appname{
     /* font-family: 'Archivo Black', sans-serif; */

@@ -22,15 +22,16 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/onsnui/js/onsenui.min.js"></script>
+
   <script src="js/ejs.js"></script>
   <script src="cordova.js"></script>
   <!-- <script src="js/moment.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/af.js" 
   integrity="sha256-I5ZXO8KcMnqNkrXU7baGig70nATYjNDnxxA2d40PcR8=" crossorigin="anonymous"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
 
 </head>
@@ -95,7 +96,7 @@
       <ons-list-title><br></ons-list-title>
       <!-- เมนู -->
       <ons-list>
-        <ons-list-item onclick="window.location.href='profile2.html'">
+        <ons-list-item onclick="profile()">
 
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
@@ -146,6 +147,20 @@
     </ons-page>
   </template>
 
+  <template id="profile.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>Back</ons-back-button>
+      </p>
+      <div class="namedata">รายละเอียดข้อมูล</div>
+
+      <div class="row" id="profileCus">
+        default
+      </div>
+    </ons-page>
+  </template>
+
   <template id="home.html" var="MyNav">
     <ons-page><br>
 
@@ -179,7 +194,7 @@
   </template>
 
   <template id="message.html">
-    <ons-page><br> 
+    <ons-page><br>
       <!-- <div class="card" id="bor">
         <h3 class="card__title">วันจันทร์ 14 ก.พ. 2562</h3>
         <div class="card__content">รถของท่านได้ทำการล้างเสร็จเรียบร้อยแล้ว ท่านสามารถเข้ามารับรถได้เลยค่ะ</div>
@@ -306,6 +321,37 @@
     }, 1500);
   }
 
+  async function profile() {
+    appNavigator.pushPage('profile.html')
+    let phone = localStorage.getItem("phone");
+    axios.get('http://localhost:8080/user/showProfile?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        data.forEach(showprofile => {
+          dc +=
+            `
+            <ons-card>
+              <div class="title">ชื่อ : ${showprofile.fname} ${showprofile.lname} </div>
+              <div class="title">เบอร์โทรฯ : ${showprofile.phone} </div>
+              <div class="title">อีเมล : ${showprofile.email} </div>
+              <div class="title">ป้ายทะเบียน : ${showprofile.car_num} </div>
+              <div class="title">ประเภทรถ : ${showprofile.type} </div>
+              <div class="title">สีรถ : ${showprofile.color} </div>
+            </ons-card>
+           `
+        })
+        myobj = document.getElementById("profileCus");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
   async function book() {
     try {
       let phone = localStorage.getItem("phone");
@@ -322,7 +368,7 @@
           console.log(setTime);
 
           const checkTime = now.isAfter(setTime)
-          console.log("checkTime ::"+checkTime);
+          console.log("checkTime ::" + checkTime);
 
           console.log('ก่อน', time);
           time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
@@ -381,7 +427,7 @@
           dc +=
             '<ons-card onclick=selectwork("' + element.car_num + '")>' +
             '<div class="carnum">ป้ายทะเบียนรถ ::  ' + element.car_num + '</div>' +
-            '<div class="datailcar">ข้อมูลรถ ::  ' + element.type +' ,  '+ element.color + '</div>' +
+            '<div class="datailcar">ข้อมูลรถ ::  ' + element.type + ' ,  ' + element.color + '</div>' +
             '</ons-card>'
         })
         myobj = document.getElementById("showcar");
@@ -558,7 +604,6 @@
         var dc = [];
         let data = response.data
         console.log(data);
-
         if (data == '') {
           dc += `
                   <p class="intro">

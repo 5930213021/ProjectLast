@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
 
     <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
 
     <link rel="stylesheet" type="text/css" href="css/all.css">
@@ -62,12 +62,16 @@
                     - ลงทะเบียนเข้าใช้งาน -
                 </ons-button>
             </p>
+
             <div class="forgetpass">
+                <button class="button--large--quiet" style="width: 95%;" onclick="showAlert()">ลืมรหัสผ่าน?</button>
+            </div>
+            <!-- <div class="forgetpass">
                 <button class="button--large--quiet" style="width: 95%;"
                     onclick="ons.notification.toast('กรุณาติดต่อกับทางร้านโดยตรง', { buttonLabel: 'ตกลง', timeout: 1500 })">
                     ลืมรหัสผ่าน?
                 </button>
-            </div>
+            </div> -->
 
             <ons-modal direction="down" id="modalcolor">
                 <div style="text-align: center">
@@ -123,9 +127,24 @@
 </script>
 
 <script>
-    function addUsers(){
+    function addUsers() {
         location.href = 'register.html';
     }
+
+    var showAlert = function () {
+        // ons.notification.alert('Alert!');
+        ons.notification.alert({
+            title: 'ลืมรหัสผ่าน?',
+            message: "ทางร้านจะส่งรหัสผ่านของคุณทางอีเมล",
+            buttonLabel: 'ตกลง',
+            callback: function () {
+                ons.notification.alert({
+                    message: 'ส่งข้อความแล้ว',
+                    // modifier: mod
+                });
+            }
+        });
+    };
 </script>
 
 </html>

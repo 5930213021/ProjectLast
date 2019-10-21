@@ -147,8 +147,8 @@ p{
 
 .forgetpass {
     text-align: center;
-    padding: 0 20px;
-    padding-top: 50%
+    /* padding: 0 20px; */
+    padding-top: 20%
 }
 
 .button--large--quiet, .button--large--quiet:active {
@@ -167,4 +167,20 @@ p{
     background-color: rgba(19, 3, 105, 0.3);
     border-radius: 0;
     padding: 16px 24px;
+}
+
+.warn{
+    font-size: 16px;
+    font-family: 'Athiti', sans-serif;
+    color: rgb(192, 0, 0);
+    font-weight:bold;
+    margin-top: 10px;
+    padding: 12px;
+}
+.profileCus{
+    margin-top: 50px;
+    font-family: 'Athiti', sans-serif;
+    color: rgb(255, 255, 255,0.9);
+    text-align: center;
+    font-size: 30px;
 }

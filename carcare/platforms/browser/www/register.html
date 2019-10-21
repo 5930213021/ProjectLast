@@ -26,7 +26,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
         </script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
@@ -36,21 +36,21 @@
     <ons-page>
         <div class="background"></div>
         <p>
-
-            <ons-button onclick="window.location.href='login.html'" modifier="quiet" id="btnback">
+            <ons-button onclick="back()" modifier="quiet" id="btnback">
                 <ons-icon icon="md-chevron-left"></ons-icon>
                 กลับ
             </ons-button>
-
         </p>
+
         <div class="info" id="info"></div>
-        <form method="post" id="myform">
-            <div class="regis">
-                <p>ลงทะเบียน</p>
+
+        <div class="regis">
+            <p>ลงทะเบียน</p>
+            <form method="POST">
                 <div class="inputregis">
                     <p>
-                        <ons-icon icon="md-account-circle"></ons-icon>
-                        <ons-input id="username" modifier="underbar" placeholder="ชื่อ" float>
+                        <ons-icon icon="md-smartphone"></ons-icon>
+                        <ons-input id="phone" modifier="underbar" placeholder="เบอร์โทรศัพท์" float>
                     </p>
                     <p>
                         <ons-icon icon="md-lock-outline"></ons-icon>
@@ -61,94 +61,67 @@
                         <ons-input id="password" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
                     </p>
                 </div>
-                <div class="setbtn">
-                    <!-- <ons-button onclick=" " id="btnancle">
-                    cancle
-                </ons-button> -->
-                    <ons-button modifier="quiet" id="fonts" onclick="insert()">
-                        ยืนยัน
-                    </ons-button>
-                </div>
+            </form>
+            <div class="setbtn">
+                <ons-button modifier="quiet" id="fonts" onclick="insertData()">
+                    ยืนยัน
+                </ons-button>
             </div>
-        </form>
+        </div>
+
     </ons-page>
 </body>
 
-<!-- <script>
-    $(document).ready(function () {
-        $ajax({
-            url: "http://localhost:8080/user/getinsertlog",
-            type: "post",
-            data: $("#myform").serialize(),
-            sql:`insert into loginapp(Username,Password)value('${Username}','${Password}');`
-          
-       });
-    
-    });
 
-    $('#myform').click(function(){
-
-    })
-</script> -->
 <script>
+    function back() {
+        location.href = 'login.html';
+    }
 
-    function insert() {
-        var username = document.getElementById('username').value;
-        var password = document.getElementById('password').value;
+    async function insertData() {
+        let phone = document.getElementById('phone').value;
+        let passwordsub = document.getElementById('passwordsub').value;
+        let password = document.getElementById('password').value;
+        console.log(phone, passwordsub, password)
 
-        console.log("username: " + username, "password: " + password);
-        window.location.href = 'profile.html';
+        if (passwordsub === password) {
+            // ons.notification.alert('ลงทะเบียนเรียบร้อย !');
+            localStorage.setItem("phone", phone);
+            postAPI(phone, password)
+        } else {
+            ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+        }
 
-        // window.axios = require('axios');
-    //     axios.post('http://localhost:8080/user/getuserall', {
-    //         Username: 'Toey',
-    //         Password: '1234'
-    //     })
-    //     let data = response.data
-    //         .then(function (response) {
-    //             console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-//     axios.post('http://localhost:8080/user/getinsertlog'+ Username + password, {
-//         Username: 'Toey',
-//         Password: '1234',
-//     completed: false
-//   })
-//   .then(function (response) {
-//    console.log(response);
-//   })
-//   .catch(function (error) {
-//     resultElement.innerHTML = generateErrorHTMLOutput(error);
-//   });
-  
-}
+       
+    }
+    var data = [];
+    async function postAPI(phone, password) {
+        let html = '';
+        var bodyFormData = new FormData();
+        bodyFormData.set('phone', phone);
+        bodyFormData.set('password', password);
+        await axios({
+            method: 'post',
+            url: 'http://localhost:8080/user/regisCus',
+            data: bodyFormData,
+            config: {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+                location.href = "profile.html";
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            })
+    }
 
-    
 
 </script>
-<script>
-    // function inData(){
-    //     var username = document.getElementById("username").value;
-    //     var password = document.getElementById("password").value;
-
-
-    //     db.collection("person").add({
-    //             username: username,
-    //             password: password
-    //         })
-    //             .then(function (docRef) {
-    //                 // console.log("Document written with ID: ", docRef.id);
-    //                 // gohome();
-    //             })
-    //             .catch(function (error) {
-    //                 console.error("Error adding document: ", error);
-    //             });
-
-    // }
-</script>
-
-
 
 </html>

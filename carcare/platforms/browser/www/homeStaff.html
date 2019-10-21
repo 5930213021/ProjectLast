@@ -99,19 +99,6 @@
     </ons-alert-dialog>
   </template>
 
-  <template id="alert-cancle.html">
-    <ons-alert-dialog id="my-alert-cancle" modifier="rowfooter">
-      <!-- <div class="alert-dialog-title">Alert</div> -->
-      <div class="alert-dialog-content">
-        ต้องการยกเลิกการจองลูกค้า?
-      </div>
-      <div class="alert-dialog-footer">
-        <ons-alert-dialog-button onclick="">ตกลง</ons-alert-dialog-button>
-        <ons-alert-dialog-button onclick="">ยกเลิก</ons-alert-dialog-button>
-        <!-- <ons-alert-dialog-button onclick="hideAlertDialog3()">ยกเลิก</ons-alert-dialog-button> -->
-      </div>
-    </ons-alert-dialog>
-  </template>
 
 </body>
 
@@ -187,16 +174,16 @@
           console.log('หลัง', time);
 
           const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times).map(workInFilter => ({ car_num: workInFilter.car_num }))
-          if (workOnThisTime) { 
-          time.hasWork = workOnThisTime.length;
-          console.log('ถ้ามีwork', time);
+          if (workOnThisTime) {
+            time.hasWork = workOnThisTime.length;
+            console.log('ถ้ามีwork', time);
           }
 
           time.work = workOnThisTime.map(workInForEach => {
             if (responseupWork.data.some(upwork => upwork.car_num === workInForEach.car_num)) {
               workInForEach.upwork = true;
               console.log('ถ้ามีการทำรายการ', workInForEach);
-              
+
             }
             return workInForEach
           })
@@ -206,7 +193,7 @@
           const carNum1 = time.work[0] ? time.work[0].car_num : '';
 
           const className2 = time.work[1] && time.work[1].upwork ? 'upwork' : time.work[1] ? 'has-book' : 'empty';
-          const text2 =  time.work[1] && time.work[1].upwork ? 'กำลังดำเนินการ' : time.work[1] ? 'มีการจอง' : 'ว่าง';
+          const text2 = time.work[1] && time.work[1].upwork ? 'กำลังดำเนินการ' : time.work[1] ? 'มีการจอง' : 'ว่าง';
           const carNum2 = time.work[1] ? time.work[1].car_num : '';
 
           dc += `
@@ -322,15 +309,27 @@
                     <ons-col>
                     <div class="alert-dialog-content"> ระดับความสกปรก </div>
                     </ons-col>
-                    <ons-button modifier="quiet" onclick="close()">
+                    <ons-button modifier="quiet" id="close" onclick="close()">
                       <ons-icon class="icon_bk" icon="md-chevron-down" style="font-size: 30px; color:black;"></ons-icon>
                     </ons-button>
                   </ons-row>
-                    
+
                     <div class="alert-dialog-footer">
-                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertDialog('${car_num}', '2')">มาก</ons-alert-dialog-button>
-                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertDialog('${car_num}', '1')">น้อย</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertLevel('${car_num}', '2')">มาก</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertLevel('${car_num}', '1')">น้อย</ons-alert-dialog-button>
                    </div>
+                  </ons-alert-dialog>
+                </template>
+
+                <template id="alert-cancle.html">
+                  <ons-alert-dialog id="my-alert-cancle" modifier="rowfooter">
+                    <div class="alert-dialog-content">
+                      ต้องการยกเลิกการจองลูกค้า?
+                    </div>
+                    <div class="alert-dialog-footer">
+                      <ons-alert-dialog-button onclick="hideAlertCancel('${car_num}','1')">ตกลง</ons-alert-dialog-button>
+                      <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                    </div>
                   </ons-alert-dialog>
                 </template>
                 `
@@ -372,20 +371,29 @@
     }
   };
 
-  async function hideAlertDialog(car_num, value) {
+  async function close() {
+    document
+      .getElementById('close')
+      .hide();
+  };
+
+  // function submit sizecar
+  async function hideAlertLevel(car_num, value) {
     console.log(car_num)
     console.log(value)
     let size = localStorage.getItem("size")
     let times = localStorage.getItem("times")
-    console.log(size,times)
+    console.log(size, times)
 
-    postAPI(car_num,size,value,times)
-    document.getElementById('my-alert-submit').hide();
-  }; 
+    postAPI(car_num, size, value, times)
+    document
+      .getElementById('my-alert-submit')
+      .hide();
+  };
 
   var data = [];
-  async function postAPI(car_num,size,value,times) {
-    let html= '';
+  async function postAPI(car_num, size, value, times) {
+    let html = '';
     var bodyFormData = new FormData();
     bodyFormData.set('car_num', car_num);
     bodyFormData.set('size', size);
@@ -402,7 +410,7 @@
         }
       }
     })
-    .then(function (response) {
+      .then(function (response) {
         //handle success
         console.log(response);
         location.href = "homeStaff.html";
@@ -413,12 +421,6 @@
       })
   }
 
-  
- function close() {
-    document
-      .getElementById('my-alert-submit')
-      .hide();
-  };
 
   // Alert cancle
   var alertcancle = function () {
@@ -432,6 +434,54 @@
           dialog3.show();
         });
     }
+  };
+  // function cancle
+  var hideAlertCancel = function (car_num, value) {
+    console.log(car_num)
+    console.log(value)
+    let times = localStorage.getItem("times")
+    console.log(times)
+
+    postAPI(car_num, value, times)
+    document
+      .getElementById('my-alert-cancle')
+      .hide();
+  };
+
+  var data = [];
+  async function postAPI(car_num, value, times) {
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('cancel', value);
+    bodyFormData.set('times', times);
+
+    await axios({
+      method: 'post',
+      url: 'http://localhost:8080/user/updateCancel',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "homeStaff.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+  // function close
+  var hideAlertClose = function () {
+    document
+      .getElementById('my-alert-cancle')
+      .hide();
   };
 
   // Alert messenge
@@ -448,19 +498,12 @@
     }
   };
 
- 
+
 
   // var hideAlertDialog2 = function () {
   //   document
   //     .getElementById('my-alert-messenge')
   //     .hide();
-  // };
-
-  // var hideAlertDialog3 = function () {
-  //   document
-  //     .getElementById('my-alert-messenge')
-  //     .hide();
-
   // };
 
 

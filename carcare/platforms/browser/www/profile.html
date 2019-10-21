@@ -18,7 +18,7 @@
     <!-- <link href="https://fonts.googleapis.com/css?family=Athiti:300&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css?family=Athiti:300|Sarabun:200&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="css/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/all.css">
 
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
@@ -39,130 +39,137 @@
 <body>
     <ons-page>
         <div class="background"></div>
-        <p>
-            <div class="top"></div>
-            <!-- <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
-                <ons-icon icon="md-chevron-left"></ons-icon>
-                Back
-            </ons-button> -->
-        </p>
-        <ons-row>
-            <ons-col>
-                <ons-fab id="pic" position="top center">
-                    <!-- <input type="file" id="myFile"> -->
-                    <ons-icon icon="md-account-add" id="icons"></ons-icon>
-                </ons-fab>
-                <!-- <div class="namepic">รูปภาพ</div> -->
-            </ons-col>
-        </ons-row>
-        <form method="POST" action="javascript:regis();" id="registration"></form>
-        <div class="detail">
-            <ons-card>
-                <div class="title">ชื่อ :
-                    <ons-input id="fname" placeholder="ส้มดี"></ons-input>
+        <div class="profileCus">
+            <p>ข้อมูลของคุณ</p>
+            <form method="POST">
+                <div class="inputregis">
+                    <p>
+                        <ons-icon icon="md-smartphone"></ons-icon>
+                        <ons-input id="fname" placeholder="ชื่อ"></ons-input>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock-outline"></ons-icon>
+                        <ons-input id="lname" placeholder="นามสกุล"></ons-input>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock"></ons-icon>
+                        <ons-input id="phone" type="number" placeholder="เบอร์โทรศัพท์"></ons-input>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock"></ons-icon>
+                        <ons-input id="email" type="email" placeholder="อีเมล"></ons-input>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock"></ons-icon>
+                        <ons-input id="carcode" placeholder="ป้ายทะเบียน"></ons-input>
+                    </p>
+                    <p>
+                        <label>ประเภทรถ :</label>
+                        <ons-select class="select" id="typecar">
+                            <select class="select-input">
+                                <option> รถกระบะ</option>
+                                <option> รถเก๋ง</option>
+                                <option> รถSuv</option>
+                                <option> รถมอเตอร์ไซต์</option>
+                            </select>
+                        </ons-select>
+                    </p>
+                    <p>
+                        <label>สีรถ :</label>
+                        <ons-select class="select" id="colorcar">
+                            <select class="select-input">
+                                <option> แดง</option>
+                                <option> ขาว</option>
+                                <option> บลอนเงิน</option>
+                                <option> บลอนทอง</option>S
+                                <option> เหลือง</option>
+                                <option> เขียว</option>
+                                <option> น้ำเงิน</option>
+                            </select>
+                        </ons-select>
+                    </p>
                 </div>
-                <div class="title">นามสกุล :
-                    <ons-input id="lname" placeholder="ส้มดี"></ons-input>
+            </form>
+            <div class="setbtn">
+                <ons-button modifier="quiet" id="fonts" onclick="getData()">
+                    ยืนยัน
+                </ons-button>
+                <div class="warn">
+                    กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
                 </div>
-                <div class="title">เบอร์โทรฯ :
-                    <ons-input id="phone" type="number" placeholder="xxx-xxxxxxx"></ons-input>
-                </div>
-                <div class="title">ป้ายทะเบียน :
-                    <ons-input id="carcode" placeholder="กข ภูเก็ต 2541"></ons-input>
-                </div>
-                <div class="title">ประเภทรถ :
-                    <ons-select class="select" id="typecar">
-                        <select class="select-input">
-                            <option> รถกระบะ</option>
-                            <option> รถเก๋ง</option>
-                            <option> รถSuv</option>
-                            <option> รถมอเตอร์ไซต์</option>
-                        </select>
-                    </ons-select>
-                </div>
-                <div class="title">สีรถ :
-                    <ons-select class="select" id="colorcar">
-                        <select class="select-input">
-                            <option> แดง</option>
-                            <option> ขาว</option>
-                            <option> บลอนเงิน</option>
-                            <option> บลอนทอง</option>S
-                            <option> เหลือง</option>
-                            <option> เขียว</option>
-                            <option> น้ำเงิน</option>
-                        </select>
-                    </ons-select>
-                </div>
-            </ons-card>
-        </div>
-        </form>
-
-        <div class="setbtn">
-            <ons-button type="submit" id="btnsubmit" onclick="getData()">
-                ยืนยัน
-            </ons-button>
-
-            <div class="warn">
-                กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
             </div>
         </div>
-
-
 
     </ons-page>
 </body>
 <script>
-    // Radio function
-    function editSelects(event) {
-        document.getElementById('choose-sel').removeAttribute('modifier');
-        if (event.target.value == 'material' || event.target.value == 'underbar') {
-            document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
-        }
-    }
-    function addOption(event) {
-        const option = document.createElement('option');
-        var text = document.getElementById('optionLabel').value;
-        option.innerText = text;
-        text = '';
-        document.getElementById('dynamic-sel').appendChild(option);
-    }
+    // // Radio function
+    // function editSelects(event) {
+    //     document.getElementById('choose-sel').removeAttribute('modifier');
+    //     if (event.target.value == 'material' || event.target.value == 'underbar') {
+    //         document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
+    //     }
+    // }
+    // function addOption(event) {
+    //     const option = document.createElement('option');
+    //     var text = document.getElementById('optionLabel').value;
+    //     option.innerText = text;
+    //     text = '';
+    //     document.getElementById('dynamic-sel').appendChild(option);
+    // }
 
+    console.log("phone :: " + localStorage.getItem("phone"));
+    let phoneCus = localStorage.getItem("phone")
 
     async function getData() {
         let fname = document.getElementById('fname').value;
         let lname = document.getElementById('lname').value;
-        let phone = document.getElementById('phone').value;
+        let phonesub = document.getElementById('phone').value;
+        let email = document.getElementById('email').value;
         let car_num = document.getElementById('carcode').value;
         let type = document.getElementById('typecar').value;
         let colorcar = document.getElementById('colorcar').value;
-        console.log(fname, lname, phone)
-        postAPI(phone, fname, lname)
-        // let validate = await checkValidateUser(usern,email);
+
+        console.log(fname, lname, phonesub,email, car_num, type, colorcar)
+
+        if (phonesub === phoneCus) {
+            postAPI(fname, lname, phonesub,email, car_num, type, colorcar)
+            localStorage.setItem("phone", phonesub);
+        } else {
+            ons.notification.alert('กรุณาตรวจสอบข้อมูลของคุณอีกครั้ง');
+        }
     }
     var data = [];
-    async function postAPI(phone, fname, lname) {
-        // var objectMoon = {}
+    async function postAPI(fname, lname, phonesub,email, car_num, type, colorcar) {
         let html = '';
         var bodyFormData = new FormData();
-        bodyFormData.set('phone', phone); // param1 :ชื่อตัวแปร , param2 : ค่าของมัน
         bodyFormData.set('fname', fname);
         bodyFormData.set('lname', lname);
+        bodyFormData.set('phone', phonesub); // param1 :ชื่อตัวแปร , param2 : ค่าของมัน
+        bodyFormData.set('email', email);
+        bodyFormData.set('car_num', car_num);
+        bodyFormData.set('type', type);
+        bodyFormData.set('color', colorcar);
+
         await axios({
             method: 'post',
-            url: 'http://localhost:8080/user/gettesting',
-            data: bodyFormData, // เอามาใส่ตรงนี้ 
-            config: { headers: { 'Content-Type': 'multipart/form-data' } } //ประการ header เป็น form-data
-                .then(function (response) {
-                    //handle success
-                    console.log(response);
-                })
-                .catch(function (response) {
-                    //handle error
-                    console.log(response);
-                })
-            // return objectMoon
-
+            url: 'http://localhost:8080/user/profileCus',
+            data: bodyFormData,
+            config: {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
         })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+                location.href = "home.html";
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            })
     }
 
 

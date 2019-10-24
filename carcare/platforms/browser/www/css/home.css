@@ -180,6 +180,7 @@ ons-list-item {
 .namedata{
     text-align: center;
     padding-top: 10px;
+    font-size: 18px;
 }
 
 .card, .card--material {
@@ -215,12 +216,44 @@ ons-list-item {
 }
 .title{
     font-family: 'Athiti', sans-serif;
-    color: #000;
-    margin-bottom: 5px;
+    color: rgb(53, 53, 53);
     font-weight:bold;
     font-size: 16px;
 }
-
+.datailcar{
+    font-family: 'Athiti', sans-serif;
+    color: rgb(105, 105, 105);
+    font-weight:bold;
+    font-size: 14px;
+}
+/*addCar*/
+.addcar {
+    text-align: center;
+    /* padding: 50px 20px; */
+    margin: 18px;
+    padding-top: 5%
+}
+.profileCus{
+    margin-top: 50px;
+    font-family: 'Athiti', sans-serif;
+    color: rgb(22, 71, 111);
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+.inputregis{
+    font-family: 'Athiti', sans-serif;
+    color: rgb(22, 71, 111);
+    text-align: left;
+    margin-top: 20px;
+    font-size: 16px;
+    padding-left: 20%;
+}
+#colorbutton{
+    background-color: rgb(22, 71, 111);
+    margin-top : 20px;
+    font-size: 17px;
+}
 /* Test */
 .placeholder{
     color: #000;

@@ -97,6 +97,36 @@ p{
     font-family: 'Athiti', sans-serif;
 }
 
+.pay{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.8);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
+.cancel{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    background: rgba(194, 30, 19, 0.8);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
+.changetime{
+    width: 100%; 
+    height: 75%;
+    margin: 0 auto;
+    background: rgba(219, 88, 0, 0.8);
+    color: rgb(0, 0, 0);
+    border-radius: 0px;
+    font-family: 'Athiti', sans-serif;
+}
+
 
 #btndatablank{
     width: 100%; 

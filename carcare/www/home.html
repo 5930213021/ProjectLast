@@ -72,7 +72,7 @@
         </ons-tab>
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books">
         </ons-tab>
-        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope">
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="7" >
         </ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
       </ons-tabbar>
@@ -736,7 +736,7 @@
         } else {
           data.forEach(myBook => {
 
-            if (myBook.cancel == 1) {
+            if (myBook.status == 3) {
 
               dc += `
                   <p class="intro">
@@ -813,7 +813,7 @@
           data.forEach(MessCancel => {
             // <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="alert"></ons-tab>
             var Cancel = '';
-            if (MessCancel.cancel == '1') {
+            if (MessCancel.status == '3') {
               Cancel = 'การจองของคุณได้ถูกยกเลิก';
 
               dc += `

@@ -138,7 +138,7 @@
       .then(function (response) {
         var dc = [];
         let data = response.data
-        console.log("Data :: " + JSON.stringify(data));
+        // console.log("Data :: " + JSON.stringify(data));
         data.forEach(staff => {
           dc += `
                   <div class="toolbar" id="name_staff">
@@ -161,9 +161,11 @@
     try {
       let times = localStorage.getItem("times");
       let car_num = localStorage.getItem("car_num");
-      const responseupWork = await axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      // const responseupWork = await axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
       const responseTime = await axios.get('http://localhost:8080/user/showtimes');
       const responseWork = await axios.get('http://localhost:8080/user/showwork');
+
+      console.log(responseWork)
 
       let data = responseTime.data
       if (responseWork.data) {
@@ -173,28 +175,62 @@
           time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
           console.log('หลัง', time);
 
-          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times).map(workInFilter => ({ car_num: workInFilter.car_num }))
+          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times)
           if (workOnThisTime) {
-            time.hasWork = workOnThisTime.length;
-            console.log('ถ้ามีwork', time);
+            time.work = workOnThisTime;
           }
 
-          time.work = workOnThisTime.map(workInForEach => {
-            if (responseupWork.data.some(upwork => upwork.car_num === workInForEach.car_num)) {
-              workInForEach.upwork = true;
-              console.log('ถ้ามีการทำรายการ', workInForEach);
+          console.log(time)
 
-            }
-            return workInForEach
-          })
+          let className1 = 'empty';
+          let text1 = 'ว่าง';
+          let carNum1 = '';
 
-          const className1 = time.work[0] && time.work[0].upwork ? 'upwork' : time.work[0] ? 'has-book' : 'empty';
-          const text1 = time.work[0] && time.work[0].upwork ? 'กำลังดำเนินการ' : time.work[0] ? 'มีการจอง' : 'ว่าง';
-          const carNum1 = time.work[0] ? time.work[0].car_num : '';
+          let className2 = 'empty';
+          let text2 = 'ว่าง';
+          let carNum2 = '';
 
-          const className2 = time.work[1] && time.work[1].upwork ? 'upwork' : time.work[1] ? 'has-book' : 'empty';
-          const text2 = time.work[1] && time.work[1].upwork ? 'กำลังดำเนินการ' : time.work[1] ? 'มีการจอง' : 'ว่าง';
-          const carNum2 = time.work[1] ? time.work[1].car_num : '';
+          if (time.work[0]) {
+            carNum1 = time.work[0].car_num;
+            if (time.work[0].status === '0') {
+              className1 = 'has-book';
+              text1 = 'มีการจอง';
+            } else if (time.work[0].status === '1') {
+              className1 = 'upwork';
+              text1 = 'กำลังดำเนินการ';
+            } else if (time.work[0].status === '2') {
+              className1 = 'pay';
+              text1 = 'เสร็จแล้ว';
+            } else if (time.work[0].status === '3') {
+              className1 = 'cancel';
+              text1 = 'ยกเลิกการจอง';
+            } else if (time.work[0].status === '4') {
+              className1 = 'changetime';
+              text1 = 'เลื่อนเวลา';
+            } 
+            
+          } 
+
+          if (time.work[1]) {
+            carNum2 = time.work[1].car_num;
+            if (time.work[1].status === '0') {
+              className2 = 'has-book';
+              text2 = 'มีการจอง';
+            } else if (time.work[1].status === '1') {
+              className2 = 'upwork';
+              text2 = 'กำลังดำเนินการ';
+            } else if (time.work[1].status === '2') {
+              className2 = 'pay';
+              text2 = 'เสร็จแล้ว';
+            } else if (time.work[0].status === '3') {
+              className2 = 'cancel';
+              text2 = 'ยกเลิกการจอง';
+            } else if (time.work[0].status === '4') {
+              className2 = 'changetime';
+              text2 = 'เลื่อนเวลา';
+            } 
+            
+          } 
 
           dc += `
           <ons-card >
@@ -315,8 +351,8 @@
                   </ons-row>
 
                     <div class="alert-dialog-footer">
-                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertLevel('${car_num}', '2')">มาก</ons-alert-dialog-button>
-                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertLevel('${car_num}', '1')">น้อย</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="much" value="มาก" onclick="hideAlertLevel('${car_num}','2')">มาก</ons-alert-dialog-button>
+                      <ons-alert-dialog-button id="little" value="น้อย" onclick="hideAlertLevel('${car_num}','1')">น้อย</ons-alert-dialog-button>
                    </div>
                   </ons-alert-dialog>
                 </template>
@@ -327,7 +363,7 @@
                       ต้องการยกเลิกการจองลูกค้า?
                     </div>
                     <div class="alert-dialog-footer">
-                      <ons-alert-dialog-button onclick="hideAlertCancel('${car_num}','1')">ตกลง</ons-alert-dialog-button>
+                      <ons-alert-dialog-button onclick="hideAlertCancel('${car_num}','3')">ตกลง</ons-alert-dialog-button>
                       <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
                     </div>
                   </ons-alert-dialog>
@@ -354,9 +390,9 @@
 
     var size = '';
     if (document.getElementById('small').checked === true) {
-      size = 'เล็ก'
+      size = '1'
     } if (document.getElementById('big').checked === true) {
-      size = 'ใหญ่'
+      size = '2'
     }
     localStorage.setItem("size", size);
 
@@ -379,11 +415,8 @@
 
   // function submit sizecar
   async function hideAlertLevel(car_num, value) {
-    console.log(car_num)
-    console.log(value)
     let size = localStorage.getItem("size")
     let times = localStorage.getItem("times")
-    console.log(size, times)
 
     postAPI(car_num, size, value, times)
     document
@@ -453,7 +486,7 @@
     let html = '';
     var bodyFormData = new FormData();
     bodyFormData.set('car_num', car_num);
-    bodyFormData.set('cancel', value);
+    bodyFormData.set('status', value);
     bodyFormData.set('times', times);
 
     await axios({

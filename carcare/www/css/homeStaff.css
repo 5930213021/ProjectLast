@@ -43,102 +43,99 @@ p{
     border-radius: 0;
 }
 
-.list-item--material {
+/* .list-item--material {
     border: 0;
     padding: 0px 0px 10px 5px;
     line-height: normal;
+} */
+.list-item--material {
+    border: 0;
+    padding: 0 0 0 5px;
+    line-height: normal;
 }
-
-
+.list-item--material__center, .list-item--material__left:empty {
+    padding: 1px 6px 1px 0;
+    border-color: #eee;
+    border-bottom: none;
+    background-image: linear-gradient(0deg,#eee,#eee 100%);
+    min-height: 48px;
+}
 #btn{
     width: 100%; 
     margin: 0 auto;
-    color: rgb(11, 59, 87);
+    color: rgb(255, 255, 255);
+    background-color: rgb(3, 138, 248);
     border-radius: 0px;
     font-family: 'Athiti', sans-serif;
 }
 
-#btndatawash{
-    width: 100%; 
-    margin: 0 auto;
-    color: rgb(0, 0, 0);
-    height: 75%;
-    border-radius: 0px;
-    font-family: 'Athiti', sans-serif;
-
-}
 .has-book{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
     background: #ffb01fee;
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
 .empty{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
     background: #40b40bee;
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    /* border-color: crimson; */
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
 .upwork{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
     background: rgba(7, 157, 226, 0.8);
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
-.pay{
+.finish{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(6, 189, 158, 0.8);
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
 .cancel{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
     background: rgba(194, 30, 19, 0.8);
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
 .changetime{
     width: 100%; 
-    height: 75%;
+    height: 80px;
     margin: 0 auto;
     background: rgba(219, 88, 0, 0.8);
     color: rgb(0, 0, 0);
     border-radius: 0px;
+    border: 2px solid rgb(255, 255, 255);
     font-family: 'Athiti', sans-serif;
 }
 
-
-#btndatablank{
-    width: 100%; 
-    height: 75%;
-    margin: 0 auto;
-    background: #40b40bee;
-    color: rgb(0, 0, 0);
-    border-radius: 0px;
-    font-family: 'Athiti', sans-serif;
-    border: 1px solid rgb(201, 201, 201);
-
-}
 
 /* page_detail */
 #btnback{
@@ -161,6 +158,10 @@ p{
     text-align: center;
     padding: 10px;
     padding-top: 20px;
+}
+
+.setbtn_message{
+    padding-top: 40px;
 }
 
 #btnsubmit{
@@ -190,6 +191,20 @@ p{
     color: #000;
     margin-bottom: 5px;
     font-weight:bold;
+    font-size: 16px;
+}
+.datail{
+    font-family: 'Athiti', sans-serif;
+    color: rgb(105, 105, 105);
+    font-weight:bold;
+    font-size: 14px;
+}
+.inputregis{
+    font-family: 'Athiti', sans-serif;
+    color: rgba(37, 37, 37, 0.9);
+    text-align: center;
+    font-weight:bold;
+    margin-top: 45px;
     font-size: 16px;
 }
 
@@ -249,7 +264,7 @@ p{
 .card {
     -webkit-font-smoothing: antialiased;
     font-weight: 400;
-    box-shadow: 0px 1px 2px rgba(0,0,0,.12);
+    box-shadow: 5px 5px 5px rgba(17, 17, 17, 0.12);
     border-radius: 8px;
     margin: 8px;
     padding: 0px;
@@ -260,4 +275,9 @@ p{
 .pad-datail{
     padding: 10px 0px 10px 35px;
 }
-
+.intro {
+    text-align: center;
+    padding: 0 20px;
+    margin-top: 40px;
+    color: rgb(63, 63, 63);
+}

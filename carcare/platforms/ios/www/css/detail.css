@@ -1,0 +1,45 @@
+p{
+    margin: 15px 0px;
+}
+
+#btnback{
+    color: #d43b14f8;
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 30px;
+}
+
+.namedata{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.list-item__thumbnail {
+    width: 50%;
+    height: 100px;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
+}
+.card, .card--material {
+    background-color: rgb(255, 255, 255,0.8);
+}
+.setbtn{
+    margin-left: 10px;
+    padding: 10px;
+}
+#btnsubmit{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(7, 157, 226, 0.8);
+    margin: 10px;
+}
+#btnpass{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(253, 167, 6, 0.8);
+    margin: 10px;
+}
+#btncancle{
+    font-family: 'Lato', sans-serif;
+    background-color: rgba(226, 33, 7, 0.8);
+    margin: 10px;
+}

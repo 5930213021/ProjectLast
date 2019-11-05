@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta httpss-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>MCarcare</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+    <!-- Font Eng -->
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+    <!-- Font Thai -->
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+
+
+    <link rel="stylesheet" type="text/css" href="css/all.css">
+
+    <!-- <script src="js/ejs.js"></script> -->
+    <script src="cordova.js"></script>
+
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <!-- //axios -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <ons-page>
+        <div class="background"></div>
+        <div class="logo">
+            <p>MCARCARE</p>
+        </div>
+        <div class="center">
+            <p>
+                <ons-input id="phone" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน" float></ons-input>
+            </p>
+            <p>
+                <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float>
+                </ons-input>
+            </p>
+
+            <p>
+                <ons-button modifier="quiet" class="login" onclick="login()" id="fonts">
+                    เข้าสู่ระบบ
+                </ons-button>
+            </p>
+
+            <p>
+                <ons-button onclick="addUsers()" modifier="quiet" id="fontquiet">
+                    - ลงทะเบียนเข้าใช้งาน -
+                </ons-button>
+            </p>
+
+            <p>
+                <ons-button onclick="TestMessage()" modifier="quiet" id="fontquiet">
+                    testMessage
+                </ons-button>
+            </p>
+
+            <div class="forgetpass">
+                <button class="button--large--quiet" style="width: 95%;" onclick="showAlert()">ลืมรหัสผ่าน?</button>
+            </div>
+            <!-- <div class="forgetpass">
+                <button class="button--large--quiet" style="width: 95%;"
+                    onclick="ons.notification.toast('กรุณาติดต่อกับทางร้านโดยตรง', { buttonLabel: 'ตกลง', timeout: 1500 })">
+                    ลืมรหัสผ่าน?
+                </button>
+            </div> -->
+
+            <ons-modal direction="down" id="modalcolor">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> หมายเลขโทรศัพท์ รหัสผ่านผิด
+                        <br>กรุณากรอกใหม่
+                    </p>
+                </div>
+            </ons-modal>
+        </div>
+
+    </ons-page>
+
+</body>
+
+
+<script>
+    var IP = localStorage.getItem("IP");
+    console.log('IP ::' + IP);
+
+    var login = function () {
+        var phone = document.getElementById('phone').value;
+        var password = document.getElementById('password').value;
+
+        axios.get('https://' + IP + '/user/checkstatus?phone=' + phone + '&password=' + password)
+            .then(function (response) {
+                let data = response.data
+                if (data == '') {
+                    var modal = document.querySelector('ons-modal');
+                    modal.show();
+                    setTimeout(function () {
+                        modal.hide();
+                    }, 1500);
+                    console.log("No data :: " + JSON.stringify(data));
+                } else {
+                    data.forEach(check => {
+                        if (check.status == 'Staff') {
+                            console.log("Staff");
+                            localStorage.setItem("phone", phone);
+                            window.location = "homeStaff.html";
+                        } else {
+                            console.log("Customer");
+                            localStorage.setItem("phone", phone);
+                            window.location = "home.html";
+                        }
+                    })
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+    };
+
+
+</script>
+
+<script>
+    function addUsers() {
+        location.href = 'register.html';
+    }
+
+    var showAlert = function () {
+        // ons.notification.alert('Alert!');
+        ons.notification.alert({
+            title: 'ลืมรหัสผ่าน?',
+            message: "ทางร้านจะส่งรหัสผ่านของคุณทางอีเมล",
+            buttonLabel: 'ตกลง',
+            callback: function () {
+                ons.notification.alert({
+                    message: 'ส่งข้อความแล้ว',
+                    // modifier: mod
+                });
+            }
+        });
+    };
+</script>
+
+</html>

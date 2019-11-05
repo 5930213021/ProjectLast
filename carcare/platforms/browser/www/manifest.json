@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "HelloCordova",
-  "short_name": "HelloCordova",
+  "name": "Mcarcare",
+  "short_name": "Mcarcare",
   "version": "io.cordova.hellocordova",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "description": "Application for Mcarcare",
+  "author": "Nisarat Saelim",
   "icons": [],
   "start_url": "index.html"
 }

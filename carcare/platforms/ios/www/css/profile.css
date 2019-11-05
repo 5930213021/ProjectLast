@@ -1,0 +1,108 @@
+/* p{
+    margin: 20px 0px;
+} */
+
+ons-input .text-input, ons-search-input .search-input {
+    /* width: 100%; */
+    display: inline-block;
+}
+
+.background{
+    /* background-color: rgb(224, 52, 0); */
+    background:url(../img/blueblur.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+}
+
+.top{
+    margin-top: 98px;
+}
+
+#btnback{
+    color: #fffffff8;
+    text-align: left;
+    margin-left: 35px;
+    margin-top: 30px;
+}
+
+#pic{
+    margin-top: 60px;
+    background-color: rgb(199, 199, 199,0.7); 
+    width: 100px;
+    height: 100px;
+    line-height: 100px; 
+    font-size: 60px;
+    color: rgb(224, 224, 224,0.7);
+    border: 2px #fff solid;
+}
+
+#icons{
+    color: #fff;
+}
+
+.detail{
+    margin-top: 95px;
+}
+
+.speed-dial.fab--top__center, button.fab--top__center, ons-fab.fab--top__center {
+    top: 20px;
+    bottom: auto;
+    margin-left: -40px;
+    left: 48%;
+    right: auto;
+    position: absolute;
+}
+
+.namepic{
+    /* text-align: center; */
+    margin-top: 130px;
+    /* padding-top: 80px; */
+}
+
+/* .card{
+    margin-top: 30px;
+} */
+.card, .card--material {
+    background-color: rgb(255, 255, 255,0.8);
+}
+.list{
+    background-color: rgb(255, 255, 255,0.0);
+}
+.setbtn{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.title{
+    font-family: 'Athiti', sans-serif;
+    color: #000;
+    margin-bottom: 5px;
+    font-weight:bold;
+    font-size: 16px;
+}
+
+#snap{
+    margin-left: 10px;
+    font-family: 'Sarabun', sans-serif;
+}
+
+#btnsubmit{
+    font-family: 'Sarabun', sans-serif;
+    background-color: rgba(155, 155, 155, 0.3);
+    border: 2px solid #fff;
+    margin: 10px;
+}
+
+.warn{
+    font-size: 16px;
+    font-family: 'Athiti', sans-serif;
+    color: rgb(192, 0, 0);
+    font-weight:bold;
+    margin-top: 10px;
+    padding: 12px;
+}

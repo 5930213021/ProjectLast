@@ -20,6 +20,7 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+        // window.location.href = 'login.html';
     },
 
     // deviceready Event Handler
@@ -28,19 +29,25 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+
+        localStorage.setItem("IP", "192.168.137.1");
+        var IP = localStorage.getItem("IP");
+        
+        // window.location.href = 'login.html';
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+    receivedEvent: function() {
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    
+        // var listeningElement = parentElement.querySelector('.listening');
+        // var receivedElement = parentElement.querySelector('.received');
 
-        console.log('Received Event: ' + id);
-    }
+        // listeningElement.setAttribute('style', 'display:none;');
+        // receivedElement.setAttribute('style', 'display:block;');
+
+    },
+
 };
 
 app.initialize();

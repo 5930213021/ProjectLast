@@ -17,27 +17,29 @@
 
   <link rel="stylesheet" type="text/css" href="css/home.css">
 
-
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-  <script src="js/ejs.js"></script>
+
+  <!-- <script src="js/ejs.js"></script> -->
   <script src="cordova.js"></script>
+  <!-- <script src="js/moment.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/af.js" 
+  integrity="sha256-I5ZXO8KcMnqNkrXU7baGig70nATYjNDnxxA2d40PcR8=" crossorigin="anonymous"></script> -->
+
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
 
-  <script>
-        // Initialize Firebase
-  </script>
 
 </head>
 
-<body>
-  <ons-navigator id="myNavigator" swipeable swipe-target-width="80px">
+<body onload="myBook(),book(),message(),showFinishCar()">
+  <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
-      <ons-splitter id="appSplitter" page="booking.html">
+      <ons-splitter id="appSplitter">
         <ons-splitter-side id="sidemenu" page="sidemenu.html" swipeable side="right" collapse="" width="260px">
         </ons-splitter-side>
         <ons-splitter-content page="tabbar.html"></ons-splitter-content>
@@ -47,7 +49,7 @@
     <ons-modal direction="up">
       <div style="text-align: center">
         <p>
-          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+          <ons-icon icon="md-spinner" size="28px" spin></ons-icon> ออกจากระบบ...
         </p>
       </div>
     </ons-modal>
@@ -61,26 +63,26 @@
         <div class="right">
           <ons-toolbar-button onclick="fn.toggleMenu()">
             <ons-icon icon="ion-navicon, material:md-menu" style="color: rgb(1, 100, 117);"></ons-icon>
-            <!-- <ons-icon class="toolbaricon" size="25px" icon="md-help" style="margin-right:10px;">
-                </ons-icon> -->
           </ons-toolbar-button>
         </div>
       </ons-toolbar>
 
       <ons-tabbar swipeable position="auto" id="appTabbar">
-        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" badge="1" active></ons-tab>
-        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" onclick="book()"></ons-tab>
-        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="1"></ons-tab>
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" active>
+        </ons-tab>
+        <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books">
+        </ons-tab>
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="อัพเดท">
+        </ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
       </ons-tabbar>
-
-      <!-- <script>
+      <script>
         ons.getScriptPage().addEventListener('prechange', function (event) {
-            if (event.target.matches('#appTabbar')) {
-                event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
-            }
+          if (event.target.matches('#appTabbar')) {
+            event.currentTarget.querySelector('ons-toolbar .center').innerHTML = event.tabItem.getAttribute('label');
+          }
         });
-    </script> -->
+      </script>
     </ons-page>
   </template>
 
@@ -93,7 +95,8 @@
       <ons-list-title><br></ons-list-title>
       <!-- เมนู -->
       <ons-list>
-        <ons-list-item onclick="window.location.href='profile2.html'">
+        <ons-list-item onclick="profile()">
+
           <div class="left">
             <ons-icon fixed-width class="list-item__icon" icon="ion-account, material:md-account"></ons-icon>
           </div>
@@ -133,9 +136,9 @@
 
         <ons-list-item onclick="showModal()">
           <div class="left">
-            <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power""></ons-icon>
-                </div>
-                <div class=" center">ออกจากระบบ
+            <ons-icon fixed-width class="list-item__icon" icon="ion-power, material:md-power"></ons-icon>
+          </div>
+          <div class=" center">ออกจากระบบ
           </div>
         </ons-list-item>
       </ons-list>
@@ -143,21 +146,83 @@
     </ons-page>
   </template>
 
+  <template id="profile.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>Back</ons-back-button>
+      </p>
+      <div class="namedata">รายละเอียดข้อมูล</div>
 
-  <!-- <template id="home.html">
-    <ons-page><br>
-      <ons-list modifier="inset">
-        <ons-list-item expandable>
-          คู่มือการใช้งาน
-          <div class="expandable-content">ผู้ใช้ต้องทำการกรอกข้อมูลส่วนตัวและแก้ไขได้ คุณสามารถทำรายการจองเวลาเลือกการล้างที่คุณต้องการ
-          </div>
-        </ons-list-item>
-      </ons-list>
+      <div class="row" id="profileCus">
+        default
+      </div>
+
+      <div class="row" id="showCountCar" style="padding-bottom: 5%">
+        default
+      </div>
     </ons-page>
-  </template> -->
+  </template>
 
-  <template id="home.html">
+  <template id="addcar.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>Back</ons-back-button>
+      </p>
+
+
+      <!-- <div class="row" id="addcarforphone">
+        default
+      </div> -->
+      <div class="profileCus">
+        <div class="nametopic">เพิ่มรถของคุณ</div>
+        <form method="POST">
+          <div class="inputregis">
+            <p>
+              <ons-icon icon="md-car"> ::</ons-icon>
+              <ons-input id="carcode" placeholder="ป้ายทะเบียน"></ons-input>
+            </p>
+            <p>
+              <label>ประเภทรถ :</label>
+              <ons-select class="select" id="typecar">
+                <select class="select-input">
+                  <option> รถกระบะ</option>
+                  <option> รถเก๋ง</option>
+                  <option> รถSuv</option>
+                  <option> รถมอเตอร์ไซต์</option>
+                </select>
+              </ons-select>
+            </p>
+            <p>
+              <label>สีรถ :</label>
+              <ons-select class="select" id="colorcar">
+                <select class="select-input">
+                  <option> แดง</option>
+                  <option> ขาว</option>
+                  <option> บลอนเงิน</option>
+                  <option> บลอนทอง</option>
+                  <option> เหลือง</option>
+                  <option> เขียว</option>
+                  <option> น้ำเงิน</option>
+                </select>
+              </ons-select>
+            </p>
+          </div>
+        </form>
+        <div class="setbtn">
+          <ons-button id="colorbutton" onclick="getData()">
+            ยืนยัน
+          </ons-button>
+        </div>
+      </div>
+
+    </ons-page>
+  </template>
+
+  <template id="home.html" var="MyNav">
     <ons-page><br>
+
       <ons-list modifier="inset">
         <ons-list-item expandable>
           คู่มือการใช้งาน
@@ -166,268 +231,80 @@
         </ons-list-item>
       </ons-list>
 
-      <div style="height: 200px; padding: 1px 0 0 0;">
-        <div class="card">
-          <div class="list-item">
-            <div class="list-item__left">
-              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
-            </div>
-
-            <div class="list-item__center">
-              <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562 (11.00-12.00)</div>
-              <div class="list-item__subtitle">ล้างห้องเครื่อง</div>
-
-            </div>
-          </div>
-        </div>
+      <div class="row" id="showMycar">
+        default
       </div>
+
     </ons-page>
   </template>
 
   <template id="booking.html">
-    <ons-page id="page1">
+    <ons-page>
       <section>
         <p id="book">
           เวลาจอง
         </p>
       </section>
-      <!-- <ons-list modifier="inset">
-        <ons-list-header>8.00 - 9.30</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set1" style="width: 50%; margin: 0 auto;">ไม่ว่าง</button>
-          <button class="button--cta" id="set2" style="width: 50%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br> -->
       <div class="row" id="data2">
         default
-
       </div>
-
-
-      <!-- <ons-list modifier="inset">
-        <ons-list-header>7.30 - 8.00</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" disabled id="set1" style="width: 100%; margin: 0 auto;">ไม่ว่าง</button>
-        </ons-list-item>
-      </ons-list><br>
-
-      <ons-list modifier="inset">
-        <ons-list-header>8.00 - 9.30</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br>
-      <ons-list modifier="inset">
-        <ons-list-header>9.30 - 11.00</ons-list-header>
-        <ons-list-item>
-          <button class="button--cta" id="set2" style="width: 100%; margin: 0 auto;">ว่าง</button>
-        </ons-list-item>
-      </ons-list><br> -->
-
 
     </ons-page>
   </template>
 
   <template id="message.html">
     <ons-page><br>
-      <div class="card" id="bor">
+      <!-- <div class="card" id="bor">
         <h3 class="card__title">วันจันทร์ 14 ก.พ. 2562</h3>
         <div class="card__content">รถของท่านได้ทำการล้างเสร็จเรียบร้อยแล้ว ท่านสามารถเข้ามารับรถได้เลยค่ะ</div>
+      </div> -->
+
+      <div class="row" id="showMesseage">
+        default
       </div>
+
     </ons-page>
   </template>
 
   <template id="history.html">
     <ons-page><br>
-      <!-- <div style="height: 200px; padding: 1px 0 0 0;">
-        <div class="card">
-            <div class="list-item__left list-item--material__left">
-                <img class="list-item__thumbnail list-item--material__thumbnail" src="https://placekitten.com/g/42/41" alt="Cute kitten">
-              </div>
-          <div class="card__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua.</div>
-        </div>
-      </div> -->
-      <div style="height: 200px; padding: 1px 0 0 0;">
-        <div class="card">
-          <div class="list-item">
-            <div class="list-item__left">
-              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
-            </div>
-
-            <div class="list-item__center">
-              <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562</div>
-              <div class="list-item__subtitle">ล้างอัดฉีดช่วงล้าง <br>
-                ล้างสีดูดฝุ่น</div>
-            </div>
-          </div>
-        </div>
+      <div class="row" id="finishCar">
+        default
       </div>
-
 
     </ons-page>
   </template>
 
-  <!-- <template id="select_type.html">
+  <template id="select_car.html">
     <ons-page>
-        <div class="background"></div>
-        <p>
-          <ons-button onclick="window.location.href='homeaddmin.html'" modifier="quiet" id="btnback">
-            <ons-icon icon="md-chevron-left"></ons-icon>
-            กลับ
-          </ons-button>
-        </p>
-        <div class="namedata">รายละเอียดข้อมูล</div>
-        <div class="picuser">
-          <ons-list-item>
-            <div class="center">
-              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
-            </div>
-          </ons-list-item>
-        </div>
-
-        <ons-card>
-          <div class="title">ชื่อ :
-            <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-          </div>
-          <div class="title">เบอร์โทรฯ :
-            <ons-input id="snap" type="number" placeholder="xxx-xxxxxxx"></ons-input>
-          </div>
-          <div class="title">ป้ายทะเบียน :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">ประเภทรถ :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">สีรถ :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-          <div class="title">รายการลูกค้า :
-            <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-          </div>
-        </ons-card>
-
-        <ons-row style="margin-top: 15px;">
-          <ons-col style="flex: 0 0 70%;margin: auto;max-width: 70%;">
-            <label class="radio-button radio-button--material" style="margin-left: 30px;">
-              <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-              ขนาดเล็ก
-            </label>
-            <label class="radio-button radio-button--material" style="margin-left: 30px;">
-              <input type="radio" class="radio-button__input radio-button--material__input" name="r">
-              <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-              ขนาดใหญ่
-            </label>
-          </ons-col>
-        </ons-row>
-
-        <div class="setbtn">
-          <ons-button onclick="" id="btnpass">
-            เลื่อนเวลา
-          </ons-button>
-          <ons-button onclick="alertsubmit()" id="btnsubmit">
-            ยืนยัน
-          </ons-button>
-          <ons-button onclick="window.location.href='....'" id="btncancle">
-            ยกเลิก
-          </ons-button>
-        </div>
-    </ons-page>
-  </template> -->
-
-  <template id="detailState.html">
-    <ons-page id="page2">
       <div class="background"></div>
       <p>
-        <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
+        <!-- modifier="quiet" id="btnback" -->
+        <ons-back-button>
           <ons-icon icon="md-chevron-left"></ons-icon>
           กลับ
-        </ons-button>
+        </ons-back-button>
       </p>
-      <div class="namedata">รายละเอียดข้อมูล</div>
-      <div class="picuser">
-        <ons-list-item>
-          <div class="center">
-            <img class="list-item__thumbnail" src="img/mirage-1284.jpg" id="pic">
-          </div>
-        </ons-list-item>
+      <div class="namedata">รถของท่าน</div>
+
+      <div class="row" id="showcar">
+        default
       </div>
 
-      <ons-card>
-        <div class="title">ชื่อ :
-          <ons-input id="snap" placeholder="ส้มดี"></ons-input>
-        </div>
-        <div class="title">เบอร์โทรฯ :
-          <ons-input id="snap" type="number" placeholder="099-7654321"></ons-input>
-        </div>
-        <div class="title">ป้ายทะเบียน :
-          <ons-input id="snap" placeholder="กข ภูเก็ต 2541"></ons-input>
-        </div>
-        <div class="title">ประเภทรถ :
-          <ons-input id="snap" placeholder="เก๋ง"></ons-input>
-        </div>
-        <div class="title">สีรถ :
-          <ons-input id="snap" placeholder="แดง"></ons-input>
-        </div>
-      </ons-card>
+    </ons-page>
+  </template>
 
-      <div class="namedata">เลือกประเภทการล้าง</div>
 
-      <ons-row style="margin-top: 15px;">
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างห้องเครื่อง
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างอัดฉีดช่วงล้าง
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างสีดูดฝุ่น
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ล้างยางมะตอย
-          </label>
-        </ons-col>
-        <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
-          <label class="radio-button radio-button--material" style="margin-left: 30px;">
-            <input type="radio" class="radio-button__input radio-button--material__input" name="r" checked="checked">
-            <div class="radio-button__checkmark radio-button--material__checkmark"></div>
-            ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)
-          </label>
-        </ons-col>
+  <template id="detailbook.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>Back</ons-back-button>
+      </p>
+      <div class="namedata">รายละเอียดข้อมูล</div>
 
-        <div class="warn">
-          กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
-        </div>
-
-        <!-- <ons-list-item tappable>
-                <label class="left">
-                  <ons-radio class="radio-fruit" input-id="radio-0" value="Apples"></ons-radio>
-                </label>
-                <label for="radio-0" class="center">Apples</label>
-              </ons-list-item> -->
-
-      </ons-row>
-
-      <div class="setbtn">
-        <ons-button onclick="insert()" id="btnsubmit">
-          ยืนยัน
-        </ons-button>
+      <div class="row" id="data3">
+        default
       </div>
     </ons-page>
   </template>
@@ -435,11 +312,14 @@
 </body>
 
 <script>
-  function insert() {
-    window.location.href = 'home.html';
-  }
 
+  var IP = localStorage.getItem("IP");
+  console.log('IP ::' + IP);
 
+  // window.onload = async function () {
+  //   console.log("phone" + localStorage.getItem("phone"));
+  //   // alert(localStorage.getItem('save'));
+  // };
 
   window.fn = {};
 
@@ -452,17 +332,25 @@
     document.getElementById('sidemenu').close();
   };
 
-  // window.fn.loadLink = function (url) {
-  //   window.open(url, '_blank');
-  // };
+  window.fn.loadLink = function (url) {
+    window.open(url, '_blank');
+  };
 
-  // window.fn.pushPage = function (page, anim) {
-  //   if (anim) {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
-  //   } else {
-  //     document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
-  //   }
-  // };
+  window.fn.pushPage = function (page, anim) {
+    if (anim) {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title }, animation: anim });
+    } else {
+      document.getElementById('appNavigator').pushPage(page.id, { data: { title: page.title } });
+    }
+  };
+
+  window.fn.load = function (page) {
+    var myNavigator = document.getElementById('appNavigator');
+
+    menu.close();
+    myNavigator.resetToPage(page, { animation: 'fade' });
+  };
+
 
   //Showreload
   function showModal() {
@@ -474,52 +362,184 @@
     }, 1500);
   }
 
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
-
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#btndatabooking').onclick = function () {
-  //     document.querySelector('#myNavigator').pushPage('select_type.html');
-  //     };
-  //   }
-  // });
-
-
-  // document.addEventListener('init', function (event) {
-  //   var page = event.target;
-
-  //   if (page.id === 'page1') {
-  //     page.querySelector('#set2').onclick = function (event) {
-  //       document.querySelector('#myNavigator').pushPage('detailState.html');
-  //       // , { data: { title: 'Page 2' } });
-  //     };
-  //   }
-  //   // else if (page.id === 'page2') {
-  //   //   page.querySelector('ons-toolbar .center')
-  //   //   // .innerHTML = page.data.title;
-  //   // }
-  // });
-
-  function book() {
-    axios.get('http://localhost:8080/user/showtimes')
+  async function profile() {
+    appNavigator.pushPage('profile.html')
+    let phone = localStorage.getItem("phone");
+    axios.get('https://'+IP+'/user/showProfile?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
-        data.forEach(element => {
-          dc += '<ons-list modifier="inset">' +
-            '<ons-list-header>' + element.times + '</ons-list-header>' +
-            '<ons-list-item>' +
-            '<button class="button--cta" id="set2" onclick="" style="width: 100%; margin: 0 auto;">ว่าง</button>' +
-            '</ons-list-item>' +
-            '</ons-list><br>'
+        console.log(data);
+        data.forEach(showprofile => {
+          dc +=
+            `
+            <ons-card>
+              <div class="title">ชื่อ : ${showprofile.fname} ${showprofile.lname} </div>
+              <div class="title">เบอร์โทรฯ : ${showprofile.phone} </div>
+              <div class="title">อีเมล : ${showprofile.email} </div>
+            </ons-card>
 
+            <div class="addcar" >
+              <button class="button--cta" style="width: 50%; background-color: rgb(22, 71, 111);" onclick="AddCar()">เพิ่มรถของคุณ</button>
+            </div>
+           `
         })
-        myobj = document.getElementById("data2");
+        myobj = document.getElementById("profileCus");
         myobj.innerHTML = dc;
-        
-
         console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
 
+    axios.get('https://'+IP+'/user/getshowcar/' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        data.forEach(countCar => {
+          dc += `
+            <ons-card style="background-color: #d8e3ff66;">
+              <div class="title">ป้ายทะเบียนรถ ::  ${countCar.car_num}  </div>
+              <div class="datailcar">ประเภทรถ :: ${countCar.type} </div>
+              <div class="datailcar">สีรถ :: ${countCar.color} </div>
+            </ons-card>
+            `
+        })
+        myobj = document.getElementById("showCountCar");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+  async function AddCar() {
+    appNavigator.pushPage('addcar.html')
+  }
+  //addcar
+  async function getData() {
+    let phone = localStorage.getItem("phone");
+    let car_num = document.getElementById('carcode').value;
+    let type = document.getElementById('typecar').value;
+    let colorcar = document.getElementById('colorcar').value;
+    postDATA(phone, car_num, type, colorcar)
+    console.log(phone, car_num, type, colorcar);
+  }
+
+  async function postDATA(phone, car_num, type, colorcar) {
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('phone', phone);
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('type', type);
+    bodyFormData.set('color', colorcar);
+
+    await axios({
+      method: 'post',
+      url: 'https://'+IP+'/user/insertCar',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "home.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+  async function book() {
+    try {
+      let phone = localStorage.getItem("phone");
+      const responseCar = await axios.get('https://'+IP+'/user/getshowcar/' + phone)
+      const responseTime = await axios.get('https://'+IP+'/user/showtimes');
+      const responseWork = await axios.get('https://'+IP+'/user/showwork');
+      let data = responseTime.data // ให้ data เป็นก้อน time ที่ว่างหมดทุกช่อง
+      if (responseWork.data || responseCar.data) { // เช็คว่าวันนี้มี work มั้ย (เป็น js อะไรที่ว่างไม่มีค่าอ่ะ เป็น false หมดเลย)
+        var dc = [];
+        data = responseTime.data.map(time => { // ให้ data ก้อนข้างบนอ่ะ ใส่ time เข้าไปใหม่ ตามเงื่อนไขข้างล่างโดยการ map (map เหมือน forEach แต่ ได้ก้อนใหม่ตามมแต่ที่เรา คืนค่า)
+
+          const setTime = new moment(time.times, 'HH:mm')
+          const now = new moment();
+          console.log(setTime);
+
+          const checkTime = now.isAfter(setTime)
+          console.log("checkTime ::" + checkTime);
+
+          console.log('ก่อน', time);
+          time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
+          console.log('หลัง', time);
+
+          const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times)
+          if (workOnThisTime) {
+            time.hasWork = workOnThisTime.length;
+            console.log('ถ้ามีwork', time);
+          }
+          workOnThisTime.forEach(workInForEach => {
+            if (responseCar.data.some(car => car.car_num === workInForEach.car_num)) {
+              time.hasMyCar = true;
+              console.log('ถ้ามีรถเรา', time);
+            }
+          })
+
+          const checkCar = time.hasMyCar;
+          const className = checkTime ? 'no-time' : checkCar ? 'my-car' : time.hasWork === 2 ? 'has-car' : 'empty';
+          const text = checkTime ? 'หมดเวลาการจองผ่านระบบ' : checkCar ? 'รถของคุณ' : time.hasWork === 2 ? 'ไม่ว่าง' : 'ว่าง';
+
+          dc += `
+        <ons-list modifier="inset">
+          <ons-list-header> ${time.times}</ons-list-header>
+          <ons-list-item>
+            <button class="button--cta ${className}" style="width: 100%; margin: 0 auto;" onclick="check('${time.times}')" ${(time.hasWork === 2) ? 'disabled' : ''} ${(checkTime) ? 'disabled' : ''}>${text}</button>
+          </ons-list-item>
+        </ons-list>
+        <br>
+        `
+          return time;
+        })
+      }
+      myobj = document.getElementById("data2");
+      myobj.innerHTML = dc;
+      console.log(myobj);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  var check = function (times) {
+    console.log(times);
+
+    localStorage.setItem("times", times);
+
+    appNavigator.pushPage('select_car.html')
+    let phone = localStorage.getItem("phone");
+    axios.get('https://'+IP+'/user/getshowcar/' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        data.forEach(element => {
+          dc +=
+            '<ons-card onclick=selectwork("' + element.car_num + '")>' +
+            '<div class="carnum">ป้ายทะเบียนรถ ::  ' + element.car_num + '</div>' +
+            '<div class="datailcar">ข้อมูลรถ ::  ' + element.type + ' ,  ' + element.color + '</div>' +
+            '</ons-card>'
+        })
+        myobj = document.getElementById("showcar");
+        myobj.innerHTML = dc;
+        console.log(myobj);
       })
       .catch(function (error) {
         // handle error
@@ -528,6 +548,355 @@
   }
 
 
+  var selectwork = function (car_num) {
+    localStorage.setItem("car_num", car_num);
+
+    appNavigator.pushPage('detailbook.html')
+    console.log("car_num" + car_num)
+    axios.get('https://'+IP+'/user/showdetailuser?car_num=' + car_num)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log("response:" + data);
+        data.forEach(element => {
+          dc += `
+            
+            <ons-card>
+              <div class="title">ชื่อ : ${element.fname} </div>
+              <div class="title">เบอร์โทรฯ : ${element.phone}</div>
+              <div class="title">ป้ายทะเบียน : ${element.car_num}</div>
+              <div class="title">ประเภทรถ : ${element.type} </div>
+              <div class="title">สีรถ : ${element.color} </div>
+            </ons-card>
+
+            <div class="namedata">เลือกประเภทการล้าง</div>
+              <form method="POST">
+                <ons-row style="margin-top: 15px;">
+                  <ons-col style="flex: 0 0 70%;margin: auto;max-width: 100%;margin-bottom: 10px;">
+                    <ons-list>
+                      <ons-list-item tappable>
+                        <label class="left">
+                          <ons-checkbox input-id="wash" value="ล้างห้องเครื่อง"></ons-checkbox>
+                        </label>
+                        <label class="center" for="wash"> ล้างห้องเครื่อง </label>
+                      </ons-list-item>
+                      
+                      <ons-list-item tappable>
+                        <label class="left">
+                          <ons-checkbox input-id="spray" value="ล้างอัดฉีดช่วงล่าง"></ons-checkbox>
+                        </label>
+                        <label class="center" for="spray"> ล้างอัดฉีดช่วงล่าง </label>
+                      </ons-list-item>
+
+                      <ons-list-item tappable>
+                        <label class="left">
+                          <ons-checkbox input-id="dust" value="ล้างสีดูดฝุ่น"></ons-checkbox>
+                        </label>
+                        <label class="center" for="dust"> ล้างสีดูดฝุ่น </label>
+                      </ons-list-item>
+
+                      <ons-list-item tappable>
+                        <label class="left">
+                          <ons-checkbox input-id="asphalt" value="ล้างยางมะตอย"></ons-checkbox>
+                        </label>
+                        <label class="center" for="asphalt" > ล้างยางมะตอย </label>
+                      </ons-list-item>
+ 
+                      <ons-list-item tappable>
+                        <label class="left">
+                          <ons-checkbox input-id="fuel" value="ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)"></ons-checkbox>
+                        </label>
+                        <label class="center" for="fuel" > ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) </label>
+                      </ons-list-item>
+                    </ons-list>
+                  </ons-col>
+
+                  <div class="warn">
+                    กรุณากรอกข้อมูลของท่านให้ครบถ้วน เพื่อประโยชน์ของตัวลูกค้าเอง
+                  </div>
+                </ons-row>
+              </form>
+
+              <div class="setbtn">
+                <ons-button onclick="insert('${car_num}')" id="btnsubmit"> ยืนยัน </ons-button>
+              </div>
+            </div>
+          
+                `
+        })
+        let myobj = document.getElementById("data3");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
+  }
+
+
+  async function insert(car_num) {
+    var wash_engin = 0;
+    var spray_under = 0;
+    var clean_dust = 0;
+    var wash_asphalt = 0;
+    var chang_fuel = 0;
+
+    if (document.getElementById('wash').checked === true) {
+      wash_engin = 1
+    }
+    if (document.getElementById('spray').checked === true) {
+      spray_under = 1
+    }
+    if (document.getElementById('dust').checked === true) {
+      clean_dust = 1
+    }
+    if (document.getElementById('asphalt').checked === true) {
+      wash_asphalt = 1
+    }
+    if (document.getElementById('fuel').checked === true) {
+      chang_fuel = 1
+    }
+
+    console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
+    let time = localStorage.getItem("times")
+    console.log(time);
+
+    postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
+  }
+
+  var data = [];
+  async function postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time) {
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num); // param1 :ชื่อตัวแปร , param2 : ค่าของมัน
+    bodyFormData.set('wash_engin', wash_engin);
+    bodyFormData.set('spray_under', spray_under);
+    bodyFormData.set('clean_dust', clean_dust);
+    bodyFormData.set('wash_asphalt', wash_asphalt);
+    bodyFormData.set('chang_fuel', chang_fuel);
+    bodyFormData.set('times', time);
+
+    await axios({
+      method: 'post',
+      url: 'https://'+IP+'/user/selecttypework',
+      data: bodyFormData, // เอามาใส่ตรงนี้ 
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "home.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+
+
+  async function myBook() {
+
+    let phone = localStorage.getItem("phone");
+    console.log('phoneMyorder ::' + phone)
+
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        if (data == '') {
+          dc += `
+                  <p class="intro">
+                    " ไม่มีรายการที่คุณเลือก "
+                  </p>
+                `
+        } else {
+          data.forEach(myBook => {
+
+            var orderMycar = '';
+
+            if (myBook.wash_engin == 1) {
+              orderMycar += 'ล้างห้องเครื่อง ';
+            } if (myBook.spray_under == 1) {
+              orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
+            } if (myBook.clean_dust == 1) {
+              orderMycar += 'ล้างสีดูดฝุ่น ';
+            } if (myBook.wash_asphalt == 1) {
+              orderMycar += 'ล้างยางมะตอย ';
+            } if (myBook.chang_fuel == 1) {
+              orderMycar += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) ';
+            }
+
+            // var checkstatus = '';
+            // if (myBook.status == 0) {
+            //   checkstatus = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
+            // } if (myBook.status == 1) {
+            //   checkstatus = 'กำลังดำเนินการล้าง';
+            // } if (myBook.status == 2) {
+            //   checkstatus = 'รถของคุณสะอาดแล้ว มารับได้เลย';
+            // } if (myBook.status == 3) {
+            //   checkstatus = 'รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ';
+            // } if (myBook.status == 4) {
+            //   checkstatus = 'การจองของคุณถูกเลื่อนเวลาออกไปเป็น ' + myBook.times;
+            // }
+
+            dc += `
+                <div style="padding: 1px 0 0 0;">
+                  <div class="card">
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.time}  (${myBook.times})</div>
+                    <div class="card__content" style="font-size:14px;">
+                      ป้ายทะเบียน : ${myBook.car_num} 
+                      </div>   
+                      <div class="card__content" style="font-size:14px;">
+                        รายการ :${orderMycar}
+                      </div>
+                  </div>
+                </div>
+                `
+          })
+        }
+        myobj = document.getElementById("showMycar");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+  async function message() {
+    let phone = localStorage.getItem("phone");
+    // console.log('phoneCANCEL ::' + phone)
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        if (data == '') {
+          dc += `
+                  <p class="intro">
+                    " ไม่มีข้อความ "
+                  </p>
+                `
+        } else {
+          data.forEach(MessCancel => {
+
+            var statusmessage = '';
+            if (MessCancel.status == 0) {
+              statusmessage = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
+            } if (MessCancel.status == 1) {
+              statusmessage = 'กำลังดำเนินการล้าง';
+            } if (MessCancel.status == 2) {
+              statusmessage = 'รถของคุณสะอาดแล้ว มารับได้เลย';
+            } if (MessCancel.status == 3) {
+              statusmessage = 'รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ';
+            } if (MessCancel.status == 4) {
+              statusmessage = 'การจองของคุณถูกเลื่อนเวลาออกไปเป็น ' + MessCancel.times;
+            }
+
+            dc += `
+                <div style="padding: 1px 0 0 0;">
+                  <div class="card">
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${MessCancel.time}</div>
+                    <div class="card__title" style="font-size:15px;">สถานะ :: ${statusmessage} </div>
+                    <div class="card__content" style="font-size:14px;">
+                      ป้ายทะเบียน : ${MessCancel.car_num} 
+                      </div>   
+                      <div class="card__content" style="font-size:14px;">
+                       รอบการจอง : ${MessCancel.times}
+                      </div>
+                  </div>
+                </div>
+                `
+          })
+        }
+        myobj = document.getElementById("showMesseage");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+
+  async function showFinishCar() {
+    let phone = localStorage.getItem("phone");
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        if (data == '') {
+          dc += `
+                  <p class="intro">
+                    " ไม่มีประวัติการใช้งาน "
+                  </p>
+                `
+        } else {
+          data.forEach(hisPayCar => {
+
+            var orderMycar = '';
+
+            if (hisPayCar.wash_engin == 1) {
+              orderMycar += 'ล้างห้องเครื่อง ';
+            } if (hisPayCar.spray_under == 1) {
+              orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
+            } if (hisPayCar.clean_dust == 1) {
+              orderMycar += 'ล้างสีดูดฝุ่น ';
+            } if (hisPayCar.wash_asphalt == 1) {
+              orderMycar += 'ล้างยางมะตอย ';
+            } if (hisPayCar.chang_fuel == 1) {
+              orderMycar += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) ';
+            }
+
+            var checkpaymeny = '';
+            if (hisPayCar.payment == 1) {
+              checkpaymeny = 'ชำระเงินแล้ว';
+
+              dc += `
+                <div style="padding: 1px 0 0 0;">
+                  <div class="card">
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${hisPayCar.time}</div>
+                    <div class="card__title" style="font-size:15px;">สถานะ :: ${checkpaymeny} </div>
+                    <div class="card__content" style="font-size:14px;">
+                      ป้ายทะเบียน : ${hisPayCar.car_num} 
+                      </div>   
+                      <div class="card__content" style="font-size:14px;">
+                        รายการ :${orderMycar}
+                      </div>
+                  </div>
+                </div>
+                `
+            } else {
+              dc += `
+                      <p class="intro">
+                        " ไม่มีประวัติการใช้งาน "
+                      </p>              
+                    `
+            }
+
+
+          })
+        }
+        myobj = document.getElementById("finishCar");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
 </script>
 
 </html>

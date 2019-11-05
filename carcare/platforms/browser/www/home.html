@@ -23,7 +23,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
 
-  <script src="js/ejs.js"></script>
+  <!-- <script src="js/ejs.js"></script> -->
   <script src="cordova.js"></script>
   <!-- <script src="js/moment.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
@@ -36,7 +36,7 @@
 
 </head>
 
-<body onload="myBook(),book(),messeage()">
+<body onload="myBook(),book(),message(),showFinishCar()">
   <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
       <ons-splitter id="appSplitter">
@@ -72,7 +72,7 @@
         </ons-tab>
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books">
         </ons-tab>
-        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="7" >
+        <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="อัพเดท">
         </ons-tab>
         <ons-tab page="history.html" label="ประวัติฯ" icon="fa-list-ul"></ons-tab>
       </ons-tabbar>
@@ -268,24 +268,9 @@
 
   <template id="history.html">
     <ons-page><br>
-      <p class="intro">
-        " ไม่มีประวัติการใช้งานของคุณ "
-      </p>
-      <!-- <div style="height: 200px; padding: 1px 0 0 0;">
-        <div class="card">
-          <div class="list-item">
-            <div class="list-item__left">
-              <img class="list-item__thumbnail" src="img/mirage-1284.jpg" alt="Cute kitten">
-            </div>
-
-            <div class="list-item__center">
-              <div class="list-item__title">วันจันทร์ 14 ก.พ. 2562</div>
-              <div class="list-item__subtitle">ล้างอัดฉีดช่วงล่าง <br>
-                ล้างสีดูดฝุ่น</div>
-            </div>
-          </div>
-        </div>
-      </div> -->
+      <div class="row" id="finishCar">
+        default
+      </div>
 
     </ons-page>
   </template>
@@ -314,10 +299,6 @@
     <ons-page>
       <div class="background"></div>
       <p>
-        <!-- <ons-button onclick="window.location.href='home.html'" modifier="quiet" id="btnback">
-          <ons-icon icon="md-chevron-left"></ons-icon>
-          กลับ
-        </ons-button> -->
         <ons-back-button>Back</ons-back-button>
       </p>
       <div class="namedata">รายละเอียดข้อมูล</div>
@@ -331,6 +312,9 @@
 </body>
 
 <script>
+
+  var IP = localStorage.getItem("IP");
+  console.log('IP ::' + IP);
 
   // window.onload = async function () {
   //   console.log("phone" + localStorage.getItem("phone"));
@@ -381,7 +365,7 @@
   async function profile() {
     appNavigator.pushPage('profile.html')
     let phone = localStorage.getItem("phone");
-    axios.get('http://localhost:8080/user/showProfile?phone=' + phone)
+    axios.get('https://'+IP+'/user/showProfile?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -409,7 +393,7 @@
         console.log(error);
       })
 
-    axios.get('http://localhost:8080/user/getshowcar/' + phone)
+    axios.get('https://'+IP+'/user/getshowcar/' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -456,7 +440,7 @@
 
     await axios({
       method: 'post',
-      url: 'http://localhost:8080/user/insertCar',
+      url: 'https://'+IP+'/user/insertCar',
       data: bodyFormData,
       config: {
         headers: {
@@ -478,9 +462,9 @@
   async function book() {
     try {
       let phone = localStorage.getItem("phone");
-      const responseCar = await axios.get('http://localhost:8080/user/getshowcar/' + phone)
-      const responseTime = await axios.get('http://localhost:8080/user/showtimes');
-      const responseWork = await axios.get('http://localhost:8080/user/showwork');
+      const responseCar = await axios.get('https://'+IP+'/user/getshowcar/' + phone)
+      const responseTime = await axios.get('https://'+IP+'/user/showtimes');
+      const responseWork = await axios.get('https://'+IP+'/user/showwork');
       let data = responseTime.data // ให้ data เป็นก้อน time ที่ว่างหมดทุกช่อง
       if (responseWork.data || responseCar.data) { // เช็คว่าวันนี้มี work มั้ย (เป็น js อะไรที่ว่างไม่มีค่าอ่ะ เป็น false หมดเลย)
         var dc = [];
@@ -541,7 +525,7 @@
 
     appNavigator.pushPage('select_car.html')
     let phone = localStorage.getItem("phone");
-    axios.get('http://localhost:8080/user/getshowcar/' + phone)
+    axios.get('https://'+IP+'/user/getshowcar/' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -569,7 +553,7 @@
 
     appNavigator.pushPage('detailbook.html')
     console.log("car_num" + car_num)
-    axios.get('http://localhost:8080/user/showdetailuser?car_num=' + car_num)
+    axios.get('https://'+IP+'/user/showdetailuser?car_num=' + car_num)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -696,7 +680,7 @@
 
     await axios({
       method: 'post',
-      url: 'http://localhost:8080/user/selecttypework',
+      url: 'https://'+IP+'/user/selecttypework',
       data: bodyFormData, // เอามาใส่ตรงนี้ 
       config: {
         headers: {
@@ -722,7 +706,7 @@
     let phone = localStorage.getItem("phone");
     console.log('phoneMyorder ::' + phone)
 
-    axios.get('http://localhost:8080/user/showOrdercar?phone=' + phone)
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -736,42 +720,37 @@
         } else {
           data.forEach(myBook => {
 
-            if (myBook.status == 3) {
+            var orderMycar = '';
 
-              dc += `
-                  <p class="intro">
-                    " รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ "
-                  </p>
-                `
-            } else {
-              var orderMycar = '';
+            if (myBook.wash_engin == 1) {
+              orderMycar += 'ล้างห้องเครื่อง ';
+            } if (myBook.spray_under == 1) {
+              orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
+            } if (myBook.clean_dust == 1) {
+              orderMycar += 'ล้างสีดูดฝุ่น ';
+            } if (myBook.wash_asphalt == 1) {
+              orderMycar += 'ล้างยางมะตอย ';
+            } if (myBook.chang_fuel == 1) {
+              orderMycar += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) ';
+            }
 
-              if (myBook.wash_engin == 1) {
-                orderMycar += 'ล้างห้องเครื่อง ';
-              } if (myBook.spray_under == 1) {
-                orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
-              } if (myBook.clean_dust == 1) {
-                orderMycar += 'ล้างสีดูดฝุ่น ';
-              } if (myBook.wash_asphalt == 1) {
-                orderMycar += 'ล้างยางมะตอย ';
-              } if (myBook.chang_fuel == 1) {
-                orderMycar += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) ';
-              }
+            // var checkstatus = '';
+            // if (myBook.status == 0) {
+            //   checkstatus = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
+            // } if (myBook.status == 1) {
+            //   checkstatus = 'กำลังดำเนินการล้าง';
+            // } if (myBook.status == 2) {
+            //   checkstatus = 'รถของคุณสะอาดแล้ว มารับได้เลย';
+            // } if (myBook.status == 3) {
+            //   checkstatus = 'รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ';
+            // } if (myBook.status == 4) {
+            //   checkstatus = 'การจองของคุณถูกเลื่อนเวลาออกไปเป็น ' + myBook.times;
+            // }
 
-              var checkstatus = '';
-              if (myBook.status == 0) {
-                checkstatus = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
-              } if (myBook.status == 1) {
-                checkstatus = 'กำลังดำเนินการล้าง';
-              } if (myBook.status == 2) {
-                checkstatus = 'ชำระเงินเรียบร้อยแล้ว';
-              }
-
-              dc += `
+            dc += `
                 <div style="padding: 1px 0 0 0;">
                   <div class="card">
                     <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.time}  (${myBook.times})</div>
-                    <div class="card__title" style="font-size:15px;">สถานะ :: ${checkstatus} </div>
                     <div class="card__content" style="font-size:14px;">
                       ป้ายทะเบียน : ${myBook.car_num} 
                       </div>   
@@ -781,8 +760,6 @@
                   </div>
                 </div>
                 `
-            }
-
           })
         }
         myobj = document.getElementById("showMycar");
@@ -795,10 +772,10 @@
       })
   }
 
-  async function messeage() {
+  async function message() {
     let phone = localStorage.getItem("phone");
-    console.log('phoneCANCEL ::' + phone)
-    axios.get('http://localhost:8080/user/showDataCancel?phone=' + phone)
+    // console.log('phoneCANCEL ::' + phone)
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -811,16 +788,25 @@
                 `
         } else {
           data.forEach(MessCancel => {
-            // <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="alert"></ons-tab>
-            var Cancel = '';
-            if (MessCancel.status == '3') {
-              Cancel = 'การจองของคุณได้ถูกยกเลิก';
 
-              dc += `
+            var statusmessage = '';
+            if (MessCancel.status == 0) {
+              statusmessage = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
+            } if (MessCancel.status == 1) {
+              statusmessage = 'กำลังดำเนินการล้าง';
+            } if (MessCancel.status == 2) {
+              statusmessage = 'รถของคุณสะอาดแล้ว มารับได้เลย';
+            } if (MessCancel.status == 3) {
+              statusmessage = 'รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ';
+            } if (MessCancel.status == 4) {
+              statusmessage = 'การจองของคุณถูกเลื่อนเวลาออกไปเป็น ' + MessCancel.times;
+            }
+
+            dc += `
                 <div style="padding: 1px 0 0 0;">
                   <div class="card">
                     <div class="card__title" style="font-size:15px;">วันที่ :: ${MessCancel.time}</div>
-                    <div class="card__title" style="font-size:15px;">${Cancel}</div>
+                    <div class="card__title" style="font-size:15px;">สถานะ :: ${statusmessage} </div>
                     <div class="card__content" style="font-size:14px;">
                       ป้ายทะเบียน : ${MessCancel.car_num} 
                       </div>   
@@ -830,8 +816,6 @@
                   </div>
                 </div>
                 `
-            }
-
           })
         }
         myobj = document.getElementById("showMesseage");
@@ -842,7 +826,76 @@
         // handle error
         console.log(error);
       })
+  }
 
+
+  async function showFinishCar() {
+    let phone = localStorage.getItem("phone");
+    axios.get('https://'+IP+'/user/showOrdercar?phone=' + phone)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        console.log(data);
+        if (data == '') {
+          dc += `
+                  <p class="intro">
+                    " ไม่มีประวัติการใช้งาน "
+                  </p>
+                `
+        } else {
+          data.forEach(hisPayCar => {
+
+            var orderMycar = '';
+
+            if (hisPayCar.wash_engin == 1) {
+              orderMycar += 'ล้างห้องเครื่อง ';
+            } if (hisPayCar.spray_under == 1) {
+              orderMycar += 'ล้างอัดฉีดช่วงล่าง ';
+            } if (hisPayCar.clean_dust == 1) {
+              orderMycar += 'ล้างสีดูดฝุ่น ';
+            } if (hisPayCar.wash_asphalt == 1) {
+              orderMycar += 'ล้างยางมะตอย ';
+            } if (hisPayCar.chang_fuel == 1) {
+              orderMycar += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์) ';
+            }
+
+            var checkpaymeny = '';
+            if (hisPayCar.payment == 1) {
+              checkpaymeny = 'ชำระเงินแล้ว';
+
+              dc += `
+                <div style="padding: 1px 0 0 0;">
+                  <div class="card">
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${hisPayCar.time}</div>
+                    <div class="card__title" style="font-size:15px;">สถานะ :: ${checkpaymeny} </div>
+                    <div class="card__content" style="font-size:14px;">
+                      ป้ายทะเบียน : ${hisPayCar.car_num} 
+                      </div>   
+                      <div class="card__content" style="font-size:14px;">
+                        รายการ :${orderMycar}
+                      </div>
+                  </div>
+                </div>
+                `
+            } else {
+              dc += `
+                      <p class="intro">
+                        " ไม่มีประวัติการใช้งาน "
+                      </p>              
+                    `
+            }
+
+
+          })
+        }
+        myobj = document.getElementById("finishCar");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
   }
 </script>
 

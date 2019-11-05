@@ -26,7 +26,7 @@
         integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
         </script>
 
-    <script src="js/ejs.js"></script>
+    <!-- <script src="js/ejs.js"></script> -->
     <script src="cordova.js"></script>
     <!-- //axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -103,20 +103,9 @@
     </ons-page>
 </body>
 <script>
-    // // Radio function
-    // function editSelects(event) {
-    //     document.getElementById('choose-sel').removeAttribute('modifier');
-    //     if (event.target.value == 'material' || event.target.value == 'underbar') {
-    //         document.getElementById('choose-sel').setAttribute('modifier', event.target.value);
-    //     }
-    // }
-    // function addOption(event) {
-    //     const option = document.createElement('option');
-    //     var text = document.getElementById('optionLabel').value;
-    //     option.innerText = text;
-    //     text = '';
-    //     document.getElementById('dynamic-sel').appendChild(option);
-    // }
+
+    var IP = localStorage.getItem("IP");
+    console.log('IP ::' + IP);
 
     console.log("phone :: " + localStorage.getItem("phone"));
     let phoneCus = localStorage.getItem("phone")
@@ -130,17 +119,17 @@
         let type = document.getElementById('typecar').value;
         let colorcar = document.getElementById('colorcar').value;
 
-        console.log(fname, lname, phonesub,email, car_num, type, colorcar)
+        console.log(fname, lname, phonesub, email, car_num, type, colorcar)
 
         if (phonesub === phoneCus) {
-            postAPI(fname, lname, phonesub,email, car_num, type, colorcar)
+            postAPI(fname, lname, phonesub, email, car_num, type, colorcar)
             localStorage.setItem("phone", phonesub);
         } else {
             ons.notification.alert('กรุณาตรวจสอบข้อมูลของคุณอีกครั้ง');
         }
     }
     var data = [];
-    async function postAPI(fname, lname, phonesub,email, car_num, type, colorcar) {
+    async function postAPI(fname, lname, phonesub, email, car_num, type, colorcar) {
         let html = '';
         var bodyFormData = new FormData();
         bodyFormData.set('fname', fname);
@@ -153,7 +142,7 @@
 
         await axios({
             method: 'post',
-            url: 'http://localhost:8080/user/profileCus',
+            url: 'https://' + IP + '/user/profileCus',
             data: bodyFormData,
             config: {
                 headers: {

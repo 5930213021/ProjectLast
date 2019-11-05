@@ -25,7 +25,7 @@
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
-  <script src="js/ejs.js"></script>
+  <!-- <script src="js/ejs.js"></script> -->
   <script src="cordova.js"></script>
 
 </head>
@@ -34,7 +34,7 @@
   <ons-navigator swipeable id="appNavigator" page="homeStaff.html"></ons-navigator>
 
   <template id="homeStaff.html">
-    <ons-page id="page2">
+    <ons-page>
       <ons-toolbar id="headbar">
         <div class="left" id="appname">
           Mcarcare
@@ -68,11 +68,10 @@
   </template>
 
   <template id="detailState.html">
-    <ons-page id="page2">
+    <ons-page>
       <div class="background"></div>
       <p>
         <ons-back-button>
-          <!-- <ons-icon icon="md-chevron-left"></ons-icon> -->
           กลับ
         </ons-back-button>
       </p>
@@ -85,24 +84,35 @@
     </ons-page>
   </template>
 
+  <template id="changeTime.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>
+          กลับ
+        </ons-back-button>
+      </p>
+      <div class="namedata">ข้อมูลการจองที่ต้องการเปลี่ยนเวลา</div>
+
+      <div class="row" id="showChangeTime">
+        default
+      </div>
+
+    </ons-page>
+  </template>
+
 
   <template id="alert-messenge.html">
-    <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
-      <!-- <div class="alert-dialog-title">Alert</div> -->
-      <div class="alert-dialog-content">
-        คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
-      </div>
-      <div class="alert-dialog-footer">
-        <ons-alert-dialog-button onclick="hideAlertDialog2()">ไม่</ons-alert-dialog-button>
-        <ons-alert-dialog-button onclick="hideAlertDialog2()">ส่งข้อความ</ons-alert-dialog-button>
-      </div>
-    </ons-alert-dialog>
+
   </template>
 
 
 </body>
 
 <script>
+
+  var IP = localStorage.getItem("IP");
+  console.log('IP ::' + IP);
 
   window.fn = {};
 
@@ -134,7 +144,7 @@
   async function show_staff() {
 
     let phone = localStorage.getItem("phone");
-    axios.get('http://localhost:8080/user/showStaff?phone=' + phone)
+    axios.get('https://' + IP + '/user/showStaff?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
@@ -161,9 +171,8 @@
     try {
       let times = localStorage.getItem("times");
       let car_num = localStorage.getItem("car_num");
-      // const responseupWork = await axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
-      const responseTime = await axios.get('http://localhost:8080/user/showtimes');
-      const responseWork = await axios.get('http://localhost:8080/user/showwork');
+      const responseTime = await axios.get('https://' + IP + '/user/showtimes');
+      const responseWork = await axios.get('https://' + IP + '/user/showwork');
 
       console.log(responseWork)
 
@@ -172,7 +181,7 @@
         var dc = [];
         data = responseTime.data.map(time => {
           console.log('ก่อน', time);
-          time.hasWork = 0; // เพิ่ม haswork ให้ time ก้อนนี้ มันวนไง แต่ล่ะก้อนอ่ะ
+          time.hasWork = 0;
           console.log('หลัง', time);
 
           const workOnThisTime = responseWork.data.filter(workInFilter => workInFilter.times === time.times)
@@ -199,7 +208,7 @@
               className1 = 'upwork';
               text1 = 'กำลังดำเนินการ';
             } else if (time.work[0].status === '2') {
-              className1 = 'pay';
+              className1 = 'finish';
               text1 = 'เสร็จแล้ว';
             } else if (time.work[0].status === '3') {
               className1 = 'cancel';
@@ -207,9 +216,9 @@
             } else if (time.work[0].status === '4') {
               className1 = 'changetime';
               text1 = 'เลื่อนเวลา';
-            } 
-            
-          } 
+            }
+
+          }
 
           if (time.work[1]) {
             carNum2 = time.work[1].car_num;
@@ -220,7 +229,7 @@
               className2 = 'upwork';
               text2 = 'กำลังดำเนินการ';
             } else if (time.work[1].status === '2') {
-              className2 = 'pay';
+              className2 = 'finish';
               text2 = 'เสร็จแล้ว';
             } else if (time.work[0].status === '3') {
               className2 = 'cancel';
@@ -228,12 +237,12 @@
             } else if (time.work[0].status === '4') {
               className2 = 'changetime';
               text2 = 'เลื่อนเวลา';
-            } 
-            
-          } 
+            }
+
+          }
 
           dc += `
-          <ons-card >
+          <ons-card>
           <ons-list>
             <ons-list-header>${time.times}</ons-list-header>
             <ons-list-item>
@@ -244,7 +253,6 @@
                     <p>${carNum1}</p>
                     <p>${text1}</p>
                   </button>
-                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
                 </ons-col>
  
                 <ons-col id="mar-butm">
@@ -252,7 +260,6 @@
                     <p>${carNum2}</p>
                     <p>${text2}</p>
                   </button>
-                  <button class="button button--light" id="btn" onclick="alertmessenge()">ส่งข้อความ</button>
                 </ons-col>
 
               </ons-row>
@@ -280,29 +287,52 @@
 
     appNavigator.pushPage('detailState.html')
 
-    axios.get('http://localhost:8080/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+    axios.get('https://' + IP + '/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
       .then(function (response) {
         var dc = [];
         let data = response.data
-        data.forEach(detailcus => {
+        // console.log("Data :: " + JSON.stringify(data));
 
-          var ordercus = ''
-
-          if (detailcus.wash_engin == 1) {
-            ordercus += 'ล้างห้องเครื่อง= ';
-          } if (detailcus.spray_under == 1) {
-            ordercus += 'ล้างอัดฉีดช่วงล้าง ';
-          } if (detailcus.clean_dust == 1) {
-            ordercus += 'ล้างสีดูดฝุ่น ';
-          } if (detailcus.wash_asphalt == 1) {
-            ordercus += 'ล้างยางมะตอย ';
-          } if (detailcus.chang_fuel == 1) {
-            ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
-          }
-
-          console.log(ordercus);
-
+        if (data == '') {
           dc += `
+                  <p class="intro">
+                    " ไม่มีรายการที่คุณเลือก "
+                  </p>
+
+                  `
+        } else {
+          data.forEach(detailcus => {
+            if (detailcus.status == 2) {
+              dc += `
+                      <p class="intro">
+                        " ทำการล้างเสร็จเรียบร้อยแล้ว "
+                      </p>
+                    `
+            } else if (detailcus.status == 3) {
+              dc += `
+                      <p class="intro">
+                        " การจองได้ถูกยกเลิกไปแล้ว "
+                      </p>
+                    `
+            } else {
+
+              var ordercus = ''
+
+              if (detailcus.wash_engin == 1) {
+                ordercus += 'ล้างห้องเครื่อง ';
+              } if (detailcus.spray_under == 1) {
+                ordercus += 'ล้างอัดฉีดช่วงล้าง ';
+              } if (detailcus.clean_dust == 1) {
+                ordercus += 'ล้างสีดูดฝุ่น ';
+              } if (detailcus.wash_asphalt == 1) {
+                ordercus += 'ล้างยางมะตอย ';
+              } if (detailcus.chang_fuel == 1) {
+                ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
+              }
+
+              console.log(ordercus);
+
+              dc += `
                 <ons-card>
                   <ons-row>
                     <ons-col style="padding: 10px 0px 10px 35px;">
@@ -333,9 +363,12 @@
                 </ons-row>
 
                 <div class="setbtn">
-                  <ons-button onclick="" id="btnpass"> เลื่อนเวลา </ons-button>
+                  <ons-button onclick="alertchangeTime()" id="btnpass"> เลื่อนเวลา </ons-button>
                   <ons-button onclick="alertsubmit()" id="btnsubmit"> ยืนยัน </ons-button>
                   <ons-button onclick="alertcancle()" id="btncancle"> ยกเลิก </ons-button>
+                    <div class="setbtn_message">
+                      <ons-button modifier="large" id="btn" onclick="alertmessenge()">ส่งข้อความ</ons-button>
+                    </div>
                 </div>
 
 
@@ -368,8 +401,35 @@
                     </div>
                   </ons-alert-dialog>
                 </template>
+
+                <template id="alert-changetime.html">
+                  <ons-alert-dialog id="my-alert-changetime" modifier="rowfooter">
+                    <div class="alert-dialog-content">
+                      ต้องการเลื่อนเวลาของคิวนี้?
+                    </div>
+                    <div class="alert-dialog-footer">
+                      <ons-alert-dialog-button onclick="hideAlertchangeTime('${car_num}')">ตกลง</ons-alert-dialog-button>
+                      <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                    </div>
+                  </ons-alert-dialog>
+                </template>
+
+                <ons-alert-dialog id="my-alert-messenge" modifier="rowfooter">
+                  <div class="alert-dialog-content">
+                    คุณต้องการที่จะส่งข้อความไปยังลูกค้าใช่หรือไม่?
+                  </div>
+                  <div class="alert-dialog-footer">
+                    <ons-alert-dialog-button onclick="hideAlertMessenge('${car_num}','2')">ส่งข้อความ</ons-alert-dialog-button>
+                    <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                  </div>
+                </ons-alert-dialog>
+
                 `
-        })
+            }
+
+          })
+        }
+
         let myobj = document.getElementById("showdetailbook");
         myobj.innerHTML = dc;
         console.log(myobj);
@@ -382,11 +442,6 @@
 
   // Alert submit
   async function alertsubmit() {
-    // console.log("CAR ::" + car_num)
-    // var small = document.getElementById('small').checked
-    // var big = document.getElementById('big').checked
-    // console.log(small)
-    // console.log(big)
 
     var size = '';
     if (document.getElementById('small').checked === true) {
@@ -407,6 +462,7 @@
     }
   };
 
+  //function close of submit
   async function close() {
     document
       .getElementById('close')
@@ -417,7 +473,7 @@
   async function hideAlertLevel(car_num, value) {
     let size = localStorage.getItem("size")
     let times = localStorage.getItem("times")
-
+    console.log(car_num, size, value, times)
     postAPI(car_num, size, value, times)
     document
       .getElementById('my-alert-submit')
@@ -435,7 +491,7 @@
 
     await axios({
       method: 'post',
-      url: 'http://localhost:8080/user/updatedatail',
+      url: 'https://' + IP + '/user/updatedatail',
       data: bodyFormData,
       config: {
         headers: {
@@ -457,14 +513,14 @@
 
   // Alert cancle
   var alertcancle = function () {
-    var dialog3 = document.getElementById('my-alert-cancle');
+    var cancel = document.getElementById('my-alert-cancle');
 
-    if (dialog3) {
-      dialog3.show();
+    if (cancel) {
+      cancel.show();
     } else {
       ons.createElement('alert-cancle.html', { append: true })
-        .then(function (dialog3) {
-          dialog3.show();
+        .then(function (cancel) {
+          cancel.show();
         });
     }
   };
@@ -475,14 +531,14 @@
     let times = localStorage.getItem("times")
     console.log(times)
 
-    postAPI(car_num, value, times)
+    postAPICancel(car_num, value, times)
     document
       .getElementById('my-alert-cancle')
       .hide();
   };
 
   var data = [];
-  async function postAPI(car_num, value, times) {
+  async function postAPICancel(car_num, value, times) {
     let html = '';
     var bodyFormData = new FormData();
     bodyFormData.set('car_num', car_num);
@@ -491,7 +547,7 @@
 
     await axios({
       method: 'post',
-      url: 'http://localhost:8080/user/updateCancel',
+      url: 'https://' + IP + '/user/updateStatus',
       data: bodyFormData,
       config: {
         headers: {
@@ -517,29 +573,220 @@
       .hide();
   };
 
-  // Alert messenge
-  var alertmessenge = function () {
-    var dialog2 = document.getElementById('my-alert-messenge');
 
-    if (dialog2) {
-      dialog2.show();
+  // Alert changeTime
+  var alertchangeTime = function () {
+    var changetime = document.getElementById('my-alert-changetime');
+
+    if (changetime) {
+      changetime.show();
     } else {
-      ons.createElement('alert-messenge.html', { append: true })
-        .then(function (dialog2) {
-          dialog2.show();
+      ons.createElement('alert-changetime.html', { append: true })
+        .then(function (changetime) {
+          changetime.show();
         });
     }
   };
 
+  var hideAlertchangeTime = function (car_num) {
+    console.log(car_num)
+    let times = localStorage.getItem("times")
+    console.log(times)
+    appNavigator.pushPage('changeTime.html')
+    document
+      .getElementById('my-alert-changetime')
+      .hide();
+    axios.get('https://' + IP + '/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      .then(function (response) {
+        var dc = [];
+        let data = response.data
+        // console.log("Data :: " + JSON.stringify(data));
+
+        if (data == '') {
+          dc += `
+                  <p class="intro">
+                    " ไม่มีรายการที่คุณเลือก "
+                  </p>
+                `
+        } else {
+          data.forEach(detailcus => {
+            var ordercus = ''
+
+            if (detailcus.wash_engin == 1) {
+              ordercus += 'ล้างห้องเครื่อง ';
+            } if (detailcus.spray_under == 1) {
+              ordercus += 'ล้างอัดฉีดช่วงล้าง ';
+            } if (detailcus.clean_dust == 1) {
+              ordercus += 'ล้างสีดูดฝุ่น ';
+            } if (detailcus.wash_asphalt == 1) {
+              ordercus += 'ล้างยางมะตอย ';
+            } if (detailcus.chang_fuel == 1) {
+              ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
+            }
+
+            console.log(ordercus);
+
+            dc += `
+                <ons-card>
+                  <ons-row>
+                    <ons-col style="padding: 10px 0px 10px 35px;">
+                      <div class="title">เวลาที่จอง : ${detailcus.times}</div>
+                      <div class="datail">ชื่อ : ${detailcus.fname} ${detailcus.lname} </div>
+                      <div class="datail">เบอร์โทรฯ : ${detailcus.phone} </div>
+                      <div class="datail">ป้ายทะเบียน : ${detailcus.car_num} </div>
+                      <div class="datail">ประเภทรถ : ${detailcus.type} </div>
+                      <div class="datail">สีรถ : ${detailcus.color} </div>
+                      <div class="datail">รายการลูกค้า : ${ordercus}</div>
+                    </ons-col>
+                  </ons-row>
+                </ons-card>
+
+                <form method="POST">
+                  <div class="inputregis">
+                    <p>
+                      <label>เวลาที่ต้องการเปลี่ยน :</label>
+                        <ons-select class="select" id="selectTime">
+                          <select class="select-input" style="border: 1px solid rgb(83, 83, 83); border-radius: 3px; ">
+                            <option> 8.00-9.30 </option>
+                            <option> 9.30-11.00 </option>
+                            <option> 11.00-12.00 </option>
+                            <option> 13.00-14.30 </option>
+                            <option> 14.30-16.00 </option>
+                            <option> 16.00-17.00 </option>
+                          </select>
+                        </ons-select>
+                    </p>
+                  </div>
+                </form>
+
+                <div class="setbtn">
+                  <ons-button id="btnpass" onclick="getDatachangeTime('${car_num}')"> ยืนยันการเลื่อนเวลา </ons-button>
+                </div>
+
+                `
+          })
+        }
+        let myobj = document.getElementById("showChangeTime");
+        myobj.innerHTML = dc;
+        console.log(myobj);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+
+  };
+
+  async function getDatachangeTime(car_num) {
+    let timesAtchange = document.getElementById('selectTime').value;
+
+    console.log('ChangeTime :: ' + car_num, timesAtchange);
+    postAPItimeAttoChange(car_num, timesAtchange)
+  }
+  var data = [];
+  async function postAPItimeAttoChange(car_num, timesAtchange) {
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('times', timesAtchange);
+
+    await axios({
+      method: 'post',
+      url: 'https://' + IP + '/user/updateChangeTime',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "homeStaff.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+
+  }
+
+  // function close of changeTime
+  var hideAlertClose = function () {
+    document
+      .getElementById('my-alert-changetime')
+      .hide();
+  };
 
 
-  // var hideAlertDialog2 = function () {
-  //   document
-  //     .getElementById('my-alert-messenge')
-  //     .hide();
-  // };
+  // Alert messenge
+  var alertmessenge = function () {
+    var messenge = document.getElementById('my-alert-messenge');
+
+    if (messenge) {
+      messenge.show();
+    } else {
+      ons.createElement('alert-messenge.html', { append: true })
+        .then(function (messenge) {
+          messenge.show();
+        });
+    }
+  };
+
+  // function messenge
+  var hideAlertMessenge = function (car_num, value) {
+    console.log(car_num)
+    console.log(value)
+    let times = localStorage.getItem("times")
+    console.log(times)
+
+    postAPIMessenge(car_num, value, times)
+    document
+      .getElementById('my-alert-messenge')
+      .hide();
+  };
+
+  var data = [];
+  async function postAPIMessenge(car_num, value, times) {
+    let html = '';
+    var bodyFormData = new FormData();
+    bodyFormData.set('car_num', car_num);
+    bodyFormData.set('status', value);
+    bodyFormData.set('times', times);
+
+    await axios({
+      method: 'post',
+      url: 'https://' + IP + '/user/updateStatus',
+      data: bodyFormData,
+      config: {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    })
+      .then(function (response) {
+        //handle success
+        console.log(response);
+        location.href = "homeStaff.html";
+      })
+      .catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+  }
+
+  // function close of Messenge
+  var hideAlertClose = function () {
+    document
+      .getElementById('my-alert-messenge')
+      .hide();
+  };
+
+
 
 
 </script>
+
 
 </html>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta httpss-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>MCarcare</title>
 
@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/all.css">
 
-    <script src="js/ejs.js"></script>
+    <!-- <script src="js/ejs.js"></script> -->
     <script src="cordova.js"></script>
 
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
@@ -63,6 +63,12 @@
                 </ons-button>
             </p>
 
+            <p>
+                <ons-button onclick="TestMessage()" modifier="quiet" id="fontquiet">
+                    testMessage
+                </ons-button>
+            </p>
+
             <div class="forgetpass">
                 <button class="button--large--quiet" style="width: 95%;" onclick="showAlert()">ลืมรหัสผ่าน?</button>
             </div>
@@ -89,11 +95,14 @@
 
 
 <script>
+    var IP = localStorage.getItem("IP");
+    console.log('IP ::' + IP);
+
     var login = function () {
         var phone = document.getElementById('phone').value;
         var password = document.getElementById('password').value;
 
-        axios.get('http://localhost:8080/user/checkstatus?phone=' + phone + '&password=' + password)
+        axios.get('https://' + IP + '/user/checkstatus?phone=' + phone + '&password=' + password)
             .then(function (response) {
                 let data = response.data
                 if (data == '') {
@@ -123,6 +132,7 @@
             })
 
     };
+
 
 </script>
 

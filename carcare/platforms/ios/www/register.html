@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>MCarcare</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+
+    <!-- icons -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <!-- Font Eng -->
+    <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+    <!-- Font Thai -->
+    <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="css/all.css">
+
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous">
+        </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- <script src="js/ejs.js"></script> -->
+    <script src="cordova.js"></script>
+</head>
+
+<body>
+    <ons-page>
+        <div class="background"></div>
+        <p>
+            <ons-button onclick="back()" modifier="quiet" id="btnback">
+                <ons-icon icon="md-chevron-left"></ons-icon>
+                กลับ
+            </ons-button>
+        </p>
+
+        <div class="info" id="info"></div>
+
+        <div class="regis">
+            <p>ลงทะเบียน</p>
+            <form method="POST">
+                <div class="inputregis">
+                    <p>
+                        <ons-icon icon="md-smartphone"></ons-icon>
+                        <ons-input id="phone" modifier="underbar" placeholder="เบอร์โทรศัพท์" float>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock-outline"></ons-icon>
+                        <ons-input id="passwordsub" modifier="underbar" type="text" placeholder="รหัสผ่าน" float>
+                    </p>
+                    <p>
+                        <ons-icon icon="md-lock"></ons-icon>
+                        <ons-input id="password" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
+                    </p>
+                </div>
+            </form>
+            <div class="setbtn">
+                <ons-button modifier="quiet" id="fonts" onclick="insertData()">
+                    ยืนยัน
+                </ons-button>
+            </div>
+        </div>
+
+    </ons-page>
+</body>
+
+
+<script>
+    var IP = localStorage.getItem("IP");
+    console.log('IP ::' + IP);
+
+    function back() {
+        location.href = 'login.html';
+    }
+
+    async function insertData() {
+        let phone = document.getElementById('phone').value;
+        let passwordsub = document.getElementById('passwordsub').value;
+        let password = document.getElementById('password').value;
+        console.log(phone, passwordsub, password)
+
+        if (passwordsub === password) {
+            // ons.notification.alert('ลงทะเบียนเรียบร้อย !');
+            localStorage.setItem("phone", phone);
+            postAPI(phone, password)
+        } else {
+            ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+        }
+
+
+    }
+    var data = [];
+    async function postAPI(phone, password) {
+        let html = '';
+        var bodyFormData = new FormData();
+        bodyFormData.set('phone', phone);
+        bodyFormData.set('password', password);
+        await axios({
+            method: 'post',
+            url: 'https://' + IP + '/user/regisCus',
+            data: bodyFormData,
+            config: {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        })
+            .then(function (response) {
+                //handle success
+                console.log(response);
+                location.href = "profile.html";
+            })
+            .catch(function (response) {
+                //handle error
+                console.log(response);
+            })
+    }
+
+
+</script>
+
+</html>

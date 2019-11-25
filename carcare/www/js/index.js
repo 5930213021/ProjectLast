@@ -20,7 +20,15 @@ var app = {
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-        window.location.href = 'login.html';
+        // cordova.plugins.notification.badge.set(10);
+        // cordova.plugins.notification.badge.get(function (badge) {
+           
+        // })
+
+        // cordova.plugins.notification.badge.clear();
+
+        // window.location.href = 'login.html';
+        
     },
 
     // deviceready Event Handler
@@ -30,22 +38,22 @@ var app = {
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
 
-        localStorage.setItem("IP", "192.168.137.1");
+        localStorage.setItem("IP", "192.168.31.186");
         var IP = localStorage.getItem("IP");
         
-        // window.location.href = 'login.html';
+        window.location.href = 'login.html';
     },
 
     // Update DOM on a Received Event
-    receivedEvent: function() {
-
-    
+    receivedEvent: function(id) {
+        // var parentElement = document.getElementById(id);
         // var listeningElement = parentElement.querySelector('.listening');
         // var receivedElement = parentElement.querySelector('.received');
 
         // listeningElement.setAttribute('style', 'display:none;');
         // receivedElement.setAttribute('style', 'display:block;');
 
+        // console.log('Received Event: ' + id);
     },
 
 };

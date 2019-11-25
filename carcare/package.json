@@ -29,7 +29,8 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-local-notification": {},
       "cordova-plugin-dialogs": {},
-      "cordova-plugin-splashscreen": {}
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-badge": {}
     },
     "platforms": [
       "browser",

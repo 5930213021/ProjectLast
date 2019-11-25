@@ -28,7 +28,7 @@
         <splash density="port-mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
         <splash density="port-xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
     </platform>
-    <preference name="SplashScreenDelay" value="10000" />
+    <preference name="SplashScreenDelay" value="3000" />
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />

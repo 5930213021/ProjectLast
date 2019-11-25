@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/all.css">
 
-    <!-- <script src="js/ejs.js"></script> -->
+    <script src="js/ejs.js"></script>
     <script src="cordova.js"></script>
 
     <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
@@ -38,46 +38,40 @@
 <body>
 
     <ons-page>
+
         <div class="background"></div>
+
         <div class="logo">
-            <p>MCARCARE</p>
+            <img src="../img/logoM.png" alt="Mcarcare" width="75%" height = "100%">
         </div>
         <div class="center">
             <p>
-                <ons-input id="phone" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน" float></ons-input>
+                <ons-input id="phone" input-id="CompanyID" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน"
+                    float></ons-input>
             </p>
             <p>
-                <ons-input id="password" modifier="material underbar" type="password" placeholder="รหัสผ่าน" float>
+                <ons-input id="password" input-id="CompanyID" modifier="material underbar" type="password"
+                    placeholder="รหัสผ่าน" float>
                 </ons-input>
             </p>
-
             <p>
                 <ons-button modifier="quiet" class="login" onclick="login()" id="fonts">
                     เข้าสู่ระบบ
                 </ons-button>
             </p>
-
             <p>
                 <ons-button onclick="addUsers()" modifier="quiet" id="fontquiet">
                     - ลงทะเบียนเข้าใช้งาน -
                 </ons-button>
-            </p>
 
-            <p>
-                <ons-button onclick="TestMessage()" modifier="quiet" id="fontquiet">
-                    testMessage
-                </ons-button>
             </p>
 
             <div class="forgetpass">
-                <button class="button--large--quiet" style="width: 95%;" onclick="showAlert()">ลืมรหัสผ่าน?</button>
+                <!-- <button class="button--large--quiet" style="width: 95%;" onclick="app.prompt()">ลืมรหัสผ่าน?</button> -->
+                <!-- <ons-button onclick="alertchangeTime()" id="btnpass"> ลืมรหัสผ่าน? </ons-button> -->
+                <button class="button--large--quiet" style="width: 95%;" onclick="forget_passw()">ลืมรหัสผ่าน?</button>
             </div>
-            <!-- <div class="forgetpass">
-                <button class="button--large--quiet" style="width: 95%;"
-                    onclick="ons.notification.toast('กรุณาติดต่อกับทางร้านโดยตรง', { buttonLabel: 'ตกลง', timeout: 1500 })">
-                    ลืมรหัสผ่าน?
-                </button>
-            </div> -->
+
 
             <ons-modal direction="down" id="modalcolor">
                 <div style="text-align: center">
@@ -89,6 +83,54 @@
             </ons-modal>
         </div>
 
+
+        <template id="alert-changetime.html">
+            <ons-alert-dialog id="my-alert-forgetpassw" modifier="rowfooter">
+                <div class="alert-dialog-content">
+                    ต้องการเลื่อนเวลาของคิวนี้?
+                </div>
+                <div class="alert-dialog-footer">
+                    <ons-alert-dialog-button onclick="hideAlertShow()">ตกลง</ons-alert-dialog-button>
+                    <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                </div>
+            </ons-alert-dialog>
+        </template>
+
+        <template id="alert-inputmail.html">
+            <ons-alert-dialog id="my-alert-inputmail" modifier="rowfooter">
+                <div class="alert-dialog-content">
+                    ต้องการเลื่อนเวลาของคิวนี้?
+
+                    <div class="alert-dialog-footer">
+                        <input class="text-input text-input--underbar text-input--material" type="email"
+                            placeholder="xxxx@mail.com /เบอร์โทรศัพท์" value="" id="inputforget_passw"
+                            style="width: 100%; margin-top: 10px;">
+
+
+                        <button class="alert-dialog-button alert-dialog-button--primal"
+                            onclick="hideAlertConfrim()">ตกลง</button>
+
+                        <!-- <ons-alert-dialog-button onclick="hideAlertConfrim()">ตกลง</ons-alert-dialog-button>
+                    <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button> -->
+                    </div>
+                </div>
+            </ons-alert-dialog>
+        </template>
+
+        <template id="dialog.html">
+            <ons-dialog id="my-dialog">
+                <div style="text-align: center; padding: 10px;">
+                    <p>
+                        This is a simple dialog!
+                    </p>
+
+                    <p>
+                        <ons-button onclick="hideDialog('my-dialog')">Close</ons-button>
+                    </p>
+                </div>
+            </ons-dialog>
+        </template>
+
     </ons-page>
 
 </body>
@@ -98,12 +140,66 @@
     var IP = localStorage.getItem("IP");
     console.log('IP ::' + IP);
 
-    var login = function () {
+    // let user = localStorage.getItem("phone");
+    // let pass_user = localStorage.getItem("password");
+    // console.log('Test remember ::::: ' + user, pass_user)
+
+    // var ssl = async function () {
+    //     axios.get('https://' + IP + '/user/checkstatus?phone=' + user + '&password=' + pass_user)
+    //         .then(function (response) {
+    //             let data = response.data
+    //             if (data == '') {
+    //                 var modal = document.querySelector('ons-modal');
+    //                 modal.show();
+    //                 setTimeout(function () {
+    //                     modal.hide();
+    //                 }, 1500);
+    //                 console.log("No data :: " + JSON.stringify(data));
+    //             }
+    //             else {
+    //                 data.forEach(checkUser => {
+    //                     if (checkUser.status == 'Staff') {
+    //                         console.log("Staff");
+    //                         localStorage.setItem("phone", phone);
+    //                         localStorage.setItem("password", password);
+    //                         window.location = "homeStaff.html";
+    //                     } else {
+    //                         console.log("Customer");
+    //                         localStorage.setItem("phone", phone);
+    //                         localStorage.setItem("password", password);
+    //                         window.location = "home.html";
+    //                     }
+    //                 })
+    //             }
+    //         })
+    //         .then(response => {
+    //             console.log(response)
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //         })
+
+    // }
+
+    async function login() {
         var phone = document.getElementById('phone').value;
         var password = document.getElementById('password').value;
 
+        console.log("PPPPPPPPPPPPPPPPPPPPP" + phone)
+
+        // window.localStorage.setItem("key", username);
+        // var keyname = window.localStorage.key(0);
+        // window.localStorage.setItem("key2", password);
+        // var keyname2 = window.localStorage.key(0);
+
+        // var username = window.localStorage.getItem("key");
+        // var password = window.localStorage.getItem("key2");
+
         axios.get('https://' + IP + '/user/checkstatus?phone=' + phone + '&password=' + password)
             .then(function (response) {
+                console.log("SSSSSSSSPPPPPPPPPP" + phone)
+
                 let data = response.data
                 if (data == '') {
                     var modal = document.querySelector('ons-modal');
@@ -112,27 +208,31 @@
                         modal.hide();
                     }, 1500);
                     console.log("No data :: " + JSON.stringify(data));
-                } else {
+                }
+                else {
                     data.forEach(check => {
                         if (check.status == 'Staff') {
                             console.log("Staff");
-                            localStorage.setItem("phone", phone);
+                            window.localStorage.setItem("phone", phone);
+                            window.localStorage.setItem("password", password);
                             window.location = "homeStaff.html";
                         } else {
                             console.log("Customer");
-                            localStorage.setItem("phone", phone);
+                            window.localStorage.setItem("phone", phone);
+                            window.localStorage.setItem("password", password);
                             window.location = "home.html";
                         }
                     })
                 }
             })
+            .then(response => {
+                console.log(response)
+            })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
-
     };
-
 
 </script>
 
@@ -141,20 +241,128 @@
         location.href = 'register.html';
     }
 
-    var showAlert = function () {
-        // ons.notification.alert('Alert!');
-        ons.notification.alert({
-            title: 'ลืมรหัสผ่าน?',
-            message: "ทางร้านจะส่งรหัสผ่านของคุณทางอีเมล",
-            buttonLabel: 'ตกลง',
-            callback: function () {
-                ons.notification.alert({
-                    message: 'ส่งข้อความแล้ว',
-                    // modifier: mod
+    // var showAlert = function () {
+    //     // ons.notification.alert('Alert!');
+    //     ons.notification.alert({
+    //         title: 'ลืมรหัสผ่าน?',
+    //         message: "ทางร้านจะส่งรหัสผ่านของคุณทางอีเมล",
+    //         buttonLabel: 'ตกลง',
+    //         callback: function () {
+    //             ons.notification.alert({
+    //                 message: 'ส่งข้อความแล้ว',
+    //                 // modifier: mod
+    //             });
+    //         }
+    //     });
+    // };
+
+
+    // Alert forget password
+    var forget_passw = function () {
+        var changetime = document.getElementById('my-alert-forgetpassw');
+
+        if (changetime) {
+            changetime.show();
+        } else {
+            ons.createElement('alert-changetime.html', { append: true })
+                .then(function (changetime) {
+                    changetime.show();
                 });
-            }
-        });
+        }
     };
+
+
+    var hideAlertShow = function () {
+
+        var inputmail = document.getElementById('my-alert-inputmail');
+
+        if (inputmail) {
+            inputmail.show();
+        } else {
+            ons.createElement('alert-inputmail.html', { append: true })
+                .then(function (inputmail) {
+                    inputmail.show();
+                });
+        }
+
+        document
+            .getElementById('my-alert-forgetpassw')
+            .hide();
+
+
+    };
+
+    var hideAlertConfrim = function () {
+        document
+            .getElementById('my-alert-inputmail')
+            .hide();
+
+        // ons.notification.alert('Hello, world!');
+        // ons.notification.confirm({
+        //     message: 'Do you like ramen?',
+        //     buttonLabels: ['Yes', 'No'],
+        //     callback: function (i) {
+        //         if (i == 0) {
+        //             ons.notification.alert('Me too!');
+        //         } else {
+        //             ons.notification.alert('That\'s too bad...');
+        //         }
+        //     }
+        // });
+
+        var mail = document.getElementById('inputforget_passw').value;
+        console.log('Email ::' + mail);
+
+        axios.get('https://' + IP + '/user/forgetpassw?email=' + mail)
+            .then(function (response) {
+                var dc = [];
+                let data = response.data
+
+                if (data == '') {
+                    ons.notification.alert('คุณไม่มีอีเมลในการทำรายการแอป');
+                } else {
+                    data.forEach(checkmail => {
+                        let email = checkmail.email;
+                        console.log(email)
+
+                        ons.notification.alert('ระบบได้ส่งรหัสผ่านไปยังเมลของคุณแล้วค่ะ');
+                    })
+                }
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    }
+
+    // function close of Close
+    var hideAlertClose = function () {
+        document
+            .getElementById('my-alert-forgetpassw' || 'my-alert-inputmail')
+            .hide();
+    };
+
+
+    var showTemplateDialog = function () {
+        var dialog = document.getElementById('my-dialog');
+
+        if (dialog) {
+            dialog.show();
+        } else {
+            ons.createElement('dialog.html', { append: true })
+                .then(function (dialog) {
+                    dialog.show();
+                });
+        }
+    };
+
+    var hideDialog = function (id) {
+        document
+            .getElementById(id)
+            .hide();
+    };
+
+
 </script>
 
 </html>

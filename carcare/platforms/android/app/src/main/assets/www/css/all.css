@@ -1,9 +1,15 @@
 p{
     margin: 20px 0px;
 }
+
+#CompanyID {
+    color:rgb(255, 255, 255);
+    border-bottom: 1px solid white;
+}
+
 .background{
     /* background-color: rgb(224, 52, 0); */
-    background:url(../img/coolHue-92FFC0-002661.png);
+    background:url(../img/colorback.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -29,7 +35,7 @@ p{
     /* font-size: 45px; */
 }
 
-.text-input--underbar {
+/* .text-input--underbar {
     line-height: 2;
     font-family: 'Athiti', sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -39,26 +45,9 @@ p{
     box-sizing: border-box;
     border-bottom: 1px solid white;
     border-radius: 0;
-}
+} */
 
-.text-input--material {
-    padding: 0 0 2px;
-    margin: 0;
-    /* background: center bottom no-repeat; */
-    outline: 0;
-    line-height: 2;
-    font-family: 'Athiti', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    background-size: 100% 2px;
-    color: white;
-    font-size: 16px;
-    font-weight: 400;
-    /* border: none; */
-    border-bottom: 1px solid white;
-    border-radius: 0;
-    height: 24px;
-    vertical-align: top;
-}
+
 
 .text-input--material__label {
     font-family: 'Athiti', sans-serif;

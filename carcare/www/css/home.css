@@ -19,7 +19,7 @@
 } */
 
 #appSplitter{
-    background:url(../img/coolHue-92FFC0-002661.png);
+    background:url(../img/colorback.png);
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -48,7 +48,11 @@
 }
 
 :checked+.tabbar__button {
-    color: rgb(22, 71, 111);
+    color: rgb(69, 130, 235);
+}
+.tabbar--material__border {
+    height: 2px;
+    background-color: rgb(28, 86, 185);
 }
 .tabbar--material__button {
     background-color: transparent;
@@ -156,7 +160,7 @@ ons-list-item {
 
 /* modelclose */
 .modal__content {
-    background: rgb(76, 148, 147, 0.5);
+    background: rgb(68, 172, 220,0.5);
     line-height: normal;
     background-clip: padding-box;
     font-family: -apple-system,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;

@@ -13,6 +13,7 @@
 
     <!-- Font Eng -->
     <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Baloo|Damion&display=swap" rel="stylesheet">
     <!-- Font Thai -->
     <link href="https://fonts.googleapis.com/css?family=Athiti:300,400,500|Sarabun:200&display=swap" rel="stylesheet">
 
@@ -35,14 +36,15 @@
 
 </head>
 
-<body>
-
+<body onload="CheckLogin()">
     <ons-page>
 
         <div class="background"></div>
 
         <div class="logo">
-            <img src="../img/logoM.png" alt="Mcarcare" width="75%" height = "100%">
+            Mcarcare
+            <!-- <div class="lastlogo">carcare</div> -->
+            <!-- <img src="../img/logoM.png" alt="Mcarcare" width="75%" height = "100%"> -->
         </div>
         <div class="center">
             <p>
@@ -50,7 +52,7 @@
                     float></ons-input>
             </p>
             <p>
-                <ons-input id="password" input-id="CompanyID" modifier="material underbar" type="password"
+                <ons-input id="passwordUser" input-id="CompanyID" modifier="material underbar" type="password"
                     placeholder="รหัสผ่าน" float>
                 </ons-input>
             </p>
@@ -81,13 +83,20 @@
                     </p>
                 </div>
             </ons-modal>
-        </div>
 
+            <ons-modal class="modal2" direction="down" id="modalcolor">
+                <div style="text-align: center">
+                    <p>
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> กุณาตรวจสอบเครือข่ายอินเตอร์
+                    </p>
+                </div>
+            </ons-modal>
+        </div>
 
         <template id="alert-changetime.html">
             <ons-alert-dialog id="my-alert-forgetpassw" modifier="rowfooter">
                 <div class="alert-dialog-content">
-                    ต้องการเลื่อนเวลาของคิวนี้?
+                    คุณลืมรหัสผ่าน?
                 </div>
                 <div class="alert-dialog-footer">
                     <ons-alert-dialog-button onclick="hideAlertShow()">ตกลง</ons-alert-dialog-button>
@@ -99,8 +108,7 @@
         <template id="alert-inputmail.html">
             <ons-alert-dialog id="my-alert-inputmail" modifier="rowfooter">
                 <div class="alert-dialog-content">
-                    ต้องการเลื่อนเวลาของคิวนี้?
-
+                    กรุณากรอกเมลที่คุณต้องการรับรหัสผ่าน
                     <div class="alert-dialog-footer">
                         <input class="text-input text-input--underbar text-input--material" type="email"
                             placeholder="xxxx@mail.com /เบอร์โทรศัพท์" value="" id="inputforget_passw"
@@ -184,21 +192,16 @@
 
     async function login() {
         var phone = document.getElementById('phone').value;
-        var password = document.getElementById('password').value;
+        var password = document.getElementById('passwordUser').value;
 
-        console.log("PPPPPPPPPPPPPPPPPPPPP" + phone)
-
-        // window.localStorage.setItem("key", username);
-        // var keyname = window.localStorage.key(0);
-        // window.localStorage.setItem("key2", password);
-        // var keyname2 = window.localStorage.key(0);
-
-        // var username = window.localStorage.getItem("key");
-        // var password = window.localStorage.getItem("key2");
+        console.log("PhoneUser" + phone)
+        console.log("PasswordUser" + password)
 
         axios.get('https://' + IP + '/user/checkstatus?phone=' + phone + '&password=' + password)
             .then(function (response) {
-                console.log("SSSSSSSSPPPPPPPPPP" + phone)
+
+                console.log("Test_PhoneUser" + phone)
+                console.log("Test_PasswordUser" + password)
 
                 let data = response.data
                 if (data == '') {
@@ -229,10 +232,65 @@
                 console.log(response)
             })
             .catch(function (error) {
-                // handle error
+                var modal = document.querySelector(".modal2");
+                modal.show();
+                setTimeout(function () {
+                    modal.hide();
+                }, 1500);
                 console.log(error);
             })
     };
+
+
+    async function CheckLogin() {
+        let phone = localStorage.getItem("phone");
+        let pass_user = localStorage.getItem("password");
+
+        console.log('Check_phone ::' + phone);
+        console.log('Check_password ::' + pass_user);
+
+        if (phone == null && pass_user == null) {
+            console.log("LOGIN NOW!!!");
+        } else {
+            axios.get('https://' + IP + '/user/checklogin?phone=' + phone + '&password=' + pass_user)
+                .then(function (response) {
+                    console.log("phone_checkstatus" + phone + "password_checkstatus :: " + pass_user);
+                    let data = response.data
+                    if (data == '') {
+                        console.log("LOGIN AGAIN!!!");
+
+                        console.log("No data :: " + JSON.stringify(data));
+                    }
+                    else {
+                        data.forEach(check => {
+
+                            if (check.status == 'Staff') {
+                                console.log("Staff");
+                                // window.localStorage.setItem("phone", phone);
+                                // window.localStorage.setItem("password", password);
+                                window.location = "homeStaff.html";
+                            } else {
+                                console.log("Customer");
+                                // window.localStorage.setItem("phone", phone);
+                                // window.localStorage.setItem("password", password);
+                                window.location = "home.html";
+                            }
+                        })
+                    }
+                })
+                .then(response => {
+                    console.log(response)
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+
+        }
+
+
+
+    }
 
 </script>
 

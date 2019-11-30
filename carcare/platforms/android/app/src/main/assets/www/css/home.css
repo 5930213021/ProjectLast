@@ -87,6 +87,27 @@ ons-list-item {
     font-family: 'Athiti', sans-serif;
     border: #fff;
 }
+
+.booksuccess{
+    color: #245D7A;
+}
+
+.working_wash{
+    color: #3480D4;
+}
+
+.clean_finish{
+    color: #509E94;
+}
+
+.canclebook{
+    color: #FC5C33;
+}
+
+.bookchangetime{
+    color: rgb(247, 140, 1);
+}
+
 /* booking_page */
 #book{
     font-family: 'Athiti', sans-serif;

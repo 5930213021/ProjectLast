@@ -36,7 +36,7 @@
 
 </head>
 
-<body onload="myBook(),book(),showFinishCar()">
+<body onload="doload()">
   <!-- onload="myBook(),book(),message(),showFinishCar()" -->
   <ons-navigator id="appNavigator" swipeable swipe-target-width="80px">
     <ons-page>
@@ -69,8 +69,9 @@
       </ons-toolbar>
 
       <ons-tabbar swipeable position="auto" id="appTabbar">
-        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" active badge="อัพเดท">
+        <ons-tab page="home.html" label="หน้าหลัก" icon="ion-home, material:md-home" active>
         </ons-tab>
+        <!-- badge="อัพเดท" -->
         <ons-tab page="booking.html" label="จองคิว" icon="fa-car" active-icon="fa-car" id="books">
         </ons-tab>
         <!-- <ons-tab page="message.html" label="ข้อความ" icon="fa-envelope" badge="อัพเดท">
@@ -188,10 +189,10 @@
               <label>ประเภทรถ :</label>
               <ons-select class="select" id="typecar">
                 <select class="select-input">
-                  <option> รถกระบะ</option>
-                  <option> รถเก๋ง</option>
-                  <option> รถSuv</option>
-                  <option> รถมอเตอร์ไซต์</option>
+                  <option> กระบะ</option>
+                  <option> เก๋ง</option>
+                  <option> Suv</option>
+                  <option> มอเตอร์ไซต์</option>
                 </select>
               </ons-select>
             </p>
@@ -233,7 +234,10 @@
       </ons-list>
 
       <div class="row" id="showMycar">
-        default
+        <!-- default   -->
+        <p class="intro">
+          " ไม่มีรายการที่คุณเลือก "
+        </p>
       </div>
 
     </ons-page>
@@ -270,7 +274,10 @@
   <template id="history.html">
     <ons-page><br>
       <div class="row" id="finishCar">
-        default
+        <!-- default -->
+        <!-- <p class="intro">
+          " ไม่มีประวัติการใช้งาน "
+        </p> -->
       </div>
 
     </ons-page>
@@ -367,12 +374,22 @@
     window.location = initialHref;
   }
 
-  //Showreload
+  async function doload() {
+    myBook(),
+    book(),
+    // message(),
+    showFinishCar()
+  }
+
+  //ShowModal
   function showModal() {
     var modal = document.querySelector('ons-modal');
     modal.show();
     setTimeout(function () {
       // modal.hide();
+      // localStorage.clear();
+      localStorage.removeItem("badgeB");
+      localStorage.removeItem("phone","password");
       window.location.href = 'login.html';
     }, 1500);
   }
@@ -719,7 +736,10 @@
   async function myBook() {
 
     let phone = localStorage.getItem("phone");
+    let password = localStorage.getItem("password");
     console.log('phoneMyorder ::' + phone)
+    console.log('passwordMyorder ::' + password)
+
 
     axios.get('https://' + IP + '/user/showOrdercar?phone=' + phone)
       .then(function (response) {
@@ -752,35 +772,27 @@
             var checkstatus = '';
             if (myBook.status == 0) {
               checkstatus = 'จองเรียบร้อย กรุณานำรถมาตามเวลาที่ได้จองไว้';
+              colorback = 'booksuccess';
             } if (myBook.status == 1) {
               checkstatus = 'กำลังดำเนินการล้าง';
+              colorback = 'working_wash';
             } if (myBook.status == 2) {
               checkstatus = 'รถของคุณสะอาดแล้ว มารับได้เลย';
+              colorback = 'clean_finish';
             } if (myBook.status == 3) {
               checkstatus = 'รายการของคุณถูกยกเลิก เนื่องจากเกินเวลาที่ลูกค้าได้จองไว้หรือติดต่อทางร้านได้ค่ะ';
+              colorback = 'canclebook';
             } if (myBook.status == 4) {
               checkstatus = 'การจองของคุณถูกเลื่อนเวลาออกไปเป็น ' + myBook.times;
+              colorback = 'booksuccess';
             }
-
-            // <div style="padding: 1px 0 0 0;">
-            //   <div class="card">
-            //     <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.time}  (${myBook.times})</div>
-            //     <div class="card__title" style="font-size:15px;">สถานะ :: ${checkstatus} </div>
-            //     <div class="card__content" style="font-size:14px;">
-            //       ป้ายทะเบียน : ${myBook.car_num}
-            //     </div>
-            //     <div class="card__content" style="font-size:14px;">
-            //       รายการ :${orderMycar}
-            //     </div>
-            //   </div>
-            // </div>
 
             dc += `
               
                 <div style="padding: 1px 0 0 0;">
                   <div class="card">
-                    <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.time}  (${myBook.times})</div>
-                    <div class="card__title" style="font-size:15px;">สถานะ :: ${checkstatus} </div>
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.date}  (${myBook.times})</div>
+                    <div class="card__title ${colorback}" style="font-size:15px;">สถานะ :: ${checkstatus} </div>
                     <div class="card__content" style="font-size:14px;">
                       ป้ายทะเบียน : ${myBook.car_num}
                     </div>
@@ -1031,11 +1043,12 @@
 
   async function showFinishCar() {
     let phone = localStorage.getItem("phone");
+    console.log("WWWWWWWWWWWWWW:::::" +phone)
     axios.get('https://' + IP + '/user/showHistory?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
-        console.log(data);
+        console.log("DDDDDDDDDDDDDDDdd ::"+data);
         if (data == '') {
           dc += `
                   <p class="intro">
@@ -1044,6 +1057,8 @@
                 `
         } else {
           data.forEach(hisPayCar => {
+
+            console.log("PPPPPPPPPPPPPPPPP ::"+hisPayCar.phone)
 
             var orderMycar = '';
 
@@ -1066,7 +1081,7 @@
               dc += `
                 <div style="padding: 1px 0 0 0;">
                   <div class="card">
-                    <div class="card__title" style="font-size:15px;">วันที่ :: ${hisPayCar.time}</div>
+                    <div class="card__title" style="font-size:15px;">วันที่ :: ${hisPayCar.date}</div>
                     <div class="card__title" style="font-size:15px;">สถานะ :: ${checkpaymeny} </div>
                     <div class="card__content" style="font-size:14px;">
                       ป้ายทะเบียน : ${hisPayCar.car_num} 

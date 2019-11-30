@@ -130,6 +130,12 @@
     myNavigator.resetToPage(page, { animation: 'fade' });
   };
 
+  function timedRefresh(timeoutPeriod) {
+    setTimeout("location.reload(true);", timeoutPeriod);
+  }
+
+  window.reload = timedRefresh(30000);
+
   console.log("phone :: " + localStorage.getItem("phone"));
 
   function showModal() {
@@ -137,13 +143,19 @@
     modal.show();
     setTimeout(function () {
       // modal.hide();
+      localStorage.clear();
       window.location.href = 'login.html';
     }, 1500);
   }
 
+
+  let phone = localStorage.getItem("phone");
+  let password = localStorage.getItem("password");
+  console.log('phoneMyorder ::' + phone)
+  console.log('passwordMyorder ::' + password)
+
   async function show_staff() {
 
-    let phone = localStorage.getItem("phone");
     axios.get('https://' + IP + '/user/showStaff?phone=' + phone)
       .then(function (response) {
         var dc = [];
@@ -330,6 +342,17 @@
                 ordercus += 'ถ่ายน้ำมันเครื่อง(มอเตอร์ไซต์)';
               }
 
+              // var check = ''
+              // if (detailcus.size == 1) {
+              //  check = 'checked';
+              // } if (detailcus.size == 2) {
+              //   check = 'checked';
+              // }
+
+              const check1 = detailcus.size == 1 ? 'checked' : '';
+              const check2 = detailcus.size == 2 ? 'checked' : '';
+              console.log("CHECKEK1 :: "+check1);
+              console.log("CHECKEK2 :: "+check2);
               console.log(ordercus);
 
               dc += `
@@ -349,14 +372,14 @@
                 <ons-row style="margin-top: 15px;">
                   <ons-col style="flex: 0 0 70%;margin: auto; max-width: 30%; >
                     <label class="radio-button radio-button">
-                     <ons-radio class="radio-select" input-id="small" value="ขนาดเล็ก" name="r"></ons-radio>
+                     <ons-radio class="radio-select" input-id="small" value="ขนาดเล็ก" name="r" ${check1}></ons-radio>
                       </label>
                       <label for="small" class="center">ขนาดเล็ก</label>
                   </ons-col>
 
                   <ons-col style="flex: 0 0 70%;margin: auto;max-width: 30%;">
                     <label class="radio-button radio-button">
-                      <ons-radio class="radio-select" input-id="big" value="ขนาดใหญ่" name="r" ></ons-radio>
+                      <ons-radio class="radio-select" input-id="big" value="ขนาดใหญ่" name="r" ${check2}></ons-radio>
                       <label for="big" class="center">ขนาดใหญ่</label>
                     </label>
                   </ons-col>

@@ -38,7 +38,7 @@ var app = {
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
 
-        localStorage.setItem("IP", "172.26.254.175");
+        localStorage.setItem("IP","65.52.166.110");
         var IP = localStorage.getItem("IP");
         
         window.location.href = 'login.html';

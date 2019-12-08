@@ -50,15 +50,17 @@
                 <div class="inputregis">
                     <p>
                         <ons-icon icon="md-smartphone"></ons-icon>
-                        <ons-input id="phone" input-id="CompanyID" modifier="underbar" placeholder="เบอร์โทรศัพท์" float>
+                        <ons-input id="phone" input-id="CompanyID" modifier="underbar" type="number"  placeholder="เบอร์โทรศัพท์" float>
                     </p>
                     <p>
                         <ons-icon icon="md-lock-outline"></ons-icon>
-                        <ons-input id="passwordsub" input-id="CompanyID" modifier="underbar" type="text" placeholder="รหัสผ่าน" float>
+                        <ons-input id="passwordsub" input-id="CompanyID" modifier="underbar" type="text"
+                            placeholder="รหัสผ่าน" float>
                     </p>
                     <p>
                         <ons-icon icon="md-lock"></ons-icon>
-                        <ons-input id="password" input-id="CompanyID" modifier="underbar" type="password" placeholder="ยืนยันรหัสผ่าน" float>
+                        <ons-input id="password" input-id="CompanyID" modifier="underbar" type="password"
+                            placeholder="ยืนยันรหัสผ่าน" float>
                     </p>
                 </div>
             </form>
@@ -68,7 +70,6 @@
                 </ons-button>
             </div>
         </div>
-
     </ons-page>
 </body>
 
@@ -87,16 +88,53 @@
         let password = document.getElementById('password').value;
         console.log(phone, passwordsub, password)
 
-        if (passwordsub === password) {
-            // ons.notification.alert('ลงทะเบียนเรียบร้อย !');
-            localStorage.setItem("phone", phone);
-            postAPI(phone, password)
+        if (phone == '' || passwordsub == '' || password == '') {
+            ons.notification.alert('กรุณากรอกข้อมูล');
         } else {
-            ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+
+            axios.get('https://' + IP + '/user/checkCus?phone=' + phone)
+                .then(function (response) {
+                    var dc = [];
+                    let data = response.data
+                    console.log("Data :: " + JSON.stringify(data));
+                    if (data == '') {
+                        if (passwordsub === password) {
+                            ons.notification.alert('ลงทะเบียนเรียบร้อย !');
+                            localStorage.setItem("phone", phone);
+                            postAPI(phone, password)
+                        } else {
+                            ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+                        }
+                    }
+                    data.forEach(checkmail => {
+                        console.log("SSSSSSSSSSSSSSSSSSSSSSSSSS ::" + checkmail.phone)
+                        if (phone == checkmail.phone) {
+                            ons.notification.alert({
+                                message: 'เบอร์โทรศัพท์นี้มีผู้ใช้งานแล้ว'
+                                // callback: fn
+                            })
+                        } 
+                    })
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+
+
+
+            // if (passwordsub === password) {
+            //     // ons.notification.alert('ลงทะเบียนเรียบร้อย !');
+            //     localStorage.setItem("phone", phone);
+            //     postAPI(phone, password)
+            // } else {
+            //     ons.notification.alert('กรุณาตรวจสอบ เบอร์โทรฯ และรหัสผ่านของคุณใหม่');
+            // }
+
         }
 
-
     }
+
     var data = [];
     async function postAPI(phone, password) {
         let html = '';

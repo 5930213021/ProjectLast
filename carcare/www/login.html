@@ -48,8 +48,7 @@
         </div>
         <div class="center">
             <p>
-                <ons-input id="phone" input-id="CompanyID" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน"
-                    float></ons-input>
+                <ons-input id="phone" input-id="CompanyID" type="number" modifier="material underbar" placeholder="เบอร์ผู้เข้าใข้งาน"float></ons-input>
             </p>
             <p>
                 <ons-input id="passwordUser" input-id="CompanyID" modifier="material underbar" type="password"
@@ -87,13 +86,13 @@
             <ons-modal class="modal2" direction="down" id="modalcolor">
                 <div style="text-align: center">
                     <p>
-                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> กุณาตรวจสอบเครือข่ายอินเตอร์
+                        <ons-icon icon="md-spinner" size="28px" spin></ons-icon> กุณาตรวจสอบเครือข่ายอินเตอร์เน็ต
                     </p>
                 </div>
             </ons-modal>
         </div>
 
-        <template id="alert-changetime.html">
+        <template id="alert-forgetpassw.html">
             <ons-alert-dialog id="my-alert-forgetpassw" modifier="rowfooter">
                 <div class="alert-dialog-content">
                     คุณลืมรหัสผ่าน?
@@ -111,7 +110,7 @@
                     กรุณากรอกเมลที่คุณต้องการรับรหัสผ่าน
                     <div class="alert-dialog-footer">
                         <input class="text-input text-input--underbar text-input--material" type="email"
-                            placeholder="xxxx@mail.com /เบอร์โทรศัพท์" value="" id="inputforget_passw"
+                            placeholder="เมลที่ทำการสมัครxxxx@mail.com" value="" id="inputforget_passw"
                             style="width: 100%; margin-top: 10px;">
 
 
@@ -322,13 +321,12 @@
         if (changetime) {
             changetime.show();
         } else {
-            ons.createElement('alert-changetime.html', { append: true })
+            ons.createElement('alert-forgetpassw.html', { append: true })
                 .then(function (changetime) {
                     changetime.show();
                 });
         }
     };
-
 
     var hideAlertShow = function () {
 
@@ -375,14 +373,13 @@
             .then(function (response) {
                 var dc = [];
                 let data = response.data
-
+                console.log("Data :: " + JSON.stringify(data));
                 if (data == '') {
                     ons.notification.alert('คุณไม่มีอีเมลในการทำรายการแอป');
                 } else {
                     data.forEach(checkmail => {
                         let email = checkmail.email;
                         console.log(email)
-
                         ons.notification.alert('ระบบได้ส่งรหัสผ่านไปยังเมลของคุณแล้วค่ะ');
                     })
                 }

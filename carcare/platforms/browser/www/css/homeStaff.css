@@ -234,7 +234,7 @@ p{
 
 /* modelclose */
 .modal__content {
-    background: rgba(7, 171, 177, 0.5);
+    background: rgb(68, 172, 220,0.5);
     line-height: normal;
     background-clip: padding-box;
     font-family: -apple-system,'Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif;

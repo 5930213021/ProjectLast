@@ -258,6 +258,11 @@ ons-list-item {
     margin: 18px;
     padding-top: 5%
 }
+.editprofile{
+    text-align: right;
+    margin: 18px;
+    padding-top: 5%
+}
 .profileCus{
     margin-top: 50px;
     font-family: 'Athiti', sans-serif;

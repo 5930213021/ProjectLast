@@ -222,6 +222,26 @@
     </ons-page>
   </template>
 
+  <template id="EditData.html">
+    <ons-page>
+      <div class="background"></div>
+      <p>
+        <ons-back-button>Back</ons-back-button>
+      </p>
+
+      <div class="row" id="ShowprofileCus">
+        default
+      </div>
+
+
+      <!-- <div class="row" id="addcarforphone">
+        default
+      </div> -->
+
+
+    </ons-page>
+  </template>
+
   <template id="home.html" var="MyNav">
     <ons-page><br>
 
@@ -275,9 +295,9 @@
     <ons-page><br>
       <div class="row" id="finishCar">
         <!-- default -->
-        <!-- <p class="intro">
+        <p class="intro">
           " ไม่มีประวัติการใช้งาน "
-        </p> -->
+        </p>
       </div>
 
     </ons-page>
@@ -376,9 +396,8 @@
 
   async function doload() {
     myBook(),
-    book(),
-    // message(),
-    showFinishCar()
+      book(),
+      showFinishCar();
   }
 
   //ShowModal
@@ -389,7 +408,7 @@
       // modal.hide();
       // localStorage.clear();
       localStorage.removeItem("badgeB");
-      localStorage.removeItem("phone","password");
+      localStorage.removeItem("phone", "password");
       window.location.href = 'login.html';
     }, 1500);
   }
@@ -404,6 +423,10 @@
         let data = response.data
         console.log(data);
         data.forEach(showprofile => {
+  // <div class="editprofile" >
+  //             <button class="button--cta" style="width: 30%; background-color: rgb(65, 174, 219);" onclick="Edit()">แก้ไขข้อมูล</button>
+  //           </div>
+
           dc +=
             `
             <ons-card>
@@ -459,8 +482,13 @@
     let car_num = document.getElementById('carcode').value;
     let type = document.getElementById('typecar').value;
     let colorcar = document.getElementById('colorcar').value;
-    postDATA(phone, car_num, type, colorcar)
-    console.log(phone, car_num, type, colorcar);
+
+    // if (car_num == '' || type == '' || colorcar == '') {
+    //   ons.notification.alert('กรุณากรอกข้อมูล');
+    // } else {
+      postDATA(phone, car_num, type, colorcar)
+      console.log(phone, car_num, type, colorcar);
+    // }
   }
 
   async function postDATA(phone, car_num, type, colorcar) {
@@ -490,7 +518,107 @@
         //handle error
         console.log(response);
       })
+
+    console.log("Test :: " + bodyFormData);
   }
+
+
+  // async function Edit() {
+  //   appNavigator.pushPage('EditData.html')
+  //   let phone = localStorage.getItem("phone");
+  //   axios.get('https://' + IP + '/user/showProfile?phone=' + phone)
+  //     .then(function (response) {
+  //       var dc = [];
+  //       let data = response.data
+  //       console.log(data);
+  //       data.forEach(showprofile => {
+  //         dc +=
+  //           `
+  //           <div class="profileCus">
+  //             <div class="nametopic">ข้อมูลส่วนตัว</div>
+  //               <form method="POST">
+  //                 <div class="inputregis">
+  //                   <p>
+  //                     <div class="title">เบอร์โทรฯ : ${showprofile.phone} </div>
+  //                   </p>
+  //                   <p>
+  //                     <ons-icon icon="md-smartphone"></ons-icon>
+  //                     <ons-input id="Editname" input-id="CompanyID" type="text" placeholder="ชื่อ" float></ons-input>
+  //                   </p>
+  //                   <p>
+  //                     <ons-icon icon="md-lock-outline"></ons-icon>
+  //                     <ons-input id="Editlname" input-id="CompanyID" type="text" placeholder="นามสกุล" float></ons-input>
+  //                   </p>
+  //                   <p>
+  //                     <ons-icon icon="md-lock"></ons-icon>
+  //                     <ons-input id="Editemail" input-id="CompanyID" type="email" placeholder="อีเมล" float></ons-input>
+  //                   </p>
+  //                 </div>
+  //               </form>
+
+  //             <div class="setbtn">
+  //               <ons-button id="colorbutton" onclick="getEditData()">
+  //                 ยืนยัน
+  //               </ons-button>
+  //             </div>
+  //             </div>
+  //          `
+  //       })
+  //       myobj = document.getElementById("ShowprofileCus");
+  //       myobj.innerHTML = dc;
+  //       console.log(myobj);
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //     })
+  // }
+  //EditDateUser
+  // async function getEditData() {
+  //   let fname = document.getElementById('Editname').value;
+  //   let lname = document.getElementById('Editlname').value;
+  //   let email = document.getElementById('Editemail').value;
+  //   let phone = localStorage.getItem("phone");
+
+  //   // if (fname == '' || fname == '' || email == '') {
+  //   //   ons.notification.alert('กรุณากรอกข้อมูล');
+  //   // } else {
+  //     console.log(phone, fname, lname, email);
+  //     postEditDATA(phone, fname, lname, email);
+  //   // }
+
+  // }
+
+  // async function postEditDATA(phone, fname, lname, email) {
+  //   let html = '';
+  //   var bodyFormData = new FormData();
+  //   bodyFormData.set('phone', phone);
+  //   bodyFormData.set('fname', fname);
+  //   bodyFormData.set('lname', lname);
+  //   bodyFormData.set('email', email);
+
+  //   await axios({
+  //     method: 'post',
+  //     url: 'https://' + IP + '/user/updatetUse',
+  //     data: bodyFormData,
+  //     config: {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     }
+  //   })
+  //     .then(function (response) {
+  //       //handle success
+  //       console.log(response);
+  //       location.href = "home.html";
+  //     })
+  //     .catch(function (response) {
+  //       //handle error
+  //       console.log(response);
+  //     })
+  // }
+
+
 
   async function book() {
     try {
@@ -596,7 +724,7 @@
           dc += `
             
             <ons-card>
-              <div class="title">ชื่อ : ${element.fname} </div>
+              <div class="title">ชื่อ : ${element.fname} ${element.lname} </div>
               <div class="title">เบอร์โทรฯ : ${element.phone}</div>
               <div class="title">ป้ายทะเบียน : ${element.car_num}</div>
               <div class="title">ประเภทรถ : ${element.type} </div>
@@ -670,6 +798,7 @@
   }
 
 
+
   async function insert(car_num) {
     var wash_engin = 0;
     var spray_under = 0;
@@ -677,27 +806,41 @@
     var wash_asphalt = 0;
     var chang_fuel = 0;
 
-    if (document.getElementById('wash').checked === true) {
-      wash_engin = 1
-    }
-    if (document.getElementById('spray').checked === true) {
-      spray_under = 1
-    }
-    if (document.getElementById('dust').checked === true) {
-      clean_dust = 1
-    }
-    if (document.getElementById('asphalt').checked === true) {
-      wash_asphalt = 1
-    }
-    if (document.getElementById('fuel').checked === true) {
-      chang_fuel = 1
+    if (document.getElementById('wash').checked === false
+      && document.getElementById('spray').checked === false
+      && document.getElementById('dust').checked === false
+      && document.getElementById('asphalt').checked === false
+      && document.getElementById('fuel').checked === false) {
+      ons.notification.alert({
+        message: 'คุณยังไม่เลือกการใช้บริการ',
+        // callback: fn
+      })
+    } else {
+
+      if (document.getElementById('wash').checked === true) {
+        wash_engin = 1
+      }
+      if (document.getElementById('spray').checked === true) {
+        spray_under = 1
+      }
+      if (document.getElementById('dust').checked === true) {
+        clean_dust = 1
+      }
+      if (document.getElementById('asphalt').checked === true) {
+        wash_asphalt = 1
+      }
+      if (document.getElementById('fuel').checked === true) {
+        chang_fuel = 1
+      }
+
+      console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
+      let time = localStorage.getItem("times")
+      console.log(time);
+
+      postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
+
     }
 
-    console.log(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel)
-    let time = localStorage.getItem("times")
-    console.log(time);
-
-    postAPI(car_num, wash_engin, spray_under, clean_dust, wash_asphalt, chang_fuel, time)
   }
 
   var data = [];
@@ -788,7 +931,6 @@
             }
 
             dc += `
-              
                 <div style="padding: 1px 0 0 0;">
                   <div class="card">
                     <div class="card__title" style="font-size:15px;">วันที่ :: ${myBook.date}  (${myBook.times})</div>
@@ -1043,12 +1185,12 @@
 
   async function showFinishCar() {
     let phone = localStorage.getItem("phone");
-    console.log("WWWWWWWWWWWWWW:::::" +phone)
+    console.log("WWWWWWWWWWWWWW:::::" + phone)
     axios.get('https://' + IP + '/user/showHistory?phone=' + phone)
       .then(function (response) {
         var dc = [];
         let data = response.data
-        console.log("DDDDDDDDDDDDDDDdd ::"+data);
+        console.log("DDDDDDDDDDDDDDDdd ::" + data);
         if (data == '') {
           dc += `
                   <p class="intro">
@@ -1058,7 +1200,7 @@
         } else {
           data.forEach(hisPayCar => {
 
-            console.log("PPPPPPPPPPPPPPPPP ::"+hisPayCar.phone)
+            console.log("PPPPPPPPPPPPPPPPP ::" + hisPayCar.phone)
 
             var orderMycar = '';
 
@@ -1127,7 +1269,7 @@
 
         //`
         console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB' + badgeB);
-        localStorage.setItem("Badge",badgeB)
+        localStorage.setItem("Badge", badgeB)
       })
       // myobj = document.getElementById("profileCus");
       // myobj.innerHTML = dc;
@@ -1142,7 +1284,7 @@
   document.addEventListener('deviceready', function () {
 
     let badge = localStorage.getItem("Badge");
-    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ::: '+badge)
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ::: ' + badge)
 
     cordova.plugins.notification.badge.set(badge);
     // cordova.plugins.notification.badge.get(function (badge) {

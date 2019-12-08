@@ -23,6 +23,8 @@
 
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
+  <!-- <script src="js/moment.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
   <!-- <script src="js/ejs.js"></script> -->
@@ -351,8 +353,8 @@
 
               const check1 = detailcus.size == 1 ? 'checked' : '';
               const check2 = detailcus.size == 2 ? 'checked' : '';
-              console.log("CHECKEK1 :: "+check1);
-              console.log("CHECKEK2 :: "+check2);
+              console.log("CHECKEK1 :: " + check1);
+              console.log("CHECKEK2 :: " + check2);
               console.log(ordercus);
 
               dc += `
@@ -390,7 +392,7 @@
                   <ons-button onclick="alertsubmit()" id="btnsubmit"> ยืนยัน </ons-button>
                   <ons-button onclick="alertcancle()" id="btncancle"> ยกเลิก </ons-button>
                     <div class="setbtn_message">
-                      <ons-button modifier="large" id="btn" onclick="alertmessenge()">ส่งข้อความ</ons-button>
+                      <ons-button modifier="large" id="btn" onclick="alertmessenge('${car_num}','${times}')">ส่งข้อความ</ons-button>
                     </div>
                 </div>
 
@@ -432,7 +434,7 @@
                     </div>
                     <div class="alert-dialog-footer">
                       <ons-alert-dialog-button onclick="hideAlertchangeTime('${car_num}')">ตกลง</ons-alert-dialog-button>
-                      <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                      <ons-alert-dialog-button onclick="hideAlertClose2()">ยกเลิก</ons-alert-dialog-button>
                     </div>
                   </ons-alert-dialog>
                 </template>
@@ -443,7 +445,7 @@
                   </div>
                   <div class="alert-dialog-footer">
                     <ons-alert-dialog-button onclick="hideAlertMessenge('${car_num}','2')">ส่งข้อความ</ons-alert-dialog-button>
-                    <ons-alert-dialog-button onclick="hideAlertClose()">ยกเลิก</ons-alert-dialog-button>
+                    <ons-alert-dialog-button onclick="hideAlertClose3()">ยกเลิก</ons-alert-dialog-button>
                   </div>
                 </ons-alert-dialog>
 
@@ -589,12 +591,25 @@
       })
   }
 
-  // function close
+  // function close of Close
   var hideAlertClose = function () {
     document
       .getElementById('my-alert-cancle')
       .hide();
   };
+
+  var hideAlertClose2 = function () {
+    document
+      .getElementById('my-alert-changetime')
+      .hide();
+  };
+
+  var hideAlertClose3 = function () {
+    document
+      .getElementById('my-alert-messenge')
+      .hide();
+  };
+
 
 
   // Alert changeTime
@@ -616,9 +631,11 @@
     let times = localStorage.getItem("times")
     console.log(times)
     appNavigator.pushPage('changeTime.html')
+
     document
       .getElementById('my-alert-changetime')
       .hide();
+
     axios.get('https://' + IP + '/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
       .then(function (response) {
         var dc = [];
@@ -701,10 +718,31 @@
   };
 
   async function getDatachangeTime(car_num) {
+    let times = localStorage.getItem("times")
     let timesAtchange = document.getElementById('selectTime').value;
 
-    console.log('ChangeTime :: ' + car_num, timesAtchange);
-    postAPItimeAttoChange(car_num, timesAtchange)
+    console.log("TiMESSSS ::" + times)
+    console.log("TiMESSSCHANGES ::" + timesAtchange)
+
+    const setTime = new moment(times, 'HH:mm')
+    const changeT = new moment(timesAtchange, 'HH:mm');
+    const now = new moment();
+
+    if (setTime < changeT) {
+      console.log('ChangeTime :: ' + car_num, timesAtchange);
+      postAPItimeAttoChange(car_num, timesAtchange)
+    } else {
+      if (times > timesAtchange) {
+        ons.notification.alert({
+          message: 'กรุณาเลือกเวลาใหม่'
+        })
+      } else {
+        ons.notification.alert({
+          message: 'กรุณาเลือกเวลาใหม่'
+        })
+      }
+    }
+
   }
   var data = [];
   async function postAPItimeAttoChange(car_num, timesAtchange) {
@@ -735,26 +773,37 @@
 
   }
 
-  // function close of changeTime
-  var hideAlertClose = function () {
-    document
-      .getElementById('my-alert-changetime')
-      .hide();
-  };
-
-
   // Alert messenge
-  var alertmessenge = function () {
-    var messenge = document.getElementById('my-alert-messenge');
+  var alertmessenge = function (car_num, times) {
+    axios.get('https://' + IP + '/user/showdetailcustomer?car_num=' + car_num + '&times=' + times)
+      .then(function (response) {
+        let data = response.data
+        data.forEach(check => {
+          if (check.status == 1) {
+            var messenge = document.getElementById('my-alert-messenge');
+            if (messenge) {
+              messenge.show();
+            } else {
+              ons.createElement('alert-messenge.html', { append: true })
+                .then(function (messenge) {
+                  messenge.show();
+                });
+            }
+          } else {
+            ons.notification.alert({
+              message: 'ยังไม่สามารถส่งข้อความได้'
+            })
+          }
 
-    if (messenge) {
-      messenge.show();
-    } else {
-      ons.createElement('alert-messenge.html', { append: true })
-        .then(function (messenge) {
-          messenge.show();
-        });
-    }
+        })
+      }).catch(function (response) {
+        //handle error
+        console.log(response);
+      })
+
+
+
+
   };
 
   // function messenge
@@ -799,12 +848,7 @@
       })
   }
 
-  // function close of Messenge
-  var hideAlertClose = function () {
-    document
-      .getElementById('my-alert-messenge')
-      .hide();
-  };
+
 
 
 
